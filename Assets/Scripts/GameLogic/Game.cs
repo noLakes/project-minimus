@@ -22,14 +22,14 @@ public class Game : MonoBehaviour
     public bool gameIsPaused;
 
     [SerializeField]
-    private UnitManager _playerUnit;
-    public UnitManager PlayerUnit
+    private CharacterManager _playerCharacter;
+    public CharacterManager PlayerCharacter
     {
-        get => _playerUnit;
+        get => _playerCharacter;
     }
 
-    public Transform UNITS_CONTAINER;
-    //public List<Unit> UNITS;
+    public Transform CHARACTER_CONTAINER;
+    //public List<Character> Characters;
 
     /*
     public static Dictionary<InGameResource, GameResource> GAME_RESOURCES =

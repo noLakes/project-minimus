@@ -10,7 +10,8 @@ public enum InputState
 public class InputManager : MonoBehaviour
 {
     private InputState _inputState;
-    public Vector3 mouseWorldPosition;
+    [HideInInspector]
+    public Vector3 mouseWorldPosition { get; private set; }
 
     public InputState State
     {
@@ -32,6 +33,6 @@ public class InputManager : MonoBehaviour
 
     private void HandleLeftClick()
     {
-        if (State == InputState.ControllingPlayer) Game.Instance.PlayerUnit.Attack(mouseWorldPosition);
+        if (State == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mouseWorldPosition);
     }
 }
