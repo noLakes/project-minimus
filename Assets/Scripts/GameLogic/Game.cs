@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
     }
 
     public Transform CHARACTER_CONTAINER;
-    //public List<Character> Characters;
+    public List<Character> CHARACTERS;
 
     /*
     public static Dictionary<InGameResource, GameResource> GAME_RESOURCES =

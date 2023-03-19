@@ -10,6 +10,11 @@ public class CharacterManager : MonoBehaviour
     [SerializeField]
     private Transform projectileSpawnPoint;
 
+    public void Initialize(Character character)
+    {
+
+    }
+
     private void Awake()
     {
 
