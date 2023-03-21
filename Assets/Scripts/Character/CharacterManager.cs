@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
+    private Character _character;
+    public Character Character { get => _character; }
+
     [SerializeField]
     GameObject projectilePrefab;
 
@@ -12,15 +15,10 @@ public class CharacterManager : MonoBehaviour
 
     public void Initialize(Character character)
     {
-
+        _character = character;
+        character.Activate();
     }
 
-    private void Awake()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         //Vector2 mousePosition = Utility.GetMouseWorldPosition2D();
@@ -46,5 +44,24 @@ public class CharacterManager : MonoBehaviour
     public void Shoot(Transform target)
     {
         Projectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, target);
+    }
+
+    public void ChangeMaxHealth(int amount, bool adjustCurrentHealth = true)
+    {
+        _character.maxHealth += amount;
+
+        if (adjustCurrentHealth)
+        {
+            if (_character.health + amount <= 0)
+            {
+                _character.health = 1;
+            }
+            else
+            {
+                _character.health += amount;
+            }
+        }
+
+        // update health UI
     }
 }
