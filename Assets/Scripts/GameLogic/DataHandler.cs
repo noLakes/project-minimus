@@ -8,21 +8,17 @@ public static class DataHandler
     {
         Game.CHARACTER_DATA = Resources.LoadAll<CharacterData>("Scriptable Objects/Characters");
 
-        /*
         GameParameters[] gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
         foreach (GameParameters parameters in gameParametersList)
             parameters.LoadFromFile();
-        */
     }
 
     public static void SaveGameData()
     {
-        /*
         // save game parameters
         GameParameters[] gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
         foreach (GameParameters parameters in gameParametersList)
             parameters.SaveToFile();
-        */
     }
 
     public static CharacterData LoadCharacter(string name)

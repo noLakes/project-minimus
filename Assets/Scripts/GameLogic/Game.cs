@@ -25,6 +25,8 @@ public class Game : MonoBehaviour
     public Transform CHARACTER_CONTAINER;
     public List<Character> CHARACTERS;
 
+    public GameGlobalParameters gameGlobalParameters;
+
     private void Awake()
     {
         if (Instance != null)
@@ -98,12 +100,12 @@ public class Game : MonoBehaviour
 
     }
 
-    /*
+    
     private void OnApplicationQuit()
     {
 #if !UNITY_EDITOR
         DataHandler.SaveGameData();
 #endif
     }
-    */
+    
 }
