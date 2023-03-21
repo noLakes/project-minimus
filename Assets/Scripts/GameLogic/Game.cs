@@ -13,6 +13,7 @@ public class Game : MonoBehaviour
 
     [SerializeField]
     private CharacterManager _playerCharacter;
+
     public CharacterManager PlayerCharacter
     {
         get => _playerCharacter;
@@ -38,6 +39,14 @@ public class Game : MonoBehaviour
 
         gameIsPaused = false;
 
+    }
+
+    private void Start() 
+    {
+        // spawn test player
+        Character player = new Character(DataHandler.LoadCharacter("Test Player"));
+        _playerCharacter = player.transform.GetComponent<CharacterManager>();
+        _playerCharacter.Character.SetPosition(Vector3.zero);
     }
 
     private void Update()

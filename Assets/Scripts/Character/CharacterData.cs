@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterData : ScriptableObject
 {
     public string code;
-    public string unitName;
+    public string characterName;
     public string description;
     public int health;
     public GameObject prefab;
