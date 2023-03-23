@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class RigidBodyProjectile : MonoBehaviour
 {
     public float speed = 8.5f; // Speed of projectile.
 
@@ -84,14 +84,14 @@ public class Projectile : MonoBehaviour
     }
 
     // So that other scripts can use Projectile.Spawn to spawn a projectile.
-    public static Projectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Transform homingTarget, float aoeRadius = 0f)
+    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Transform homingTarget, float aoeRadius = 0f)
     {
         // Spawn a GameObject based on a prefab, and returns its Projectile component.
         GameObject go = Instantiate(prefab, position, rotation);
-        Projectile p = go.GetComponent<Projectile>();
+        RigidBodyProjectile p = go.GetComponent<RigidBodyProjectile>();
 
         // Rightfully, we should throw an error here instead of fixing the error for the user. 
-        if (!p) p = go.AddComponent<Projectile>();
+        if (!p) p = go.AddComponent<RigidBodyProjectile>();
 
         // Set the projectile's target, so that it can work.
         //p.onHitAffects = onHitAffects;
@@ -101,14 +101,14 @@ public class Projectile : MonoBehaviour
         return p;
     }
 
-    public static Projectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Vector2 shootDir, float aoeRadius = 0f)
+    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Vector2 shootDir, float aoeRadius = 0f)
     {
         // Spawn a GameObject based on a prefab, and returns its Projectile component.
         GameObject go = Instantiate(prefab, position, rotation);
-        Projectile p = go.GetComponent<Projectile>();
+        RigidBodyProjectile p = go.GetComponent<RigidBodyProjectile>();
 
         // Rightfully, we should throw an error here instead of fixing the error for the user. 
-        if (!p) p = go.AddComponent<Projectile>();
+        if (!p) p = go.AddComponent<RigidBodyProjectile>();
 
         // Set the projectile's target, so that it can work.
         //p.onHitAffects = onHitAffects;
@@ -117,5 +117,4 @@ public class Projectile : MonoBehaviour
 
         return p;
     }
-
 }

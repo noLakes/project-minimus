@@ -38,12 +38,12 @@ public class CharacterManager : MonoBehaviour
     public void Shoot(Vector2 shootPoint)
     {
         Vector2 shootDir = (shootPoint - (Vector2)transform.position).normalized;
-        Projectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, shootDir);
+        RigidBodyProjectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, shootDir);
     }
 
     public void Shoot(Transform target)
     {
-        Projectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, target);
+        RigidBodyProjectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, target);
     }
 
     public void ChangeMaxHealth(int amount, bool adjustCurrentHealth = true)
