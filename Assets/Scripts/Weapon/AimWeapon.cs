@@ -14,7 +14,7 @@ public class AimWeapon : MonoBehaviour
 
     void Update()
     {
-        aimDirection = (Game.Instance.GetComponent<InputManager>().mouseWorldPosition - transform.position).normalized;
+        aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         weaponTransform.eulerAngles = new Vector3(0, 0, angle);
 

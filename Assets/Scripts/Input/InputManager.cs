@@ -11,7 +11,6 @@ public class InputManager : MonoBehaviour
 {
     private InputState _inputState;
     [HideInInspector]
-    public Vector3 mouseWorldPosition { get; private set; }
 
     public InputState State
     {
@@ -22,17 +21,16 @@ public class InputManager : MonoBehaviour
     public void Initialize(InputState startingState)
     {
         _inputState = startingState;
-        mouseWorldPosition = Utility.GetMouseWorldPosition2D();
     }
 
     void Update()
     {
-        mouseWorldPosition = Utility.GetMouseWorldPosition();
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
     }
 
     private void HandleLeftClick()
-    {
-        if (State == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mouseWorldPosition);
+    {   
+        Vector2 mousePos = Utility.GetMouseWorldPosition2D();
+        if (State == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
     }
 }
