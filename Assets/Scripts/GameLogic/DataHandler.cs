@@ -7,6 +7,7 @@ public static class DataHandler
     public static void LoadGameData()
     {
         Game.CHARACTER_DATA = Resources.LoadAll<CharacterData>("Scriptable Objects/Characters");
+        Game.WEAPON_DATA = Resources.LoadAll<WeaponData>("Scriptable Objects/Weapons");
 
         GameParameters[] gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
         foreach (GameParameters parameters in gameParametersList)
@@ -24,6 +25,11 @@ public static class DataHandler
     public static CharacterData LoadCharacter(string name)
     {
         return Resources.Load<CharacterData>($"Scriptable Objects/Characters/{name}");
+    }
+
+    public static WeaponData LoadWeapon(string name)
+    {
+        return Resources.Load<WeaponData>($"Scriptable Objects/Weapons/{name}");
     }
 }
 

@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
 
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
+    public static WeaponData[] WEAPON_DATA;
 
     public Transform CHARACTER_CONTAINER;
     public List<Character> CHARACTERS;
@@ -49,6 +50,7 @@ public class Game : MonoBehaviour
         Character player = new Character(DataHandler.LoadCharacter("Test Player"));
         _playerCharacter = player.transform.GetComponent<CharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
+        _playerCharacter.Equip(new Weapon(DataHandler.LoadWeapon("Pistol"), player));
     }
 
     private void Update()

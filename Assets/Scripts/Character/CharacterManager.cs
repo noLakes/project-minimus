@@ -46,6 +46,12 @@ public class CharacterManager : MonoBehaviour
         RigidBodyProjectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, target);
     }
 
+    public void Equip(Weapon weapon)
+    {
+        weapon.Equip();
+        projectileSpawnPoint = weapon.transform.Find("weaponEnd");
+    }
+
     public void ChangeMaxHealth(int amount, bool adjustCurrentHealth = true)
     {
         _character.maxHealth += amount;

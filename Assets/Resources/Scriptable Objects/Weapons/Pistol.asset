@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 384ded4e1c9274f6d9b056bd25c5d32b, type: 3}
-  m_Name: Test Player
+  m_Script: {fileID: 11500000, guid: a8c54da3eb086d846b634214aa5cd117, type: 3}
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  code: testPlayer
-  characterName: Test Player
-  description: 
-  health: 15
-  prefab: {fileID: 4424852941152127389, guid: b9e9dc216a9ea4758a024defc43212d0, type: 3}
+  code: pistol
+  weaponName: Pistol
+  description: A simple 9mm pistol
+  prefab: {fileID: 5059694603599579343, guid: 9223c863936f2984cabff64acdd79f9f, type: 3}
