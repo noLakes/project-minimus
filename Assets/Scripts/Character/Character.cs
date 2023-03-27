@@ -11,8 +11,9 @@ public class Character
     public Transform transform;
     public int health;
     public int maxHealth;
-    public bool isActive { get; protected set; }
 
+    List<Weapon> _weapons;
+    public List<Weapon> Weapons { get => _weapons; }
 
     public Character(CharacterData initialData)
     {
@@ -21,6 +22,8 @@ public class Character
         code = data.code;
         health = data.health;
         maxHealth = data.health;
+
+        _weapons = new List<Weapon>();
 
         GameObject g = GameObject.Instantiate(data.prefab) as GameObject;
         transform = g.transform;
@@ -38,11 +41,19 @@ public class Character
         return "{ code: " + code + ", uid: " + uid + " }";
     }
 
-    public void Activate() => isActive = true;
-
-    public void Deactivate(bool remove = true)
+    public void AddWeapon(Weapon newWeapon)
     {
-        isActive = false;
-        if (remove) Game.Instance.CHARACTERS.Remove(this);
+        if(!_weapons.Contains(newWeapon))
+        {
+            _weapons.Add(newWeapon);
+        }
+    }
+
+    public void RemoveWeapon(Weapon weapon)
+    {
+        if(_weapons.Contains(weapon))
+        {
+            _weapons.Remove(weapon);
+        }
     }
 }

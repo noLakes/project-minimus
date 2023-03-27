@@ -17,9 +17,6 @@ public class RigidBodyProjectile : MonoBehaviour
     Transform homingTarget; // Who we are homing at.
     float aoeRadius;
 
-    //public List<Affect> onHitAffects;
-    //private AbilityData sourceAbility = null;
-    //private UnitManager caster = null;
 
     Vector2 currentPosition; // Store the current position we are at.
     float distanceTravelled; // Record the distance travelled.

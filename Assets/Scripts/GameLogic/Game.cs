@@ -50,7 +50,7 @@ public class Game : MonoBehaviour
         Character player = new Character(DataHandler.LoadCharacter("Test Player"));
         _playerCharacter = player.transform.GetComponent<CharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
-        _playerCharacter.Equip(new Weapon(DataHandler.LoadWeapon("Pistol"), player));
+        _playerCharacter.EquipWeapon(new Weapon(DataHandler.LoadWeapon("Pistol"), player));
     }
 
     private void Update()

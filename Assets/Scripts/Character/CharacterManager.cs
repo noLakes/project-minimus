@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    private Character _character;
+    Character _character;
     public Character Character { get => _character; }
 
+    Weapon _currentWeapon;
+    Weapon CurrentWeapon { get => _currentWeapon; }
+    
     [SerializeField]
     GameObject projectilePrefab;
 
@@ -16,7 +19,6 @@ public class CharacterManager : MonoBehaviour
     public void Initialize(Character character)
     {
         _character = character;
-        character.Activate();
     }
 
     void Update()
@@ -27,47 +29,30 @@ public class CharacterManager : MonoBehaviour
 
     public void Attack(Vector2 location)
     {
-        Shoot(location);
+        //attack with character active weapon;
+        _currentWeapon.Attack(location);
     }
 
-    public void Attack(Transform target)
-    {
-
-    }
-
+    /*
     public void Shoot(Vector2 shootPoint)
     {
         Vector2 shootDir = (shootPoint - (Vector2)transform.position).normalized;
         RigidBodyProjectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, shootDir);
     }
+    */
 
-    public void Shoot(Transform target)
+    public void EquipWeapon(Weapon weapon)
     {
-        RigidBodyProjectile.Spawn(projectilePrefab, projectileSpawnPoint.position, Quaternion.identity, target);
+        if(_currentWeapon != null && weapon != _currentWeapon) _currentWeapon.Unequip();
+
+        _currentWeapon = weapon;
+        _currentWeapon.Equip();
+        projectileSpawnPoint = _currentWeapon.transform.Find("weaponEnd");
+        
     }
 
-    public void Equip(Weapon weapon)
+    public void AddWeapon(Weapon newWeapon)
     {
-        weapon.Equip();
-        projectileSpawnPoint = weapon.transform.Find("weaponEnd");
-    }
-
-    public void ChangeMaxHealth(int amount, bool adjustCurrentHealth = true)
-    {
-        _character.maxHealth += amount;
-
-        if (adjustCurrentHealth)
-        {
-            if (_character.health + amount <= 0)
-            {
-                _character.health = 1;
-            }
-            else
-            {
-                _character.health += amount;
-            }
-        }
-
-        // update health UI
+        _character.AddWeapon(newWeapon);
     }
 }
