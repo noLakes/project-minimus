@@ -2,37 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RigidBodyProjectile : MonoBehaviour
+public class RigidBodyProjectile : Projectile
 {
-    public float speed = 8.5f; // Speed of projectile.
+    public float speed; // Speed of projectile.
 
-    private Vector2 _moveDirection;
-    public Vector2 MoveDirection
+    Vector2 _moveDirection;
+
+    Vector2 _currentPosition; // Store the current position we are at.
+    float _distanceTravelled; // Record the distance travelled.
+
+    Vector2 _origin; // To store where the projectile first spawned.
+
+    public override void Initialize(Vector2 moveDirection)
     {
-        get => _moveDirection;
-        set => _moveDirection = value;
+        _moveDirection = moveDirection;
+        Debug.Log("projectile initialized towards: " + moveDirection);
     }
-
-    bool isHoming = false;
-    Transform homingTarget; // Who we are homing at.
-    float aoeRadius;
-
-
-    Vector2 currentPosition; // Store the current position we are at.
-    float distanceTravelled; // Record the distance travelled.
-
-    //public float arcFactor = 0.5f; // Higher number means bigger arc.
-    Vector2 origin; // To store where the projectile first spawned.
 
     void OnEnable()
     {
-        origin = currentPosition = transform.position;
-        if (homingTarget)
-        {
-            _moveDirection = homingTarget.position;
-            isHoming = true;
-        }
-
+        _origin = _currentPosition = transform.position;
         // replace later with bounds check?
         Destroy(gameObject, 5f);
     }
@@ -41,26 +30,15 @@ public class RigidBodyProjectile : MonoBehaviour
     {
         if (Game.Instance.gameIsPaused) return;
 
-        if (isHoming)
-        {
-            if (!homingTarget)
-            {
-                Destroy(gameObject);
-                return; // Stops executing this function.
-            }
-
-            _moveDirection = homingTarget.position;
-            currentPosition += _moveDirection.normalized * speed * Time.deltaTime;
-        }
-        else currentPosition += _moveDirection * speed * Time.deltaTime;
+        _currentPosition += _moveDirection * speed * Time.deltaTime;
 
         // Move ourselves towards the target position at every frame.
 
-        distanceTravelled += speed * Time.deltaTime; // Record the distance we are travelling.
+        _distanceTravelled += speed * Time.deltaTime; // Record the distance we are travelling.
 
         // Set our position to <currentPosition>.
-        transform.position = currentPosition;
-        float totalDistance = Vector2.Distance(origin, _moveDirection);
+        transform.position = _currentPosition;
+        float totalDistance = Vector2.Distance(_origin, _moveDirection);
 
         // rotates toward move direction
         transform.up = _moveDirection;
@@ -80,38 +58,20 @@ public class RigidBodyProjectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // So that other scripts can use Projectile.Spawn to spawn a projectile.
-    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Transform homingTarget, float aoeRadius = 0f)
+    
+    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 startPos, Vector2 shootDir, Quaternion rotation)
     {
         // Spawn a GameObject based on a prefab, and returns its Projectile component.
-        GameObject go = Instantiate(prefab, position, rotation);
+        GameObject go = Instantiate(prefab, startPos, rotation);
         RigidBodyProjectile p = go.GetComponent<RigidBodyProjectile>();
 
         // Rightfully, we should throw an error here instead of fixing the error for the user. 
         if (!p) p = go.AddComponent<RigidBodyProjectile>();
 
-        // Set the projectile's target, so that it can work.
-        //p.onHitAffects = onHitAffects;
-        p.homingTarget = homingTarget;
-        p.aoeRadius = aoeRadius;
+        // Initialize the projectile so that it can work.
+        p.Initialize(shootDir);
 
         return p;
     }
-
-    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 position, Quaternion rotation, Vector2 shootDir, float aoeRadius = 0f)
-    {
-        // Spawn a GameObject based on a prefab, and returns its Projectile component.
-        GameObject go = Instantiate(prefab, position, rotation);
-        RigidBodyProjectile p = go.GetComponent<RigidBodyProjectile>();
-
-        // Rightfully, we should throw an error here instead of fixing the error for the user. 
-        if (!p) p = go.AddComponent<RigidBodyProjectile>();
-
-        // Set the projectile's target, so that it can work.
-        //p.onHitAffects = onHitAffects;
-        p.MoveDirection = shootDir;
-        p.aoeRadius = aoeRadius;
-
-        return p;
-    }
+    
 }

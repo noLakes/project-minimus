@@ -6,6 +6,10 @@ public class ProjectileSpawner : MonoBehaviour
 {
     [SerializeField]
     protected GameObject _projectilePrefab;
+
+    [SerializeField]
+    protected Transform spawnPoint;
+
     Weapon _weapon;
 
     public void Initialize(Weapon weapon)
@@ -13,7 +17,7 @@ public class ProjectileSpawner : MonoBehaviour
         _weapon = weapon;
     }
     
-    public virtual void Spawn(Vector2 position, Quaternion rotation, Vector2 shootDir)
+    public virtual void Spawn(Vector2 shootDir, Quaternion rotation)
     {
         // add default behavior?
     }

@@ -15,6 +15,7 @@ public class ReloadManager : MonoBehaviour
     public void Initialize(Weapon weapon)
     {
         _weapon = weapon;
+        _ready = true;
     }
 
     public void Reload()

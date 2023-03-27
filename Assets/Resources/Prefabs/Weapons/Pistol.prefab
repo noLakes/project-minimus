@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 5059694603599579340}
   - component: {fileID: 7051439002372579569}
   - component: {fileID: 4012473498160620511}
-  - component: {fileID: 8863640631030228969}
+  - component: {fileID: 5261010406450674018}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e342b5254b246119cf035d3503b3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8863640631030228969
+--- !u!114 &5261010406450674018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 6293776764116966831, guid: edb65ec82f29ea647a27b565d474f633, type: 3}
+  spawnPoint: {fileID: 5059694604530273643}
 --- !u!1 &5059694604256207833
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,21 +31,28 @@ public class Weapon
         }
         else // ranged attack
         {
-            if(_reloadManager == null || _reloadManager.Ready)
+            if(_reloadManager.Ready)
             {
                 // trigger attack
-                //_projectileSpawner.Spawn()
+                _projectileSpawner.Spawn(attackLocation, Quaternion.identity);
                 // notify ReloadManager
+                _reloadManager.Reload();
             }
         }
     }
 
     public void Equip()
     {
+        Debug.Log("Weapon equipped");
         GameObject g = GameObject.Instantiate(_data.prefab) as GameObject;
         transform = g.transform;
+
         _projectileSpawner = transform.GetComponent<ProjectileSpawner>();
+        _projectileSpawner.Initialize(this);
+
         _reloadManager = transform.GetComponent<ReloadManager>();
+        _reloadManager.Initialize(this);
+
         transform.parent = owner.transform.Find("WeaponParent");
 
         _equipped = true;
@@ -56,6 +63,7 @@ public class Weapon
         GameObject.Destroy(transform.gameObject);
         transform = null;
         _projectileSpawner = null;
+        _reloadManager = null;
 
         _equipped = false;
     }

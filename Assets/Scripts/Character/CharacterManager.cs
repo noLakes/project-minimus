@@ -14,7 +14,7 @@ public class CharacterManager : MonoBehaviour
     GameObject projectilePrefab;
 
     [SerializeField]
-    private Transform projectileSpawnPoint;
+    public Transform projectileSpawnPoint;
 
     public void Initialize(Character character)
     {
