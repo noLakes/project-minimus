@@ -7,6 +7,11 @@ public class Weapon
     protected string uid;
     WeaponData _data;
     public WeaponData Data { get => _data; }
+
+    WeaponStats _baseStats;
+    WeaponStats _activeStats;
+    public WeaponStats Stats { get => _activeStats; }
+    
     public Transform transform { get; private set; }
     ProjectileSpawner _projectileSpawner;
     ReloadManager _reloadManager;
@@ -20,6 +25,8 @@ public class Weapon
     {
         uid = System.Guid.NewGuid().ToString();
         _data = initialData;
+        _baseStats = new WeaponStats(initialData);
+        _activeStats = _baseStats;
         this.owner = owner;
     }
 
@@ -35,8 +42,9 @@ public class Weapon
             {
                 // trigger attack
                 _projectileSpawner.Spawn(attackLocation, Quaternion.identity);
+
                 // notify ReloadManager
-                _reloadManager.Reload();
+                _reloadManager.OnWeaponAttack();
             }
         }
     }

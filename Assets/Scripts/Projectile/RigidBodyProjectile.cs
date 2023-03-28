@@ -16,7 +16,7 @@ public class RigidBodyProjectile : Projectile
     public override void Initialize(Vector2 moveDirection)
     {
         _moveDirection = moveDirection;
-        Debug.Log("projectile initialized towards: " + moveDirection);
+        //Debug.Log("projectile initialized towards: " + moveDirection);
     }
 
     void OnEnable()

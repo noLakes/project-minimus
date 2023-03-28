@@ -19,5 +19,5 @@ MonoBehaviour:
   type: 1
   damage: 1
   attackRate: 0
-  magazineSize: 0
-  reloadTime: 0
+  magazineSize: 6
+  reloadTime: 2.5
