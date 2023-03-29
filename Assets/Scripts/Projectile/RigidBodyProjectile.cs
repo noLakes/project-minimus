@@ -47,14 +47,14 @@ public class RigidBodyProjectile : Projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         // check if hit collider belongs to hittable target....
-
-        // if true, trigger hit actions
-        OnHit();
+        if (_linkedWeapon.ValidateHit(other, transform.position))
+        {
+            OnHit();
+        }
     }
 
-    private void OnHit()
+    protected override void OnHit()
     {
-        // trigger on hit actions
         Destroy(gameObject);
     }
 

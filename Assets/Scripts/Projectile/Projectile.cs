@@ -4,5 +4,14 @@ using UnityEngine;
 
 public abstract class Projectile : MonoBehaviour
 {
+    protected Weapon _linkedWeapon;
+
     public abstract void Initialize(Vector2 shootDirection);
+
+    public virtual void LinkWeapon(Weapon linkedWeapon)
+    {
+        _linkedWeapon = linkedWeapon;
+    }
+
+    protected abstract void OnHit();
 }

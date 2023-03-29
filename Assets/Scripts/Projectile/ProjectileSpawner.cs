@@ -10,7 +10,7 @@ public class ProjectileSpawner : MonoBehaviour
     [SerializeField]
     protected Transform spawnPoint;
 
-    Weapon _weapon;
+    protected Weapon _weapon;
 
     public void Initialize(Weapon weapon)
     {

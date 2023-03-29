@@ -49,6 +49,24 @@ public class Weapon
         }
     }
 
+    public bool ValidateHit(Collider2D collider, Vector2 hitPosition)
+    {
+        bool validHit = false;
+
+        // check collider transform to see if target should be hit
+        if (collider.transform.tag == "Obstacle") validHit = true;
+
+        if(validHit) OnHit(collider, hitPosition);
+        
+        return validHit;
+    }
+
+    public void OnHit(Collider2D collider, Vector2 hitPosition)
+    {
+        // apply hit actions
+        // to do
+    }
+
     public void Equip()
     {
         Debug.Log("Weapon equipped");

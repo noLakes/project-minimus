@@ -13,5 +13,7 @@ public class SingleShotSpawner : ProjectileSpawner
 
         // Initialize the projectile so that it can work.
         p.Initialize(shootDir);
+        p.LinkWeapon(_weapon);
+
     }
 }
