@@ -55,16 +55,25 @@ public class Weapon
 
         // check collider transform to see if target should be hit
         if (collider.transform.tag == "Obstacle") validHit = true;
+        else if (collider.transform.tag == "Character") validHit = true;
 
         if(validHit) OnHit(collider, hitPosition);
         
         return validHit;
     }
 
-    public void OnHit(Collider2D collider, Vector2 hitPosition)
+    private void OnHit(Collider2D collider, Vector2 hitPosition)
     {
         // apply hit actions
+        if(collider.transform.TryGetComponent<CharacterManager>(out CharacterManager c))
+        {
+            Debug.Log("Damaging " + c.transform.name);
+            c.Damage(_activeStats.damage);
+        }
+
         // to do
+        // play sound
+        // play animation or effect
     }
 
     public void Equip()

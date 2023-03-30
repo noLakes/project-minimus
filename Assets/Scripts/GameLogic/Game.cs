@@ -44,7 +44,7 @@ public class Game : MonoBehaviour
 
     }
 
-    private void Start() 
+    private void Start()
     {
         // spawn test player
         Character player = new Character(DataHandler.LoadCharacter("Test Player"));
@@ -52,6 +52,14 @@ public class Game : MonoBehaviour
         _playerCharacter.Character.SetPosition(Vector3.zero);
         Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(DataHandler.LoadWeapon("Pistol"), player));
         _playerCharacter.EquipWeapon(startingWeapon);
+
+        for (int i = 0; i < 5; i++)
+        {
+            Character enemy = new Character(DataHandler.LoadCharacter("Test Enemy"));
+            CharacterManager enemyCharacter = enemy.transform.GetComponent<CharacterManager>();
+            enemyCharacter.Character.SetPosition(Vector3.zero + (Vector3.up * i) * 2);
+            enemyCharacter.transform.name = "Enemy" + i;
+        }
     }
 
     private void Update()
@@ -103,12 +111,12 @@ public class Game : MonoBehaviour
 
     }
 
-    
+
     private void OnApplicationQuit()
     {
 #if !UNITY_EDITOR
         DataHandler.SaveGameData();
 #endif
     }
-    
+
 }

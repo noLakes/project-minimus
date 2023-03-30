@@ -9,9 +9,6 @@ public class CharacterManager : MonoBehaviour
 
     Weapon _currentWeapon;
     Weapon CurrentWeapon { get => _currentWeapon; }
-    
-    [SerializeField]
-    GameObject projectilePrefab;
 
     [SerializeField]
     public Transform projectileSpawnPoint;
@@ -24,6 +21,26 @@ public class CharacterManager : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void Damage(int amount)
+    {
+        _character.health -= amount;
+        Debug.Log(transform.name + " took " + amount + " damage. New health: " + _character.health + "/" + _character.maxHealth);
+        if(_character.health <= 0) Die();
+    }
+
+    public void Heal(int amount)
+    {
+        int currentHealth = _character.health;
+        _character.health = Mathf.Min(currentHealth, _character.maxHealth);
+    }
+
+    private void Die()
+    {
+        Debug.Log(transform.name + " is dead.");
+        // update _character if needed
+        Destroy(transform.gameObject);
     }
 
     public void Attack(Vector2 location)
