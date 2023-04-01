@@ -17,7 +17,9 @@ MonoBehaviour:
   description: A simple 9mm pistol
   prefab: {fileID: 5059694603599579343, guid: 9223c863936f2984cabff64acdd79f9f, type: 3}
   type: 1
-  damage: 1
+  damage: 0
   attackRate: 0
   magazineSize: 6
   reloadTime: 2.5
+  onHitEffects:
+  - {fileID: 11400000, guid: 9a20b6cf3740846b89d555738ad875b4, type: 2}

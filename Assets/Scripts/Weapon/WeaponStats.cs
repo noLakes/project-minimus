@@ -7,6 +7,7 @@ public struct WeaponStats
     public float attackRate;
     public int magazineSize;
     public float reloadTime;
+    public List<Effect> onHitEffects;
 
     public WeaponStats(WeaponData data)
     {
@@ -14,5 +15,6 @@ public struct WeaponStats
         attackRate = data.attackRate;
         magazineSize = data.magazineSize;
         reloadTime = data.reloadTime;
+        onHitEffects = data.onHitEffects;
     }
 }

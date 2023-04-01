@@ -69,6 +69,11 @@ public class Weapon
         {
             Debug.Log("Damaging " + c.transform.name);
             c.Damage(_activeStats.damage);
+
+            foreach(Effect e in _activeStats.onHitEffects)
+            {
+                e.Apply(c.gameObject);
+            }
         }
 
         // to do

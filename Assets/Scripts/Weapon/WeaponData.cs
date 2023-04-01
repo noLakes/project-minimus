@@ -20,4 +20,6 @@ public class WeaponData : ScriptableObject
     public float attackRate;
     public int magazineSize;
     public float reloadTime;
+
+    public List<Effect> onHitEffects;
 }
