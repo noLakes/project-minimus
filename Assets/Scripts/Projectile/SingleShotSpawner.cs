@@ -10,10 +10,8 @@ public class SingleShotSpawner : ProjectileSpawner
         GameObject go = Instantiate(_projectilePrefab, spawnPoint.position, rotation);
         
         Projectile p = go.GetComponent<Projectile>();
-
-        // Initialize the projectile so that it can work.
+        
         p.Initialize(shootDir);
         p.LinkWeapon(_weapon);
-
     }
 }

@@ -12,14 +12,14 @@ public class Weapon
     WeaponStats _activeStats;
     public WeaponStats Stats { get => _activeStats; }
     
-    public Transform transform { get; private set; }
+    public Transform Transform { get; private set; }
     ProjectileSpawner _projectileSpawner;
     ReloadManager _reloadManager;
 
     bool _equipped;
     public bool Equipped { get => _equipped; } 
 
-    public Character owner { get; protected set; }
+    public Character Owner { get; protected set; }
 
     public Weapon(WeaponData initialData, Character owner)
     {
@@ -27,7 +27,7 @@ public class Weapon
         _data = initialData;
         _baseStats = new WeaponStats(initialData);
         _activeStats = _baseStats;
-        this.owner = owner;
+        this.Owner = owner;
     }
 
     public void Attack(Vector2 attackLocation)
@@ -36,7 +36,7 @@ public class Weapon
         {
             
         }
-        else // ranged attack
+        else if(_data.type == WeaponType.Ranged)// ranged attack
         {
             if(_reloadManager.Ready)
             {
@@ -85,23 +85,23 @@ public class Weapon
     {
         Debug.Log("Weapon equipped");
         GameObject g = GameObject.Instantiate(_data.prefab) as GameObject;
-        transform = g.transform;
+        Transform = g.transform;
+        
+        _projectileSpawner = Transform.GetComponent<ProjectileSpawner>();
+        if(_projectileSpawner != null) _projectileSpawner.Initialize(this);
 
-        _projectileSpawner = transform.GetComponent<ProjectileSpawner>();
-        _projectileSpawner.Initialize(this);
-
-        _reloadManager = transform.GetComponent<ReloadManager>();
+        _reloadManager = Transform.GetComponent<ReloadManager>();
         _reloadManager.Initialize(this);
 
-        transform.parent = owner.transform.Find("WeaponParent");
+        Transform.parent = Owner.transform.Find("WeaponParent");
 
         _equipped = true;
     }
 
     public void Unequip()
     {
-        GameObject.Destroy(transform.gameObject);
-        transform = null;
+        GameObject.Destroy(Transform.gameObject);
+        Transform = null;
         _projectileSpawner = null;
         _reloadManager = null;
 

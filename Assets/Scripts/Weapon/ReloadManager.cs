@@ -6,15 +6,15 @@ public class ReloadManager : MonoBehaviour
 {
     Weapon _weapon;
     
-    bool _reloading;
-    bool _refreshing;
+    private bool _reloading;
+    private bool _refreshing;
 
-    int _reloadCounter;
+    private int _reloadCounter;
 
     public bool Ready { get => !_reloading && !_refreshing; }
 
-    IEnumerator activeAttackRefreshRoutine;
-    IEnumerator activeReloadRoutine;
+    IEnumerator _activeAttackRefreshRoutine;
+    IEnumerator _activeReloadRoutine;
 
     public void Initialize(Weapon weapon)
     {
@@ -40,14 +40,14 @@ public class ReloadManager : MonoBehaviour
 
     public void Reload()
     {
-        activeReloadRoutine = ReloadCoroutine();
-        StartCoroutine(activeReloadRoutine);
+        _activeReloadRoutine = ReloadCoroutine();
+        StartCoroutine(_activeReloadRoutine);
     }
 
     private void AttackRefresh()
     {
-        activeAttackRefreshRoutine = AttackRefreshCoroutine();
-        StartCoroutine(activeAttackRefreshRoutine);
+        _activeAttackRefreshRoutine = AttackRefreshCoroutine();
+        StartCoroutine(_activeAttackRefreshRoutine);
     }
 
     private IEnumerator ReloadCoroutine()
@@ -57,7 +57,7 @@ public class ReloadManager : MonoBehaviour
         yield return new WaitForSeconds(_weapon.Stats.reloadTime);
         _reloading = false;
         _reloadCounter = 0;
-        activeReloadRoutine = null;
+        _activeReloadRoutine = null;
     }
 
     private IEnumerator AttackRefreshCoroutine()
@@ -65,6 +65,6 @@ public class ReloadManager : MonoBehaviour
         _refreshing = true;
         yield return new WaitForSeconds(_weapon.Stats.attackRate);
         _refreshing = false;
-        activeReloadRoutine = null;
+        _activeReloadRoutine = null;
     }
 }

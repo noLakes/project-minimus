@@ -5,7 +5,7 @@ public abstract class Effect : ScriptableObject
 {
     // store reference to run routine if effects is applied over time
     protected IEnumerator activeRunRoutine;
-    public GameObject EffectParticles;
+    public GameObject effectParticles;
 
     // apply to target
     public abstract void Apply(GameObject target);

@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8c54da3eb086d846b634214aa5cd117, type: 3}
-  m_Name: Pistol
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  code: pistol
-  weaponName: Pistol
-  description: A simple 9mm pistol
-  prefab: {fileID: 5059694603599579343, guid: 9223c863936f2984cabff64acdd79f9f, type: 3}
-  type: 1
-  damage: 0
-  attackRate: 0
-  magazineSize: 6
-  reloadTime: 2.5
-  onHitEffects:
-  - {fileID: 11400000, guid: 9a20b6cf3740846b89d555738ad875b4, type: 2}
+  code: sword
+  weaponName: Sword
+  description: A basic sword
+  prefab: {fileID: 6901648086932577002, guid: 47ebaa4e9189d47d3adcce579b80986d, type: 3}
+  type: 0
+  damage: 2
+  attackRate: 0.8
+  magazineSize: 0
+  reloadTime: 0
+  onHitEffects: []

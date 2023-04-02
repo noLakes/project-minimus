@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,10 +13,21 @@ public class CharacterManager : MonoBehaviour
 
     [SerializeField]
     public Transform projectileSpawnPoint;
+    [SerializeField]
+    private Transform weaponParent;
+    private AimWeapon _aimWeapon;
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
 
     public void Initialize(Character character)
     {
         _character = character;
+    }
+
+    private void Awake()
+    {
+        weaponParent = transform.Find("WeaponParent");
+        _aimWeapon = weaponParent.GetComponent<AimWeapon>();
     }
 
     void Update()
@@ -55,7 +67,12 @@ public class CharacterManager : MonoBehaviour
 
         _currentWeapon = weapon;
         _currentWeapon.Equip();
-        projectileSpawnPoint = _currentWeapon.transform.Find("weaponEnd");
+        projectileSpawnPoint = _currentWeapon.Transform.Find("weaponEnd");
+        
+        _aimWeapon.UpdateSpriteRenderers(
+            _currentWeapon.Transform.Find("Sprite").GetComponent<SpriteRenderer>(),
+            spriteRenderer
+            );
     }
 
     public Weapon AddWeapon(Weapon newWeapon)

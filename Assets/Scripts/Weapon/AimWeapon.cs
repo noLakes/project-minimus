@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AimWeapon : MonoBehaviour
 {
-    private Vector3 aimDirection;
+    public SpriteRenderer weaponRenderer, characterRenderer;
+    private Vector3 _aimDirection;
 
     private void Awake()
     {
@@ -13,8 +14,8 @@ public class AimWeapon : MonoBehaviour
 
     void Update()
     {
-        aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
-        float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        _aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
+        float angle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
 
         // flip weapon with local y scale so it is always upright
@@ -29,5 +30,20 @@ public class AimWeapon : MonoBehaviour
         }
 
         transform.localScale = localScale;
+
+        if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 180)
+        {
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
+        }
+        else
+        {
+            weaponRenderer.sortingOrder = characterRenderer.sortingOrder + 1;
+        }
+    }
+
+    public void UpdateSpriteRenderers(SpriteRenderer weapon, SpriteRenderer character)
+    {
+        weaponRenderer = weapon;
+        characterRenderer = character;
     }
 }
