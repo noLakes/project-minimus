@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Weapon
 {
-    protected string uid;
-    WeaponData _data;
+    private string uid;
+    private WeaponData _data;
     public WeaponData Data { get => _data; }
-
-    WeaponStats _baseStats;
-    WeaponStats _activeStats;
+    private WeaponStats _baseStats;
+    private WeaponStats _activeStats;
     public WeaponStats Stats { get => _activeStats; }
-    
     public Transform Transform { get; private set; }
-    ProjectileSpawner _projectileSpawner;
-    ReloadManager _reloadManager;
+    public SpriteRenderer spriteRenderer { get; private set; }
+    private Animator _animator;
+    private ProjectileSpawner _projectileSpawner;
+    private ReloadManager _reloadManager;
 
     bool _equipped;
     public bool Equipped { get => _equipped; } 
@@ -34,11 +35,15 @@ public class Weapon
     {
         if(_data.type == WeaponType.Melee) // melee attack
         {
-            
+            if (_reloadManager.Ready)
+            {
+                _animator.SetTrigger("Attack");
+                _reloadManager.OnWeaponAttack();
+            }
         }
-        else if(_data.type == WeaponType.Ranged)// ranged attack
+        else if (_data.type == WeaponType.Ranged) // ranged attack
         {
-            if(_reloadManager.Ready)
+            if (_reloadManager.Ready)
             {
                 // trigger attack
                 _projectileSpawner.Spawn(attackLocation, Quaternion.identity);
@@ -93,6 +98,9 @@ public class Weapon
         _reloadManager = Transform.GetComponent<ReloadManager>();
         _reloadManager.Initialize(this);
 
+        spriteRenderer = Transform.Find("Sprite").GetComponent<SpriteRenderer>();
+        _animator = Transform.Find("Sprite").GetComponent<Animator>();
+
         Transform.parent = Owner.transform.Find("WeaponParent");
 
         _equipped = true;
@@ -104,7 +112,7 @@ public class Weapon
         Transform = null;
         _projectileSpawner = null;
         _reloadManager = null;
-
+        
         _equipped = false;
     }
 }

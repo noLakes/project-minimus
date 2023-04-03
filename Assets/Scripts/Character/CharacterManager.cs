@@ -70,9 +70,11 @@ public class CharacterManager : MonoBehaviour
         projectileSpawnPoint = _currentWeapon.Transform.Find("weaponEnd");
         
         _aimWeapon.UpdateSpriteRenderers(
-            _currentWeapon.Transform.Find("Sprite").GetComponent<SpriteRenderer>(),
+            _currentWeapon.spriteRenderer,
             spriteRenderer
             );
+
+        _aimWeapon.SetWeapon(weapon);
     }
 
     public Weapon AddWeapon(Weapon newWeapon)

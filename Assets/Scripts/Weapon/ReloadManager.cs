@@ -18,10 +18,8 @@ public class ReloadManager : MonoBehaviour
 
     public void Initialize(Weapon weapon)
     {
+        Reset();
         _weapon = weapon;
-        _reloading = false;
-        _refreshing = false;
-        _reloadCounter = 0;
     }
 
     public void OnWeaponAttack()
@@ -66,5 +64,14 @@ public class ReloadManager : MonoBehaviour
         yield return new WaitForSeconds(_weapon.Stats.attackRate);
         _refreshing = false;
         _activeReloadRoutine = null;
+    }
+
+    private void Reset()
+    {
+        if(_activeReloadRoutine != null) StopCoroutine(_activeReloadRoutine);
+        if(_activeAttackRefreshRoutine != null) StopCoroutine(_activeAttackRefreshRoutine);
+        _reloading = false;
+        _refreshing = false;
+        _reloadCounter = 0;
     }
 }

@@ -6,14 +6,12 @@ public class AimWeapon : MonoBehaviour
 {
     public SpriteRenderer weaponRenderer, characterRenderer;
     private Vector3 _aimDirection;
-
-    private void Awake()
-    {
-        
-    }
+    private Weapon _weapon;
 
     void Update()
     {
+        if (transform.childCount == 0) return;
+
         _aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
         float angle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
@@ -30,7 +28,8 @@ public class AimWeapon : MonoBehaviour
         }
 
         transform.localScale = localScale;
-
+        
+        // hide weapon behind character sprite if aiming overhead
         if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 180)
         {
             weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;
@@ -45,5 +44,10 @@ public class AimWeapon : MonoBehaviour
     {
         weaponRenderer = weapon;
         characterRenderer = character;
+    }
+
+    public void SetWeapon(Weapon weapon)
+    {
+        _weapon = weapon;
     }
 }
