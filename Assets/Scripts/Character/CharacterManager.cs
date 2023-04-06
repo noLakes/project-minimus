@@ -10,9 +10,7 @@ public class CharacterManager : MonoBehaviour
 
     Weapon _currentWeapon;
     Weapon CurrentWeapon { get => _currentWeapon; }
-
-    [SerializeField]
-    public Transform projectileSpawnPoint;
+    
     [SerializeField]
     private Transform weaponParent;
     private AimWeapon _aimWeapon;
@@ -67,8 +65,7 @@ public class CharacterManager : MonoBehaviour
 
         _currentWeapon = weapon;
         _currentWeapon.Equip();
-        projectileSpawnPoint = _currentWeapon.Transform.Find("weaponEnd");
-        
+
         _aimWeapon.UpdateSpriteRenderers(
             _currentWeapon.spriteRenderer,
             spriteRenderer

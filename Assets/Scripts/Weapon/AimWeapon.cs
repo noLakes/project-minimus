@@ -7,10 +7,11 @@ public class AimWeapon : MonoBehaviour
     public SpriteRenderer weaponRenderer, characterRenderer;
     private Vector3 _aimDirection;
     private Weapon _weapon;
+    private bool _pauseAim = false;
 
     void Update()
     {
-        if (transform.childCount == 0) return;
+        if (transform.childCount == 0 || _pauseAim ) return;
 
         _aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
         float angle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
@@ -50,4 +51,7 @@ public class AimWeapon : MonoBehaviour
     {
         _weapon = weapon;
     }
+
+    public void PauseAiming() => _pauseAim = true;
+    public void ResumeAiming() => _pauseAim = false;
 }

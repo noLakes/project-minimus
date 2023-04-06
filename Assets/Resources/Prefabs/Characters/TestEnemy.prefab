@@ -277,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6644171423116298762}
   - component: {fileID: 3093270027786005690}
+  - component: {fileID: 6784989239466331762}
   m_Layer: 0
   m_Name: WeaponParent
   m_TagString: Untagged
@@ -313,3 +314,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponRenderer: {fileID: 0}
   characterRenderer: {fileID: 0}
+--- !u!114 &6784989239466331762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7449272375124911532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8e342b5254b246119cf035d3503b3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
