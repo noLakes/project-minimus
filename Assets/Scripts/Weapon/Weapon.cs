@@ -15,7 +15,7 @@ public class Weapon
     public SpriteRenderer spriteRenderer { get; private set; }
     private Animator _animator;
     private ProjectileSpawner _projectileSpawner;
-    private WeaponAttackStateManager _weaponAttackStateManager;
+    private WeaponAttackManager _weaponAttackManager;
     private AimWeapon _aimWeapon;
 
     bool _equipped;
@@ -35,22 +35,22 @@ public class Weapon
     {
         if(_data.type == WeaponType.Melee) // melee attack
         {
-            if (_weaponAttackStateManager.Ready)
+            if (_weaponAttackManager.Ready)
             {
                 _animator.SetTrigger("Attack");
-                _weaponAttackStateManager.OnWeaponAttack();
+                _weaponAttackManager.OnWeaponAttack();
                 _aimWeapon.PauseAiming();
             }
         }
         else if (_data.type == WeaponType.Ranged) // ranged attack
         {
-            if (_weaponAttackStateManager.Ready)
+            if (_weaponAttackManager.Ready)
             {
                 // trigger attack
                 _projectileSpawner.Spawn(attackLocation, Quaternion.identity);
 
-                // notify WeaponAttackStateManager
-                _weaponAttackStateManager.OnWeaponAttack();
+                // notify WeaponAttackManager
+                _weaponAttackManager.OnWeaponAttack();
             }
         }
     }
@@ -87,7 +87,11 @@ public class Weapon
         // play animation or effect
     }
 
-    public void OnWeaponAttackAnimationEnd()
+    public void OnAttackAnimationStart()
+    {
+        // do something
+    }
+    public void OnAttackAnimationEnd()
     {
         _aimWeapon.ResumeAiming();
     }
@@ -101,15 +105,15 @@ public class Weapon
         _projectileSpawner = Transform.GetComponent<ProjectileSpawner>();
         if(_projectileSpawner != null) _projectileSpawner.Initialize(this);
 
-        _weaponAttackStateManager = Transform.GetComponent<WeaponAttackStateManager>();
-        _weaponAttackStateManager.Initialize(this);
+        _weaponAttackManager = Transform.GetComponent<WeaponAttackManager>();
+        _weaponAttackManager.Initialize(this);
 
         _aimWeapon = Owner.transform.GetComponentInChildren<AimWeapon>();
 
-        spriteRenderer = Transform.Find("Sprite").GetComponent<SpriteRenderer>();
-        _animator = Transform.Find("Sprite").GetComponent<Animator>();
+        spriteRenderer = Transform.GetComponent<SpriteRenderer>();
+        _animator = Transform.GetComponent<Animator>();
         
-        Transform.Find("Sprite").GetComponent<WeaponAnimationHelper>().Initialize(this);
+        Transform.GetComponent<WeaponAnimationHelper>().Initialize(this);
 
         Transform.parent = Owner.transform.Find("WeaponParent");
 
@@ -121,7 +125,7 @@ public class Weapon
         GameObject.Destroy(Transform.gameObject);
         Transform = null;
         _projectileSpawner = null;
-        _weaponAttackStateManager = null;
+        _weaponAttackManager = null;
         _aimWeapon = null;
         
         _equipped = false;

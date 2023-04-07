@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class WeaponAttackStateManager : MonoBehaviour
+public class WeaponAttackManager : MonoBehaviour
 {
     Weapon _weapon;
     
@@ -10,6 +12,12 @@ public class WeaponAttackStateManager : MonoBehaviour
     private bool _refreshing;
 
     private int _reloadCounter;
+
+    [SerializeField]
+    private Transform hitBoxOrigin;
+    [SerializeField]
+    private float hitRadius;
+    
 
     public bool Ready { get => !_reloading && !_refreshing; }
 
@@ -73,5 +81,19 @@ public class WeaponAttackStateManager : MonoBehaviour
         _reloading = false;
         _refreshing = false;
         _reloadCounter = 0;
+    }
+
+    public void DetectColliders()
+    {
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(hitBoxOrigin.position, hitRadius))
+        {
+            Debug.Log(collider.name);
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        Vector3 position = hitBoxOrigin == null ? Vector3.zero : hitBoxOrigin.position;
+        Gizmos.DrawWireSphere(position, hitRadius);
     }
 }

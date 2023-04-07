@@ -11,10 +11,10 @@ public class WeaponAnimationHelper : MonoBehaviour
 
     public void AttackStart()
     {
-        Debug.Log("ATTACK STARTED!");
+        _weapon.OnAttackAnimationStart();
     }
     public void AttackEnd()
     {
-        _weapon.OnWeaponAttackAnimationEnd();
+        _weapon.OnAttackAnimationEnd();
     }
 }
