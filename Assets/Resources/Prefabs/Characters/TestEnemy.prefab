@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4424852939931422837}
   - component: {fileID: 4424852939931422834}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4424852941152127367}
   - component: {fileID: 4424852941152127386}
   - component: {fileID: 4424852941152127366}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TestEnemy
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b9f0bd3d004d54d9ac02ba2453954c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpawnPoint: {fileID: 0}
   weaponParent: {fileID: 6644171423116298762}
   spriteRenderer: {fileID: 4424852941435564146}
 --- !u!50 &4424852941152127386
@@ -193,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4424852941435564149}
   - component: {fileID: 4424852941435564146}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +277,7 @@ GameObject:
   - component: {fileID: 6644171423116298762}
   - component: {fileID: 3093270027786005690}
   - component: {fileID: 6784989239466331762}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,3 +325,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8e342b5254b246119cf035d3503b3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitBoxOrigin: {fileID: 0}
+  hitRadius: 0

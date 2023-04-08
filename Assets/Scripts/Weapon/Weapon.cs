@@ -113,7 +113,7 @@ public class Weapon
         spriteRenderer = Transform.GetComponent<SpriteRenderer>();
         _animator = Transform.GetComponent<Animator>();
         
-        Transform.GetComponent<WeaponAnimationHelper>().Initialize(this);
+        if(_animator != null) Transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
 
         Transform.parent = Owner.transform.Find("WeaponParent");
 

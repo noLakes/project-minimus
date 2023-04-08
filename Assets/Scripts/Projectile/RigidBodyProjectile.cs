@@ -16,6 +16,7 @@ public class RigidBodyProjectile : Projectile
     public override void Initialize(Vector2 moveDirection)
     {
         _moveDirection = moveDirection;
+        CurrentHitCount = 0;
         //Debug.Log("projectile initialized towards: " + moveDirection);
     }
 
@@ -55,7 +56,8 @@ public class RigidBodyProjectile : Projectile
 
     protected override void OnHit()
     {
-        Destroy(gameObject);
+        CurrentHitCount++;
+        if(CurrentHitCount >= maxHitCount) Destroy(gameObject);
     }
 
     
