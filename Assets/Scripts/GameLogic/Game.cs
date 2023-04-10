@@ -28,6 +28,12 @@ public class Game : MonoBehaviour
 
     public GameGlobalParameters gameGlobalParameters;
 
+    public static int PLAYER_MASK = 1 << 6;
+    public static int ENEMY_MASK = 1 << 7;
+    public static int PROJECTILE_MASK = 1 << 8;
+    public static int WALL_MASK = 1 << 12;
+    public static int GROUND_MASK = 1 << 13;
+
     private void Awake()
     {
         if (Instance != null)
@@ -50,7 +56,7 @@ public class Game : MonoBehaviour
         Character player = new Character(DataHandler.LoadCharacter("Test Player"));
         _playerCharacter = player.transform.GetComponent<CharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
-        Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(DataHandler.LoadWeapon("Crossbow"), player));
+        Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(DataHandler.LoadWeapon("Wand"), player));
         _playerCharacter.EquipWeapon(startingWeapon);
 
         for (int i = 0; i < 5; i++)

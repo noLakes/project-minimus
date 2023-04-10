@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1200202176697847415}
   - component: {fileID: 3408613888573087924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shaft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 6293776764116966828}
   - component: {fileID: 1525640237544770081}
   - component: {fileID: 3941970885718085999}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8656826264938817161}
   - component: {fileID: 8272646720784003359}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,12 +15,12 @@ TagManager:
   - UI
   - Player
   - Enemy
+  - Projectile
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Walls
+  - Ground
   - 
   - 
   - 
