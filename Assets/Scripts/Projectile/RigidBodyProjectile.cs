@@ -30,6 +30,8 @@ public class RigidBodyProjectile : Projectile
     void Update()
     {
         if (Game.Instance.gameIsPaused) return;
+        
+        if (_distanceTravelled >= _linkedWeapon.Stats.range) Destroy(gameObject);
 
         _currentPosition += _moveDirection * speed * Time.deltaTime;
 

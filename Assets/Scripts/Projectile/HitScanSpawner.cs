@@ -14,9 +14,9 @@ public class HitScanSpawner : ProjectileSpawner
         Vector2 origin = spawnPoint.position;
         Vector2 shootDir = (shootLocation - origin).normalized;
         
-        RaycastHit2D ray = Physics2D.Raycast(origin, shootDir, 1000f, layerMask);
+        RaycastHit2D ray = Physics2D.Raycast(origin, shootDir, _weapon.Stats.range, layerMask);
 
-        DrawTracer(shootLocation);
+        DrawTracer(origin, shootLocation);
 
         if (ray.collider != null)
         {
@@ -27,9 +27,13 @@ public class HitScanSpawner : ProjectileSpawner
         }
     }
 
-    private void DrawTracer(Vector2 shootLocation)
+    private void DrawTracer(Vector2 origin, Vector2 shootLocation)
     {
         // implement after making tracer prefabs
-        Debug.DrawLine(spawnPoint.position, shootLocation, Color.red, 2f);
+        Debug.DrawLine(
+            spawnPoint.position,
+            Vector2.MoveTowards(origin,
+                shootLocation, _weapon.Stats.range),
+                Color.red, 2f);
     }
 }

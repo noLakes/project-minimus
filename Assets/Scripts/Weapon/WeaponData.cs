@@ -18,6 +18,7 @@ public class WeaponData : ScriptableObject
     public WeaponType type;
     public int damage;
     public float attackRate;
+    public float range;
     public int magazineSize;
     public float reloadTime;
 
