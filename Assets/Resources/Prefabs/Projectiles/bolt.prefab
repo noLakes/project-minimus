@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitCount: 1
-  speed: 18
+  speed: 50
 --- !u!61 &1525640237544770081
 BoxCollider2D:
   m_ObjectHideFlags: 0

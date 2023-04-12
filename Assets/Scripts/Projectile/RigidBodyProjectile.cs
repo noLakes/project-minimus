@@ -8,8 +8,9 @@ public class RigidBodyProjectile : Projectile
 
     Vector2 _moveDirection;
 
-    Vector2 _currentPosition; // Store the current position we are at.
-    float _distanceTravelled; // Record the distance travelled.
+    private Vector2 _lastPosition; // Store last position for backward raycast collision checks
+    private Vector2 _currentPosition; // Store the current position we are at.
+    private float _distanceTravelled; // Record the distance travelled.
 
     Vector2 _origin; // To store where the projectile first spawned.
 
@@ -17,6 +18,7 @@ public class RigidBodyProjectile : Projectile
     {
         _moveDirection = moveDirection;
         CurrentHitCount = 0;
+        _currentPosition = transform.position;
         //Debug.Log("projectile initialized towards: " + moveDirection);
     }
 
@@ -31,8 +33,10 @@ public class RigidBodyProjectile : Projectile
     {
         if (Game.Instance.gameIsPaused) return;
         
-        if (_distanceTravelled >= _linkedWeapon.Stats.range) Destroy(gameObject);
-
+        HandleRangeCheck();
+        CheckFlybyCollision();
+        
+        _lastPosition = _currentPosition;
         _currentPosition += _moveDirection * speed * Time.deltaTime;
 
         // Move ourselves towards the target position at every frame.
@@ -62,6 +66,31 @@ public class RigidBodyProjectile : Projectile
         if(CurrentHitCount >= maxHitCount) Destroy(gameObject);
     }
 
+    private void CheckFlybyCollision()
+    {
+        if (speed < 12f) return; // too slow to warrant checking
+        
+        //Debug.DrawLine(_lastPosition, _currentPosition, Color.red);
+        RaycastHit2D ray = Physics2D.Raycast(_lastPosition, _moveDirection, _distanceTravelled);
+
+        if (ray.collider != null)
+        {
+            if (_linkedWeapon.ValidateHit(ray.collider, _lastPosition))
+            {
+                //Debug.DrawLine(_currentPosition, ray.point, Color.cyan, 5f);
+                OnHit();
+            }
+        }
+        
+    }
+    private void HandleRangeCheck()
+    {
+        if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
+        {
+            Debug.Log(name + " destroyed at max range");
+            Destroy(gameObject);
+        }
+    }
     
     public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 startPos, Vector2 shootDir, Quaternion rotation)
     {
