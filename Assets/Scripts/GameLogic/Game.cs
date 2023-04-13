@@ -53,10 +53,10 @@ public class Game : MonoBehaviour
     private void Start()
     {
         // spawn test player
-        Character player = new Character(DataHandler.LoadCharacter("Test Player"));
+        Character player = new Character(gameGlobalParameters.startingCharacter);
         _playerCharacter = player.transform.GetComponent<CharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
-        Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(DataHandler.LoadWeapon("Crossbow"), player));
+        Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
 
         for (int i = 0; i < 5; i++)

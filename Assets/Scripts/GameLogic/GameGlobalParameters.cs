@@ -5,6 +5,7 @@ public class GameGlobalParameters : GameParameters
 {
     public override string GetParametersName() => "Global";
 
-    [Header("Difficulty Settings")]
-    public int tempSetting;
+    [Header("Player Starting Data")] 
+    public CharacterData startingCharacter;
+    public WeaponData startingWeapon;
 }

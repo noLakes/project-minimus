@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21fae7f922fc24e9bac4ea943c0e6747, type: 3}
+  m_Name: TestingGameParams
+  m_EditorClassIdentifier: 
+  _fieldsToShowInGame: []
+  startingCharacter: {fileID: 11400000, guid: 030e58cc9cd294ed885cd3a839cd67fd, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 4b822fcb4c262c54a9dd9240b52dc59e, type: 2}

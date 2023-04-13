@@ -44344,7 +44344,7 @@ MonoBehaviour:
   gameIsPaused: 0
   _playerCharacter: {fileID: 0}
   CHARACTER_CONTAINER: {fileID: 335856986}
-  gameGlobalParameters: {fileID: 0}
+  gameGlobalParameters: {fileID: 11400000, guid: d817b96fe74250c4b8d968e5102a4bc9, type: 2}
 --- !u!4 &1888224442
 Transform:
   m_ObjectHideFlags: 0
