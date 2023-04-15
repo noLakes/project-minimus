@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHitCount: 1
+  persistAfterHit: 1
+  persistAfterStop: 1
   speed: 50
 --- !u!61 &1525640237544770081
 BoxCollider2D:

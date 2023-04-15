@@ -34,8 +34,8 @@ public class RigidBodyProjectile : Projectile
         if (Game.Instance.gameIsPaused) return;
         
         HandleRangeCheck();
-        CheckFlybyCollision();
-        
+        HandleFlybyCollision();
+
         _lastPosition = _currentPosition;
         _currentPosition += _moveDirection * speed * Time.deltaTime;
 
@@ -65,8 +65,8 @@ public class RigidBodyProjectile : Projectile
         CurrentHitCount++;
         if(CurrentHitCount >= maxHitCount) Destroy(gameObject);
     }
-
-    private void CheckFlybyCollision()
+    
+    private void HandleFlybyCollision()
     {
         if (speed < 12f) return; // too slow to warrant checking
         
@@ -87,24 +87,24 @@ public class RigidBodyProjectile : Projectile
     {
         if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
         {
-            Debug.Log(name + " destroyed at max range");
-            Destroy(gameObject);
+            Stop();
         }
     }
     
-    public static RigidBodyProjectile Spawn(GameObject prefab, Vector2 startPos, Vector2 shootDir, Quaternion rotation)
+    protected override void Stop()
     {
-        // Spawn a GameObject based on a prefab, and returns its Projectile component.
-        GameObject go = Instantiate(prefab, startPos, rotation);
-        RigidBodyProjectile p = go.GetComponent<RigidBodyProjectile>();
-
-        // Rightfully, we should throw an error here instead of fixing the error for the user. 
-        if (!p) p = go.AddComponent<RigidBodyProjectile>();
-
-        // Initialize the projectile so that it can work.
-        p.Initialize(shootDir);
-
-        return p;
+        if (persistAfterStop)
+        {
+            Debug.Log("Turning off projectile script");
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            GetComponent<Collider2D>().isTrigger = false;
+            enabled = false;
+        }
+        else
+        {
+            Debug.Log("Destroying stopped projectile");
+            Destroy(gameObject);
+        }
     }
     
 }

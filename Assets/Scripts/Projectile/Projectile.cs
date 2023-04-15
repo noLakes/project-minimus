@@ -7,6 +7,8 @@ public abstract class Projectile : MonoBehaviour
     protected Weapon _linkedWeapon;
     public int maxHitCount;
     protected int CurrentHitCount;
+    public bool persistAfterHit;
+    public bool persistAfterStop;
 
     public abstract void Initialize(Vector2 shootDirection);
 
@@ -16,4 +18,6 @@ public abstract class Projectile : MonoBehaviour
     }
 
     protected abstract void OnHit();
+
+    protected abstract void Stop();
 }

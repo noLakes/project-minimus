@@ -33,25 +33,19 @@ public class PhysicsProjectile : Projectile
     void Update()
     {
         if (Game.Instance.gameIsPaused) return;
-        
-        HandleRangeCheck();
-        
-        //Debug.Log(_rigidbody2D.velocity);
-        /*
-        if (_rigidbody2D.velocity.x < 0.5f || _rigidbody2D.velocity.y < 0.5f)
-        {
-            _rigidbody2D.drag *= 10;
-            enabled = false;
-        }
-        */
 
+        HandleRangeCheck();
+        HandleFlybyCollision();
+        
         _lastPosition = _currentPosition;
         _currentPosition = transform.position;
 
         _distanceTravelled = Vector2.Distance(_currentPosition, _origin);
-        
+
         // rotates toward move direction
         transform.up = _moveDirection;
+        
+        HandleVelocityCheck();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -66,13 +60,13 @@ public class PhysicsProjectile : Projectile
     protected override void OnHit()
     {
         CurrentHitCount++;
-        if(CurrentHitCount >= maxHitCount) Destroy(gameObject);
+        if (CurrentHitCount >= maxHitCount) Destroy(gameObject);
     }
-
-    private void CheckFlybyCollision()
+    
+    private void HandleFlybyCollision()
     {
         if (velocity < 12f) return; // too slow to warrant checking
-        
+
         //Debug.DrawLine(_lastPosition, _currentPosition, Color.red);
         RaycastHit2D ray = Physics2D.Raycast(_lastPosition, _moveDirection, _distanceTravelled);
 
@@ -84,30 +78,37 @@ public class PhysicsProjectile : Projectile
                 OnHit();
             }
         }
-        
     }
+
+    private void HandleVelocityCheck()
+    {
+        if (_distanceTravelled > 1f && _rigidbody2D.velocity.sqrMagnitude < Vector2.one.sqrMagnitude)
+        {
+            Stop();
+        }
+    }
+
     private void HandleRangeCheck()
     {
         if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
         {
-            Debug.Log(name + " destroyed at max range");
+            Stop();
+        }
+    }
+
+    protected override void Stop()
+    {
+        if (persistAfterStop)
+        {
+            Debug.Log("Turning off projectile script");
+            _rigidbody2D.velocity = Vector2.zero;
+            GetComponent<Collider2D>().isTrigger = false;
+            enabled = false;
+        }
+        else
+        {
+            Debug.Log("Destroying stopped projectile");
             Destroy(gameObject);
         }
     }
-    
-    public static PhysicsProjectile Spawn(GameObject prefab, Vector2 startPos, Vector2 shootDir, Quaternion rotation)
-    {
-        // Spawn a GameObject based on a prefab, and returns its Projectile component.
-        GameObject go = Instantiate(prefab, startPos, rotation);
-        PhysicsProjectile p = go.GetComponent<PhysicsProjectile>();
-
-        // Rightfully, we should throw an error here instead of fixing the error for the user. 
-        if (!p) p = go.AddComponent<PhysicsProjectile>();
-
-        // Initialize the projectile so that it can work.
-        p.Initialize(shootDir);
-
-        return p;
-    }
-    
 }
