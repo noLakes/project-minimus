@@ -18,7 +18,7 @@ public class Weapon
     private WeaponAttackManager _weaponAttackManager;
     private AimWeapon _aimWeapon;
 
-    bool _equipped;
+    private bool _equipped;
     public bool Equipped { get => _equipped; }
     public Character Owner { get; protected set; }
 
