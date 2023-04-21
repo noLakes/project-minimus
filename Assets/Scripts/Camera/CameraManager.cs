@@ -14,8 +14,10 @@ public class CameraManager : MonoBehaviour
     private bool _followingTarget;
 
     private float _fovSizeX;
+    [SerializeField, Range(0f, 0.7f)] private float maxXOffsetPercent;
     private float _maxCameraOffsetX;
     private float _fovSizeY;
+    [SerializeField, Range(0f, 0.7f)] private float maxYOffsetPercent;
     private float _maxCameraOffsetY;
 
     void Start()
@@ -25,9 +27,9 @@ public class CameraManager : MonoBehaviour
         
         // get screen size bounds for offset
         _fovSizeY = Camera.main.orthographicSize * 2;
-        _maxCameraOffsetY = _fovSizeY * 0.7f;
+        _maxCameraOffsetY = _fovSizeY * maxYOffsetPercent;
         _fovSizeX = _fovSizeY * Screen.width / Screen.height;
-        _maxCameraOffsetX = _fovSizeX * 0.7f;
+        _maxCameraOffsetX = _fovSizeX * maxXOffsetPercent;
 
         Debug.Log("fovSizeX: " + _fovSizeX);
         Debug.Log("maxCamOffsetX: " + _maxCameraOffsetX);
@@ -62,8 +64,7 @@ public class CameraManager : MonoBehaviour
 
     private void ApplyCameraMouseOffset(Vector2 mouseDistance)
     {
-        Debug.Log(mouseDistance);
-        
+
         transposer.m_FollowOffset = new Vector3(
             _maxCameraOffsetX * (-mouseDistance.x / _fovSizeX),
             _maxCameraOffsetY * (-mouseDistance.y / _fovSizeY),

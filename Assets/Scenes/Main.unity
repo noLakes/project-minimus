@@ -563,6 +563,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cinemachineVirtualCamera: {fileID: 664940464}
+  maxXOffsetPercent: 0.2
+  maxYOffsetPercent: 0.2
 --- !u!4 &1010036237
 Transform:
   m_ObjectHideFlags: 0
