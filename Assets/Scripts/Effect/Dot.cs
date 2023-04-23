@@ -8,9 +8,9 @@ public class Dot : Effect
     public float tickInterval;
     public int damage;
 
-    public override void Apply(GameObject target)
+    public override void Apply(EffectArgs args)
     {
-        if(target.TryGetComponent<CharacterManager>(out CharacterManager cm))
+        if(args.Target.TryGetComponent<CharacterManager>(out CharacterManager cm))
         {
             activeRunRoutine = RunRoutine(cm);
             Game.Instance.StartCoroutine(activeRunRoutine);

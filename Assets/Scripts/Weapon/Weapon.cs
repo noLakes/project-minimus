@@ -75,10 +75,17 @@ public class Weapon
         {
             Debug.Log("Damaging " + c.transform.name);
             c.Damage(_activeStats.damage);
-
-            foreach(Effect e in _activeStats.onHitEffects)
+            
+            // if weapon has on hit effects
+            if (_activeStats.onHitEffects.Count > 0)
             {
-                e.Apply(c.gameObject);
+                // generate effect args s truct
+                EffectArgs args = new EffectArgs(Transform, c.transform, hitPosition);
+
+                foreach(Effect e in _activeStats.onHitEffects)
+                {
+                    e.Apply(args);
+                }
             }
         }
 

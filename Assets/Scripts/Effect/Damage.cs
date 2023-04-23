@@ -6,21 +6,11 @@ public class Damage : Effect
 {
     public int amount;
 
-    public override void Apply(GameObject target)
+    public override void Apply(EffectArgs args)
     {
-        if(target.TryGetComponent<CharacterManager>(out CharacterManager cm))
+        if(args.Target.TryGetComponent<CharacterManager>(out CharacterManager cm))
         {
             cm.Damage(amount);
         }
-    }
-
-    public override void Remove()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override IEnumerator RunRoutine(CharacterManager target)
-    {
-        throw new System.NotImplementedException();
     }
 }
