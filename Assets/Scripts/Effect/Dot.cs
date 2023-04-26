@@ -10,30 +10,27 @@ public class Dot : Effect
 
     public override void Apply(EffectArgs args)
     {
-        if(args.Target.TryGetComponent<CharacterManager>(out CharacterManager cm))
-        {
-            activeRunRoutine = RunRoutine(cm);
-            Game.Instance.StartCoroutine(activeRunRoutine);
-        }
+        if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
+        ActiveRunRoutine = RunRoutine(cm);
+        Game.Instance.StartCoroutine(ActiveRunRoutine);
     }
 
     public override void Remove()
     {
-        if(activeRunRoutine != null)
-        {
-            Game.Instance.StopCoroutine(activeRunRoutine);
-            activeRunRoutine = null;
-        }
+        if (ActiveRunRoutine == null) return;
+        Game.Instance.StopCoroutine(ActiveRunRoutine);
+        ActiveRunRoutine = null;
     }
 
     protected override IEnumerator RunRoutine(CharacterManager target)
     {
-        float timeElapsed = 0f;
+        var timeElapsed = 0f;
 
         while(timeElapsed < duration)
         {
             if(target != null) target.Damage(damage);
             yield return new WaitForSeconds(tickInterval);
+            timeElapsed += tickInterval;
         }
     }
 }

@@ -11,37 +11,34 @@ public class EventManager : MonoBehaviour
     private Dictionary<string, TypedEvent> _typedEvents;
     private static EventManager _eventManager;
 
-    public static EventManager instance
+    private static EventManager Instance
     {
         get
         {
+            if (_eventManager) return _eventManager;
+            
+            _eventManager = FindObjectOfType(typeof(EventManager)) as EventManager;
             if (!_eventManager)
-            {
-                _eventManager = FindObjectOfType(typeof(EventManager)) as EventManager;
-                if (!_eventManager)
-                    Debug.LogError("There needs to be one active EventManager script on a GameObject in your scene.");
-                else
-                    _eventManager.Init();
-            }
+                Debug.LogError("There needs to be one active EventManager script on a GameObject in your scene.");
+            else
+                _eventManager.Init();
 
             return _eventManager;
         }
     }
 
-    void Init()
+    private void Init()
     {
-        if (_events == null)
-        {
-            _events = new Dictionary<string, UnityEvent>();
-            _typedEvents = new Dictionary<string, TypedEvent>();
-        }
+        if (_events != null) return;
+        _events = new Dictionary<string, UnityEvent>();
+        _typedEvents = new Dictionary<string, TypedEvent>();
     }
 
     public static void AddListener(string eventName, UnityAction listener)
     {
         UnityEvent evt = null;
 
-        if (instance._events.TryGetValue(eventName, out evt))
+        if (Instance._events.TryGetValue(eventName, out evt))
         {
             evt.AddListener(listener);
         }
@@ -49,14 +46,14 @@ public class EventManager : MonoBehaviour
         {
             evt = new UnityEvent();
             evt.AddListener(listener);
-            instance._events.Add(eventName, evt);
+            Instance._events.Add(eventName, evt);
         }
     }
 
     public static void AddListener(string eventName, UnityAction<object> listener)
     {
         TypedEvent evt = null;
-        if(instance._typedEvents.TryGetValue(eventName, out evt))
+        if(Instance._typedEvents.TryGetValue(eventName, out evt))
         {
             evt.AddListener(listener);
         }
@@ -64,7 +61,7 @@ public class EventManager : MonoBehaviour
         {
             evt = new TypedEvent();
             evt.AddListener(listener);
-            instance._typedEvents.Add(eventName, evt);
+            Instance._typedEvents.Add(eventName, evt);
         }
     }
 
@@ -74,7 +71,7 @@ public class EventManager : MonoBehaviour
 
         UnityEvent evt = null;
 
-        if (instance._events.TryGetValue(eventName, out evt))
+        if (Instance._events.TryGetValue(eventName, out evt))
             evt.RemoveListener(listener);
     }
 
@@ -84,7 +81,7 @@ public class EventManager : MonoBehaviour
 
         TypedEvent evt = null;
 
-        if (instance._typedEvents.TryGetValue(eventName, out evt))
+        if (Instance._typedEvents.TryGetValue(eventName, out evt))
             evt.RemoveListener(listener);
     }
 
@@ -92,7 +89,7 @@ public class EventManager : MonoBehaviour
     {
         UnityEvent evt = null;
 
-        if (instance._events.TryGetValue(eventName, out evt))
+        if (Instance._events.TryGetValue(eventName, out evt))
             evt.Invoke();
     }
 
@@ -100,7 +97,7 @@ public class EventManager : MonoBehaviour
     {
         TypedEvent evt = null;
 
-        if (instance._typedEvents.TryGetValue(eventName, out evt))
+        if (Instance._typedEvents.TryGetValue(eventName, out evt))
             evt.Invoke(data);
     }
 }

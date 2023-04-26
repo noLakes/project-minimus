@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
 {
     public static Game Instance { get; private set; }
-
-    [HideInInspector]
-    public bool gameIsPaused;
-
-    [SerializeField]
+    
+    private bool _gameIsPaused;
     private CharacterManager _playerCharacter;
-
-    public CharacterManager PlayerCharacter
-    {
-        get => _playerCharacter;
-    }
 
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
@@ -38,45 +31,45 @@ public class Game : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError("There is more than one instance!");
+            Debug.LogError("There is more than one Instance!");
             return;
         }
 
         Instance = this;
-
         DataHandler.LoadGameData();
-
-        gameIsPaused = false;
-
+        _gameIsPaused = false;
     }
 
     private void Start()
     {
         // spawn test player
-        Character player = new Character(gameGlobalParameters.startingCharacter);
-        _playerCharacter = player.transform.GetComponent<CharacterManager>();
+        var player = new Character(gameGlobalParameters.startingCharacter);
+        _playerCharacter = player.Transform.GetComponent<CharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
-        Weapon startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
+        var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
 
-        for (int i = 0; i < 5; i++)
+        for (var i = 0; i < 5; i++)
         {
-            Character enemy = new Character(DataHandler.LoadCharacter("Test Enemy"));
-            CharacterManager enemyCharacter = enemy.transform.GetComponent<CharacterManager>();
-            enemyCharacter.Character.SetPosition(Vector3.zero + (Vector3.up * i) * 2);
-            enemyCharacter.transform.name = "Enemy" + i;
+            var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
+            {
+                Transform =
+                {
+                    position = Vector3.zero + (Vector3.up * i) * 2,
+                    name = "Enemy" + i
+                }
+            };
         }
     }
 
     private void Update()
     {
-        if (gameIsPaused)
+        if (_gameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Resume();
             }
-            return;
         }
         else
         {
@@ -91,17 +84,16 @@ public class Game : MonoBehaviour
     {
         SceneManager.LoadScene("Main");
     }
-
-
+    
     public void Pause()
     {
-        gameIsPaused = true;
+        _gameIsPaused = true;
         EventManager.TriggerEvent("PauseGame");
     }
 
     public void Resume()
     {
-        gameIsPaused = false;
+        _gameIsPaused = false;
         EventManager.TriggerEvent("ResumeGame");
     }
 
@@ -109,14 +101,16 @@ public class Game : MonoBehaviour
 
     private void OnEnable()
     {
-
+        // to add listeners
     }
 
     private void OnDisable()
     {
-
+        // to remove listeners
     }
 
+    public bool GameIsPaused => _gameIsPaused;
+    public CharacterManager PlayerCharacter => _playerCharacter;
 
     private void OnApplicationQuit()
     {

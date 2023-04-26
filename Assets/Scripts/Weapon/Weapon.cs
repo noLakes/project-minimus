@@ -16,7 +16,7 @@ public class Weapon
     private Animator _animator;
     private ProjectileSpawner _projectileSpawner;
     private WeaponAttackManager _weaponAttackManager;
-    private AimWeapon _aimWeapon;
+    private WeaponAimManager _weaponAimManager;
 
     private bool _equipped;
     public bool Equipped { get => _equipped; }
@@ -39,7 +39,7 @@ public class Weapon
             {
                 _animator.SetTrigger("Attack");
                 _weaponAttackManager.OnWeaponAttack();
-                _aimWeapon.PauseAiming();
+                _weaponAimManager.PauseAiming();
             }
         }
         else if (_data.type == WeaponType.Ranged) // ranged attack
@@ -59,7 +59,7 @@ public class Weapon
     {
         bool validHit = false;
 
-        // check collider transform to see if target should be hit
+        // check collider Transform to see if target should be hit
         if (collider.transform.tag == "Obstacle") validHit = true;
         else if (collider.transform.tag == "Character") validHit = true;
 
@@ -100,7 +100,7 @@ public class Weapon
     }
     public void OnAttackAnimationEnd()
     {
-        _aimWeapon.ResumeAiming();
+        _weaponAimManager.ResumeAiming();
     }
 
     public void Equip()
@@ -115,14 +115,14 @@ public class Weapon
         _weaponAttackManager = Transform.GetComponent<WeaponAttackManager>();
         _weaponAttackManager.Initialize(this);
 
-        _aimWeapon = Owner.transform.GetComponentInChildren<AimWeapon>();
+        _weaponAimManager = Owner.Transform.GetComponentInChildren<WeaponAimManager>();
 
         spriteRenderer = Transform.GetComponent<SpriteRenderer>();
         _animator = Transform.GetComponent<Animator>();
         
         if(_animator != null) Transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
 
-        Transform.parent = Owner.transform.Find("WeaponParent");
+        Transform.parent = Owner.Transform.Find("WeaponParent");
 
         _equipped = true;
     }
@@ -133,7 +133,7 @@ public class Weapon
         Transform = null;
         _projectileSpawner = null;
         _weaponAttackManager = null;
-        _aimWeapon = null;
+        _weaponAimManager = null;
         
         _equipped = false;
     }

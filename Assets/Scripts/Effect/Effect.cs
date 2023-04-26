@@ -7,6 +7,8 @@ public struct EffectArgs
     public Transform Source;
     public Vector2 SourcePoint;
     public Vector2 EffectPoint;
+    
+    // could reference all sorts of optional parameters
 
     public EffectArgs(Transform source, Transform target, Vector2 effectPoint)
     {
@@ -19,11 +21,9 @@ public struct EffectArgs
 
 public abstract class Effect : ScriptableObject
 {
-    // store reference to run routine if effects is applied over time
-    protected IEnumerator activeRunRoutine;
+    protected IEnumerator ActiveRunRoutine;
     public GameObject effectParticles;
-
-    // apply to target
+    
     public abstract void Apply(EffectArgs args);
 
     public virtual void Remove()

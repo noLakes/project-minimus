@@ -9,17 +9,17 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField]
     private Cinemachine.CinemachineVirtualCamera cinemachineVirtualCamera;
-    private CinemachineTransposer transposer;
+    // used by cinemachine to apply offset and modify camera position
+    private CinemachineTransposer _transposer;
     private Transform _playerTransform;
     private bool _followingTarget;
-
-    private float _fovSizeX;
-    [SerializeField, Range(0f, 0.7f)] private float maxXOffsetPercent;
-    private float _maxCameraOffsetX;
-    private float _fovSizeY;
-    [SerializeField, Range(0f, 0.7f)] private float maxYOffsetPercent;
-    private float _maxCameraOffsetY;
-
+    
+    // store values for camera view size
+    private float _fovSizeX, _fovSizeY;
+    // max offset allowed for camera (percentage of fov size)
+    [SerializeField, Range(0f, 0.7f)] private float maxXOffsetPercent, maxYOffsetPercent;
+    private float _maxCameraOffsetX, _maxCameraOffsetY;
+    
     void Start()
     {
         _playerTransform = Game.Instance.PlayerCharacter.transform;
@@ -30,11 +30,6 @@ public class CameraManager : MonoBehaviour
         _maxCameraOffsetY = _fovSizeY * maxYOffsetPercent;
         _fovSizeX = _fovSizeY * Screen.width / Screen.height;
         _maxCameraOffsetX = _fovSizeX * maxXOffsetPercent;
-
-        Debug.Log("fovSizeX: " + _fovSizeX);
-        Debug.Log("maxCamOffsetX: " + _maxCameraOffsetX);
-        Debug.Log("fovSizeY: " + _fovSizeY);
-        Debug.Log("maxCamOffsetY: " + _maxCameraOffsetY);
     }
     
     void Update()
@@ -52,20 +47,19 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void CameraFollow(Transform target)
+    private void CameraFollow(Transform target)
     {
         cinemachineVirtualCamera.m_Follow = target;
         
-        // setup transposer - only available when component has a follow target
-        transposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+        // setup _transposer - only available when component has a follow target
+        _transposer = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 
         _followingTarget = true;
     }
 
     private void ApplyCameraMouseOffset(Vector2 mouseDistance)
     {
-
-        transposer.m_FollowOffset = new Vector3(
+        _transposer.m_FollowOffset = new Vector3(
             _maxCameraOffsetX * (-mouseDistance.x / _fovSizeX),
             _maxCameraOffsetY * (-mouseDistance.y / _fovSizeY),
             -10f
@@ -74,10 +68,10 @@ public class CameraManager : MonoBehaviour
 
     private void ResetCameraPosition()
     {
-        transposer.m_FollowOffset.x = 0f;
-        transposer.m_FollowOffset.y = 0f;
+        _transposer.m_FollowOffset.x = 0f;
+        _transposer.m_FollowOffset.y = 0f;
         cinemachineVirtualCamera.m_Follow = null;
-        transposer = null;
+        _transposer = null;
         _followingTarget = false;
     }
 }

@@ -5,42 +5,35 @@ using System.Linq;
 
 public class Character
 {
-    protected string uid;
-    public CharacterData data { get; protected set; }
-    public string code { get; protected set; }
-    public Transform transform;
-    public int health;
-    public int maxHealth;
-
-    List<Weapon> _weapons;
-    public List<Weapon> Weapons { get => _weapons; }
+    private readonly string _uid;
+    private CharacterData _data;
+    private string _code;
+    public readonly Transform Transform;
+    private int _health;
+    private int _maxHealth;
+    private List<Weapon> _weapons;
 
     public Character(CharacterData initialData)
     {
-        uid = System.Guid.NewGuid().ToString();
-        data = initialData;
-        code = data.code;
-        health = data.health;
-        maxHealth = data.health;
+        _uid = System.Guid.NewGuid().ToString();
+        _data = initialData;
+        _code = _data.code;
+        _health = _data.health;
+        _maxHealth = _data.health;
 
         _weapons = new List<Weapon>();
 
-        GameObject g = GameObject.Instantiate(data.prefab) as GameObject;
-        transform = g.transform;
-        transform.parent = Game.Instance.CHARACTER_CONTAINER;
+        var g = GameObject.Instantiate(_data.prefab) as GameObject;
+        Transform = g.transform;
+        Transform.parent = Game.Instance.CHARACTER_CONTAINER;
         g.GetComponent<CharacterManager>().Initialize(this);
     }
 
     public virtual void SetPosition(Vector3 position)
     {
-        transform.position = position;
+        Transform.position = position;
     }
-
-    public override string ToString()
-    {
-        return "{ code: " + code + ", uid: " + uid + " }";
-    }
-
+    
     public void AddWeapon(Weapon newWeapon)
     {
         if(!_weapons.Contains(newWeapon))
@@ -55,5 +48,27 @@ public class Character
         {
             _weapons.Remove(weapon);
         }
+    }
+    
+    public string Code
+    {
+        get => _code;
+    }
+    
+    public int Health
+    {
+        get => _health;
+        set => _health = Mathf.Min(value, _maxHealth);
+    }
+    
+    public int MaxHealth
+    {
+        get => _maxHealth;
+        set => _maxHealth = Mathf.Max(0, value);
+    }
+    
+    public override string ToString()
+    {
+        return "{ Code: " + Code + ", _uid: " + _uid + " }";
     }
 }

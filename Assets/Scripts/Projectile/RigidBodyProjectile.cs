@@ -31,7 +31,7 @@ public class RigidBodyProjectile : Projectile
 
     void Update()
     {
-        if (Game.Instance.gameIsPaused) return;
+        if (Game.Instance.GameIsPaused) return;
         
         HandleRangeCheck();
         HandleFlybyCollision();

@@ -8,7 +8,7 @@ public class Damage : Effect
 
     public override void Apply(EffectArgs args)
     {
-        if(args.Target.TryGetComponent<CharacterManager>(out CharacterManager cm))
+        if(args.Target.TryGetComponent<CharacterManager>(out var cm))
         {
             cm.Damage(amount);
         }

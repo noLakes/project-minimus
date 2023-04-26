@@ -9,16 +9,16 @@ public static class DataHandler
         Game.CHARACTER_DATA = Resources.LoadAll<CharacterData>("Scriptable Objects/Characters");
         Game.WEAPON_DATA = Resources.LoadAll<WeaponData>("Scriptable Objects/Weapons");
 
-        GameParameters[] gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
-        foreach (GameParameters parameters in gameParametersList)
+        var gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
+        foreach (var parameters in gameParametersList)
             parameters.LoadFromFile();
     }
 
     public static void SaveGameData()
     {
         // save game parameters
-        GameParameters[] gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
-        foreach (GameParameters parameters in gameParametersList)
+        var gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
+        foreach (var parameters in gameParametersList)
             parameters.SaveToFile();
     }
 

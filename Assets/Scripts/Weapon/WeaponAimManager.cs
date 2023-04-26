@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimWeapon : MonoBehaviour
+public class WeaponAimManager : MonoBehaviour
 {
     public SpriteRenderer weaponRenderer, characterRenderer;
     private Vector3 _aimDirection;
