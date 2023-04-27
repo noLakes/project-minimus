@@ -6,23 +6,15 @@ using UnityEngine.Serialization;
 
 public class WeaponAttackManager : MonoBehaviour
 {
-    Weapon _weapon;
-    
+    private Weapon _weapon;
     private bool _reloading;
     private bool _refreshing;
-
-    private int _reloadCounter;
-
-    [SerializeField]
-    private Transform hitBoxOrigin;
-    [SerializeField]
-    private float hitRadius;
-    
-
-    public bool Ready { get => !_reloading && !_refreshing; }
-
-    IEnumerator _activeAttackRefreshRoutine;
-    IEnumerator _activeReloadRoutine;
+    private int _attackCounter;
+    [SerializeField] private Transform hitBoxOrigin;
+    [SerializeField] private float hitRadius;
+    private IEnumerator _activeAttackRefreshRoutine;
+    private IEnumerator _activeReloadRoutine;
+    public bool Ready => !_reloading && !_refreshing;
 
     public void Initialize(Weapon weapon)
     {
@@ -34,14 +26,9 @@ public class WeaponAttackManager : MonoBehaviour
     {
         AttackRefresh();
 
-        if(_weapon.Stats.magazineSize > 0)
-        {
-            _reloadCounter ++;
-
-            if(_reloadCounter >= _weapon.Stats.magazineSize) Reload();
-        }
-
-        // add reload logic later... might be best to handle this with an event trigger?
+        if (_weapon.Stats.MagazineSize <= 0) return;
+        _attackCounter ++;
+        if(_attackCounter >= _weapon.Stats.MagazineSize) Reload();
     }
 
     public void Reload()
@@ -58,18 +45,17 @@ public class WeaponAttackManager : MonoBehaviour
 
     private IEnumerator ReloadCoroutine()
     {
-        Debug.Log(_weapon.Data.name + " reloading for " + _weapon.Stats.reloadTime + "s");
         _reloading = true;
-        yield return new WaitForSeconds(_weapon.Stats.reloadTime);
+        yield return new WaitForSeconds(_weapon.Stats.ReloadTime);
         _reloading = false;
-        _reloadCounter = 0;
+        _attackCounter = 0;
         _activeReloadRoutine = null;
     }
 
     private IEnumerator AttackRefreshCoroutine()
     {
         _refreshing = true;
-        yield return new WaitForSeconds(_weapon.Stats.attackRate);
+        yield return new WaitForSeconds(_weapon.Stats.AttackRate);
         _refreshing = false;
         _activeReloadRoutine = null;
     }
@@ -80,20 +66,22 @@ public class WeaponAttackManager : MonoBehaviour
         if(_activeAttackRefreshRoutine != null) StopCoroutine(_activeAttackRefreshRoutine);
         _reloading = false;
         _refreshing = false;
-        _reloadCounter = 0;
+        _attackCounter = 0;
     }
 
+    // triggered during melee animation
+    // some stop-on-hit logic may need to interact with this in future
     public void DetectColliders()
     {
-        foreach (Collider2D collider in Physics2D.OverlapCircleAll(hitBoxOrigin.position, hitRadius))
+        foreach (Collider2D c in Physics2D.OverlapCircleAll(hitBoxOrigin.position, hitRadius))
         {
-            _weapon.ValidateHit(collider, collider.transform.position);
+            _weapon.ProcessHit(c, c.transform.position);
         }
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue;
-        Vector3 position = hitBoxOrigin == null ? Vector3.zero : hitBoxOrigin.position;
+        var position = hitBoxOrigin == null ? Vector3.zero : hitBoxOrigin.position;
         Gizmos.DrawWireSphere(position, hitRadius);
     }
 }

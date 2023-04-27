@@ -10,27 +10,25 @@ public enum InputState
 public class InputManager : MonoBehaviour
 {
     private InputState _inputState;
-    [HideInInspector]
-
-    public InputState State
-    {
-        get => _inputState;
-        set => _inputState = value;
-    }
 
     public void Initialize(InputState startingState)
     {
         _inputState = startingState;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
     }
 
     private void HandleLeftClick()
     {   
-        Vector2 mousePos = Utility.GetMouseWorldPosition2D();
-        if (State == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
+        var mousePos = Utility.GetMouseWorldPosition2D();
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
+    }
+    
+    public InputState State
+    {
+        get => _inputState;
     }
 }

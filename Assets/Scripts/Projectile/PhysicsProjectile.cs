@@ -6,31 +6,27 @@ public class PhysicsProjectile : Projectile
 {
     public float velocity; //  used to launch projectile.
     private Rigidbody2D _rigidbody2D;
-
-    Vector2 _moveDirection;
-
+    private Vector2 _moveDirection;
     private Vector2 _lastPosition; // Store last position for backward raycast collision checks
     private Vector2 _currentPosition; // Store the current position we are at.
     private float _distanceTravelled; // Record the distance travelled.
-
-    Vector2 _origin; // To store where the projectile first spawned.
+    private Vector2 _origin; // To store where the projectile first spawned.
 
     public override void Initialize(Vector2 moveDirection)
     {
         _moveDirection = moveDirection;
         CurrentHitCount = 0;
         _currentPosition = transform.position;
-        Debug.Log("physics projectile initialized towards: " + moveDirection + " with force of " + velocity);
         _rigidbody2D.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _origin = _currentPosition = transform.position;
     }
 
-    void Update()
+    private void Update()
     {
         if (Game.Instance.GameIsPaused) return;
 
@@ -51,7 +47,7 @@ public class PhysicsProjectile : Projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         // check if hit collider belongs to hittable target....
-        if (_linkedWeapon.ValidateHit(other, transform.position))
+        if (_linkedWeapon.ProcessHit(other, transform.position))
         {
             OnHit();
         }
@@ -66,17 +62,14 @@ public class PhysicsProjectile : Projectile
     private void HandleFlybyCollision()
     {
         if (velocity < 12f) return; // too slow to warrant checking
-
-        //Debug.DrawLine(_lastPosition, _currentPosition, Color.red);
+        
         RaycastHit2D ray = Physics2D.Raycast(_lastPosition, _moveDirection, _distanceTravelled);
 
-        if (ray.collider != null)
+        if (!ray.collider) return;
+        
+        if (_linkedWeapon.ProcessHit(ray.collider, ray.point))
         {
-            if (_linkedWeapon.ValidateHit(ray.collider, _lastPosition))
-            {
-                //Debug.DrawLine(_currentPosition, ray.point, Color.cyan, 5f);
-                OnHit();
-            }
+            OnHit();
         }
     }
 
@@ -90,7 +83,7 @@ public class PhysicsProjectile : Projectile
 
     private void HandleRangeCheck()
     {
-        if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
+        if (_linkedWeapon.Stats.Range > 0f && _distanceTravelled >= _linkedWeapon.Stats.Range)
         {
             Stop();
         }
@@ -100,14 +93,12 @@ public class PhysicsProjectile : Projectile
     {
         if (persistAfterStop)
         {
-            Debug.Log("Turning off projectile script");
             _rigidbody2D.velocity = Vector2.zero;
             GetComponent<Collider2D>().isTrigger = false;
             enabled = false;
         }
         else
         {
-            Debug.Log("Destroying stopped projectile");
             Destroy(gameObject);
         }
     }

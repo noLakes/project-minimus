@@ -16,21 +16,6 @@ public static class Utility
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
-    /*
-    public static Vector3 GetMouseWorldPosition()
-    {
-        Vector3 vec = GetMouseWorldPositionWithZ(Input.mousePosition, Camera.main);
-        vec.z = 0f;
-        return vec;
-    }
-
-    public static Vector3 GetMouseWorldPositionWithZ(Vector3 screenPosition, Camera worldCamera)
-    {
-        Vector3 worldPosition = worldCamera.ScreenToWorldPoint(screenPosition);
-        return worldPosition;
-    }
-    */
-
     public static int GetAlphaKeyValue(string keyString)
     {
         if (keyString == "0" || keyString == "à") return 0;
@@ -48,6 +33,7 @@ public static class Utility
 
 
     static Regex camelCaseRegex = new Regex(@"(?:[a-z]+|[A-Z]+|^)([a-z]|\d)*", RegexOptions.Compiled);
+    
     public static string CapitalizeWords(string str)
     {
         List<string> words = new List<string>();
@@ -60,24 +46,5 @@ public static class Utility
             words.Add(word);
         }
         return string.Join(" ", words);
-    }
-
-    public static void CollectComponentsInChildren<T>(List<T> accumulator, Transform tr, string avoidTransform = null)
-    {
-        if (tr.name == avoidTransform) return;
-
-        if (tr.childCount > 0)
-        {
-            foreach (Transform subTr in tr)
-            {
-                CollectComponentsInChildren<T>(accumulator, subTr, avoidTransform);
-            }
-        }
-
-        if (tr.TryGetComponent<T>(out T comp))
-        {
-            accumulator.Add(comp);
-        }
-
     }
 }

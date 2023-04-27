@@ -59,7 +59,7 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Equip();
         
         _weaponAimManager.UpdateSpriteRenderers(
-            _currentWeapon.spriteRenderer,
+            _currentWeapon.SpriteRenderer,
             spriteRenderer
             );
 

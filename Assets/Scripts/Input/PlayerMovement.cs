@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    float speed;
+    [SerializeField] float speed;
     public Rigidbody2D rb;
 
-    Vector2 moveDirection;
-
-    // Update is called once per frame
-    void Update()
+    private Vector2 _moveDirection;
+    
+    private void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        var moveX = Input.GetAxisRaw("Horizontal");
+        var moveY = Input.GetAxisRaw("Vertical");
         
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        _moveDirection = new Vector2(moveX, moveY).normalized;
     }
 
-    void FixedUpdate() 
+    private void FixedUpdate() 
     {
-        rb.velocity = moveDirection * speed;
+        rb.velocity = _moveDirection * speed;
     }
 
 }

@@ -60,6 +60,8 @@ public class Game : MonoBehaviour
                 }
             };
         }
+        
+        GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
     }
 
     private void Update()

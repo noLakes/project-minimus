@@ -9,17 +9,15 @@ public abstract class GameParameters : JSONSerializableScriptableObject
     [SerializeField]
     protected List<string> _fieldsToShowInGame;
 
-    public bool ShowsField(string fieldName)
+    private bool ShowsField(string fieldName)
     {
-        if (_fieldsToShowInGame == null)
-            return false;
-        return _fieldsToShowInGame.Contains(fieldName);
+        return _fieldsToShowInGame != null && _fieldsToShowInGame.Contains(fieldName);
     }
 
     public void ToggleShowField(string fieldName)
     {
-        if (_fieldsToShowInGame == null)
-            _fieldsToShowInGame = new List<string>();
+        // assigns if null
+        _fieldsToShowInGame ??= new List<string>();
 
         if (ShowsField(fieldName))
             _fieldsToShowInGame.Remove(fieldName);
@@ -27,5 +25,5 @@ public abstract class GameParameters : JSONSerializableScriptableObject
             _fieldsToShowInGame.Add(fieldName);
     }
 
-    public List<string> fieldsToShowInGame => _fieldsToShowInGame;
+    public List<string> FieldsToShowInGame => _fieldsToShowInGame;
 }

@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Crosshair : MonoBehaviour
 {
-    Color _initialColor;
-    Color _activeColor;
-    SpriteRenderer _spriteRenderer;
-
-    // Start is called before the first frame update
-    void Start()
+    private Color _initialColor;
+    private Color _activeColor;
+    private SpriteRenderer _spriteRenderer;
+    
+    private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _initialColor = _spriteRenderer.color;
@@ -17,9 +16,8 @@ public class Crosshair : MonoBehaviour
         _activeColor.a = 0.9f;
         _spriteRenderer.color = _activeColor;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         transform.position = Utility.GetMouseWorldPosition2D();
     }

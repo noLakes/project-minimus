@@ -1,24 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ProjectileSpawner : MonoBehaviour
 {
-    [SerializeField]
-    protected GameObject _projectilePrefab;
-
-    [SerializeField]
-    protected Transform spawnPoint;
-
-    protected Weapon _weapon;
+    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Transform spawnPoint;
+    protected Weapon Weapon;
 
     public void Initialize(Weapon weapon)
     {
-        _weapon = weapon;
+        Weapon = weapon;
     }
     
-    public virtual void Spawn(Vector2 shootDir, Quaternion rotation)
+    public virtual void Spawn(Vector2 shootPoint, Quaternion rotation)
     {
-        // add default behavior?
+        // do nothing by default
     }
 }

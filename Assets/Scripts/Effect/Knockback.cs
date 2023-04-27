@@ -26,7 +26,10 @@ public class Knockback : Effect
         // need some way to pause targets movement during knockback
         // could add method to character manager that uses a coroutine to lock movement for the same time as knockback
         yield return new WaitForSeconds(releaseTime);
-        _targetRb.velocity = Vector2.zero;
         
+        if (_targetRb != null) // null check in case character died after being knocked back
+        {
+            _targetRb.velocity = Vector2.zero;
+        }
     }
 }

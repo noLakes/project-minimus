@@ -3,20 +3,20 @@ using System.Collections.Generic;
 
 public struct WeaponStats
 {
-    public int damage;
-    public float attackRate;
-    public int magazineSize;
-    public float reloadTime;
-    public float range;
-    public List<Effect> onHitEffects;
+    public int Damage;
+    public float AttackRate;
+    public int MagazineSize;
+    public float ReloadTime;
+    public float Range;
+    public List<Effect> OnHitEffects;
 
     public WeaponStats(WeaponData data)
     {
-        damage = data.damage;
-        attackRate = data.attackRate;
-        magazineSize = data.magazineSize;
-        reloadTime = data.reloadTime;
-        range = data.range;
-        onHitEffects = data.onHitEffects;
+        Damage = data.damage;
+        AttackRate = data.attackRate;
+        MagazineSize = data.magazineSize;
+        ReloadTime = data.reloadTime;
+        Range = data.range;
+        OnHitEffects = data.onHitEffects;
     }
 }

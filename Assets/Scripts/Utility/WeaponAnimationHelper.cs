@@ -9,10 +9,13 @@ public class WeaponAnimationHelper : MonoBehaviour
         _weapon = weapon;
     }
 
+    // triggered by animation events
     public void AttackStart()
     {
         _weapon.OnAttackAnimationStart();
     }
+    
+    // triggered by animation events
     public void AttackEnd()
     {
         _weapon.OnAttackAnimationEnd();

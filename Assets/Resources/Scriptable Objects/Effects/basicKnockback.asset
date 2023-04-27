@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectParticles: {fileID: 0}
   forceMultiplier: 10
-  runTime: 0.15
+  releaseTime: 0.15

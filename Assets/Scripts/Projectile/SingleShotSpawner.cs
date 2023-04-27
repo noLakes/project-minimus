@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SingleShotSpawner : ProjectileSpawner
 {
-    public override void Spawn(Vector2 shootLocation, Quaternion rotation)
+    public override void Spawn(Vector2 shootPoint, Quaternion rotation)
     {
-        Vector2 shootDir = (shootLocation - (Vector2)transform.position).normalized;
-        GameObject go = Instantiate(_projectilePrefab, spawnPoint.position, rotation);
+        Vector2 shootDir = (shootPoint - (Vector2)transform.position).normalized;
+        var go = Instantiate(projectilePrefab, spawnPoint.position, rotation);
         
-        Projectile p = go.GetComponent<Projectile>();
+        var projectile = go.GetComponent<Projectile>();
         
-        p.Initialize(shootDir);
-        p.LinkWeapon(_weapon);
+        projectile.Initialize(shootDir);
+        projectile.LinkWeapon(Weapon);
     }
 }
