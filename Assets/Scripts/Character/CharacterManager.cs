@@ -56,7 +56,7 @@ public class CharacterManager : MonoBehaviour
         if(_currentWeapon != null && weapon != _currentWeapon) _currentWeapon.Unequip();
 
         _currentWeapon = weapon;
-        _currentWeapon.Equip();
+        _currentWeapon.Equip(_character);
         
         _weaponAimManager.UpdateSpriteRenderers(
             _currentWeapon.SpriteRenderer,

@@ -18,7 +18,7 @@ public class Weapon
     private bool _equipped;
     private Character _owner;
     
-    public Weapon(WeaponData initialData, Character owner)
+    public Weapon(WeaponData initialData, Character owner = null)
     {
         uid = System.Guid.NewGuid().ToString();
         _data = initialData;
@@ -98,11 +98,10 @@ public class Weapon
         _weaponAimManager.ResumeAiming();
     }
 
-    public void Equip()
+    public void Equip(Character owner)
     {
-        Debug.Log("Weapon equipped");
-        var go = GameObject.Instantiate(_data.prefab);
-        _transform = go.transform;
+        _owner = owner;
+        CreateTransform();
         
         if (_transform.TryGetComponent<ProjectileSpawner>(out _projectileSpawner))
         {
@@ -132,6 +131,24 @@ public class Weapon
         _weaponAttackManager = null;
         _weaponAimManager = null;
         _equipped = false;
+    }
+
+    private Transform CreateTransform()
+    {
+        if (_transform != null)
+        {
+            return _transform;
+        }
+        
+        return _transform = GameObject.Instantiate((_data.prefab)).transform;
+    }
+
+    public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
+    {
+        var weapon = new Weapon(initialData);
+        weapon.CreateTransform();
+        weapon._transform.position = spawnPoint;
+        return weapon;
     }
     
     public WeaponData Data => _data;

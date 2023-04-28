@@ -48,6 +48,9 @@ public class Game : MonoBehaviour
         _playerCharacter.Character.SetPosition(Vector3.zero);
         var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
+        
+        // test
+        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Crossbow"), new Vector2(1f, -5f));
 
         for (var i = 0; i < 5; i++)
         {

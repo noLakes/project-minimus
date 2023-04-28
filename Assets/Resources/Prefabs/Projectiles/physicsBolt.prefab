@@ -134,6 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitCount: 1
   persistAfterHit: 1
+  attachAfterHit: 1
   persistAfterStop: 1
   velocity: 60
 --- !u!61 &1525640237544770081

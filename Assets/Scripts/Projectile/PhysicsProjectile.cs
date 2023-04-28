@@ -49,14 +49,30 @@ public class PhysicsProjectile : Projectile
         // check if hit collider belongs to hittable target....
         if (_linkedWeapon.ProcessHit(other, transform.position))
         {
-            OnHit();
+            OnHit(other);
         }
     }
 
-    protected override void OnHit()
+    protected override void OnHit(Collider2D other)
     {
         CurrentHitCount++;
-        if (CurrentHitCount >= maxHitCount) Destroy(gameObject);
+        if (CurrentHitCount < maxHitCount)
+        {
+            return;
+        }
+
+        if (!persistAfterHit)
+        {
+            Destroy(gameObject);
+        }
+
+        if (attachAfterHit)
+        {
+            // attach to hit target
+            transform.parent = other.transform;
+        }
+        
+        Stop();
     }
     
     private void HandleFlybyCollision()
@@ -69,7 +85,7 @@ public class PhysicsProjectile : Projectile
         
         if (_linkedWeapon.ProcessHit(ray.collider, ray.point))
         {
-            OnHit();
+            OnHit(ray.collider);
         }
     }
 
