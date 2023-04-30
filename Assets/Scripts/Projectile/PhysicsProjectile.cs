@@ -5,36 +5,37 @@ using UnityEngine;
 public class PhysicsProjectile : Projectile
 {
     public float velocity; //  used to launch projectile.
-    private Rigidbody2D _rigidbody2D;
+    private Rigidbody2D _rb;
+    private Collider2D _collider;
     private Vector2 _moveDirection;
-    private Vector2 _lastPosition; // Store last position for backward raycast collision checks
     private Vector2 _currentPosition; // Store the current position we are at.
     private float _distanceTravelled; // Record the distance travelled.
     private Vector2 _origin; // To store where the projectile first spawned.
+    private bool _attachedToTarget;
 
     public override void Initialize(Vector2 moveDirection)
     {
         _moveDirection = moveDirection;
         CurrentHitCount = 0;
         _currentPosition = transform.position;
-        _rigidbody2D.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
+        _rb.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
     }
 
     private void OnEnable()
     {
-        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
         _origin = _currentPosition = transform.position;
     }
 
     private void Update()
     {
         if (Game.Instance.GameIsPaused) return;
+        
+        _currentPosition = transform.position;
 
         HandleRangeCheck();
         HandleFlybyCollision();
-        
-        _lastPosition = _currentPosition;
-        _currentPosition = transform.position;
 
         _distanceTravelled = Vector2.Distance(_currentPosition, _origin);
 
@@ -49,11 +50,11 @@ public class PhysicsProjectile : Projectile
         // check if hit collider belongs to hittable target....
         if (_linkedWeapon.ProcessHit(other, transform.position))
         {
-            OnHit(other);
+            OnHit(other, other.ClosestPoint(transform.position));
         }
     }
 
-    protected override void OnHit(Collider2D other)
+    protected override void OnHit(Collider2D other, Vector2 hitPoint)
     {
         CurrentHitCount++;
         if (CurrentHitCount < maxHitCount)
@@ -61,6 +62,8 @@ public class PhysicsProjectile : Projectile
             return;
         }
 
+        Debug.Log("Registering Hit");
+        
         if (!persistAfterHit)
         {
             Destroy(gameObject);
@@ -70,6 +73,7 @@ public class PhysicsProjectile : Projectile
         {
             // attach to hit target
             transform.parent = other.transform;
+            _attachedToTarget = true;
         }
         
         Stop();
@@ -77,21 +81,21 @@ public class PhysicsProjectile : Projectile
     
     private void HandleFlybyCollision()
     {
-        if (velocity < 12f) return; // too slow to warrant checking
+        if (velocity < 20f) return; // too slow to warrant checking
         
-        RaycastHit2D ray = Physics2D.Raycast(_lastPosition, _moveDirection, _distanceTravelled);
+        RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection*-1f, 1f);
 
         if (!ray.collider) return;
         
         if (_linkedWeapon.ProcessHit(ray.collider, ray.point))
         {
-            OnHit(ray.collider);
+            OnHit(ray.collider, ray.point);
         }
     }
 
     private void HandleVelocityCheck()
     {
-        if (_distanceTravelled > 1f && _rigidbody2D.velocity.sqrMagnitude < Vector2.one.sqrMagnitude)
+        if (enabled && _distanceTravelled > 1f && _rb.velocity.magnitude < 0.5f)
         {
             Stop();
         }
@@ -109,8 +113,17 @@ public class PhysicsProjectile : Projectile
     {
         if (persistAfterStop)
         {
-            _rigidbody2D.velocity = Vector2.zero;
-            GetComponent<Collider2D>().isTrigger = false;
+            _rb.velocity = Vector2.zero;
+            _collider.isTrigger = false;
+            
+            if (_attachedToTarget)
+            {
+                Destroy(_rb);
+                _rb = null;
+                Destroy(_collider);
+                _collider = null;
+            }
+            
             enabled = false;
         }
         else

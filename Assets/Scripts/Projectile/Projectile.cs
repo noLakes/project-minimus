@@ -18,7 +18,7 @@ public abstract class Projectile : MonoBehaviour
         _linkedWeapon = linkedWeapon;
     }
 
-    protected abstract void OnHit(Collider2D other);
+    protected abstract void OnHit(Collider2D other, Vector2 hitPoint);
 
     protected abstract void Stop();
 }

@@ -136,7 +136,7 @@ MonoBehaviour:
   persistAfterHit: 1
   attachAfterHit: 1
   persistAfterStop: 1
-  velocity: 60
+  velocity: 35
 --- !u!61 &1525640237544770081
 BoxCollider2D:
   m_ObjectHideFlags: 0
