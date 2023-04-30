@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
     public static int PLAYER_MASK = 1 << 6;
     public static int ENEMY_MASK = 1 << 7;
     public static int PROJECTILE_MASK = 1 << 8;
+    public static int INTERACTABLE_MASK = 1 << 9;
     public static int WALL_MASK = 1 << 12;
     public static int GROUND_MASK = 1 << 13;
 

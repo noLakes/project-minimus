@@ -19,12 +19,18 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
+        if (Input.GetKeyDown(KeyCode.E)) HandleInteractionPressed();
     }
 
     private void HandleLeftClick()
     {   
         var mousePos = Utility.GetMouseWorldPosition2D();
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
+    }
+
+    private void HandleInteractionPressed()
+    {
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Interact();
     }
     
     public InputState State

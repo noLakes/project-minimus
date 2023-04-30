@@ -143,6 +143,11 @@ public class Weapon
         return _transform = GameObject.Instantiate((_data.prefab)).transform;
     }
 
+    public void OnPickup(CharacterManager characterManager)
+    {
+        
+    }
+
     public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
     {
         var weapon = new Weapon(initialData);
