@@ -153,6 +153,7 @@ public class Weapon
     
     public WeaponData Data => _data;
     public WeaponStats Stats => _activeStats;
+    public Transform Transform => _transform;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public bool Equipped => _equipped;
     public Character Owner => _owner;

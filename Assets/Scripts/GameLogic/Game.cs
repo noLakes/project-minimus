@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.VisualScripting;
 using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
@@ -50,7 +51,13 @@ public class Game : MonoBehaviour
         _playerCharacter.EquipWeapon(startingWeapon);
         
         // test
-        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Crossbow"), new Vector2(1f, -5f));
+        var testWep = Weapon.SpawnInWorld(DataHandler.LoadWeapon("Crossbow"), new Vector2(1f, -5f));
+        
+        /*
+        testWep.Transform.AddComponent<Interactable>();
+        var interactable = testWep.Transform.GetComponent<Interactable>();
+        interactable.AddInteractionListener(testWep.Unequip);
+        */
 
         for (var i = 0; i < 5; i++)
         {
