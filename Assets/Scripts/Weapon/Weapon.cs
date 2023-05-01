@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -143,16 +144,13 @@ public class Weapon
         return _transform = GameObject.Instantiate((_data.prefab)).transform;
     }
 
-    public void OnPickup(CharacterManager characterManager)
-    {
-        
-    }
-
     public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
     {
         var weapon = new Weapon(initialData);
         weapon.CreateTransform();
         weapon._transform.position = spawnPoint;
+        var wp = weapon._transform.AddComponent<WeaponPickup>();
+        wp.Initialize(weapon.Data);
         return weapon;
     }
     

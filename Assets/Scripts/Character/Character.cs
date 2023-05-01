@@ -39,6 +39,11 @@ public class Character
         if(!_weapons.Contains(newWeapon))
         {
             _weapons.Add(newWeapon);
+            Debug.Log(_code + " weapon inventory:");
+            foreach (var wep in _weapons)
+            {
+                Debug.Log(wep.Data.name);
+            }
         }
     }
 

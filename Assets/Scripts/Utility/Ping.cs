@@ -8,4 +8,10 @@ public class Ping : MonoBehaviour
     {
         Debug.Log("Ping!");
     }
+
+    public void Trigger(object data)
+    {
+        CharacterManager cm = (CharacterManager)data;
+        Debug.Log(cm.name + " Ping'd!");
+    }
 }

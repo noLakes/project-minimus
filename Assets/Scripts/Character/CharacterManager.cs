@@ -75,6 +75,12 @@ public class CharacterManager : MonoBehaviour
 
         return newWeapon;
     }
+    
+    public void Interact()
+    {
+        if (_nearbyInteractables.Count == 0) return;
+        _nearbyInteractables[0].GetComponent<Interactable>().Interact(this);
+    }
 
     private void UpdateInteractables()
     {
@@ -98,11 +104,6 @@ public class CharacterManager : MonoBehaviour
         _nearbyInteractables.Remove(interactable);
         Debug.Log(interactable.transform.name + "removed from " + name + "interactable pool");
         UpdateInteractables();
-    }
-    public void Interact()
-    {
-        if (_nearbyInteractables.Count == 0) return;
-        _nearbyInteractables[0].GetComponent<Interactable>().Trigger();
     }
 
     public Character Character

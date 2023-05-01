@@ -6,26 +6,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField] private UnityEvent interactionEvent;
-
-    public void Trigger()
-    {
-        interactionEvent.Invoke();
-    }
-
-    public void AddInteractionListener(UnityAction action)
-    {
-        interactionEvent.AddListener(action);
-    }
-
-    public void RemoveInteractionListener(UnityAction action)
-    {
-        interactionEvent.RemoveListener(action);
-    }
+    public abstract void Interact(CharacterManager cm);
     
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log(name + "enters interaction range");
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -34,7 +19,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
