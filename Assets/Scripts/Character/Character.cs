@@ -71,7 +71,9 @@ public class Character
         get => _maxHealth;
         set => _maxHealth = Mathf.Max(0, value);
     }
-    
+
+    public List<Weapon> Weapons => _weapons;
+
     public override string ToString()
     {
         return "{ Code: " + Code + ", _uid: " + _uid + " }";

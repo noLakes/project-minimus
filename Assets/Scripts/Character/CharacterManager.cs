@@ -75,6 +75,20 @@ public class CharacterManager : MonoBehaviour
 
         return newWeapon;
     }
+
+    public void SwitchWeapon()
+    {
+        if (_character.Weapons.Count < 2)
+        {
+            // respond to cant switch
+            return;
+        }
+
+        var nextWeaponIndex = _character.Weapons.IndexOf(_currentWeapon) + 1;
+        if (nextWeaponIndex == _character.Weapons.Count) nextWeaponIndex = 0;
+        
+        EquipWeapon(_character.Weapons[nextWeaponIndex]);
+    }
     
     public void Interact()
     {

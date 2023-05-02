@@ -51,14 +51,8 @@ public class Game : MonoBehaviour
         var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
         
-        // test
-        var testWep = Weapon.SpawnInWorld(DataHandler.LoadWeapon("Crossbow"), new Vector2(1f, -5f));
-        
-        /*
-        testWep.Transform.AddComponent<Interactable>();
-        var interactable = testWep.Transform.GetComponent<Interactable>();
-        interactable.AddInteractionListener(testWep.Unequip);
-        */
+        // spawn test weapon in world
+        var testWep = Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
 
         for (var i = 0; i < 5; i++)
         {

@@ -120,7 +120,10 @@ public class Weapon
             _transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
         }
 
-        _transform.parent = Owner.Transform.Find("WeaponParent");
+        
+        _transform.position = owner.Transform.position + _transform.localPosition;
+        var parent = Owner.Transform.Find("WeaponParent");
+        _transform.parent = parent;
         _equipped = true;
     }
 
