@@ -52,6 +52,13 @@ public class WeaponAimManager : MonoBehaviour
         _weapon = weapon;
     }
 
+    public void ResetPosition()
+    {
+        transform.localPosition = Vector3.zero;
+        transform.localEulerAngles = Vector3.zero;
+        transform.localScale = Vector3.one;
+    }
+
     public void PauseAiming() => _pauseAim = true;
     public void ResumeAiming() => _pauseAim = false;
 }

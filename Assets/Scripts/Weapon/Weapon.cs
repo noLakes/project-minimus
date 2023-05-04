@@ -113,13 +113,13 @@ public class Weapon
         _weaponAttackManager.Initialize(this);
 
         _weaponAimManager = Owner.Transform.GetComponentInChildren<WeaponAimManager>();
+        _weaponAimManager.ResetPosition();
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
         
         if (_transform.TryGetComponent<Animator>(out _animator))
         {
             _transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
         }
-
         
         _transform.position = owner.Transform.position + _transform.localPosition;
         var parent = Owner.Transform.Find("WeaponParent");
@@ -143,8 +143,8 @@ public class Weapon
         {
             return _transform;
         }
-        
-        return _transform = GameObject.Instantiate((_data.prefab)).transform;
+
+        return _transform = GameObject.Instantiate(_data.prefab).transform;
     }
 
     public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
