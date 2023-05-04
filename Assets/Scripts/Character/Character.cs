@@ -7,19 +7,21 @@ public class Character
 {
     private readonly string _uid;
     private CharacterData _data;
+    private CharacterStats _baseStats;
+    private CharacterStats _activeStats;
     private string _code;
     public readonly Transform Transform;
     private int _health;
-    private int _maxHealth;
     private List<Weapon> _weapons;
 
     public Character(CharacterData initialData)
     {
         _uid = System.Guid.NewGuid().ToString();
         _data = initialData;
+        _baseStats = new CharacterStats(initialData);
+        _activeStats = _baseStats;
         _code = _data.code;
-        _health = _data.health;
-        _maxHealth = _data.health;
+        _health = _data.maxHealth;
 
         _weapons = new List<Weapon>();
 
@@ -63,14 +65,16 @@ public class Character
     public int Health
     {
         get => _health;
-        set => _health = Mathf.Min(value, _maxHealth);
+        set => _health = Mathf.Min(value, _activeStats.maxHealth);
     }
     
     public int MaxHealth
     {
-        get => _maxHealth;
-        set => _maxHealth = Mathf.Max(0, value);
+        get => _activeStats.maxHealth;
+        set => _activeStats.maxHealth = Mathf.Max(0, value);
     }
+
+    public CharacterStats Stats => _activeStats;
 
     public List<Weapon> Weapons => _weapons;
 

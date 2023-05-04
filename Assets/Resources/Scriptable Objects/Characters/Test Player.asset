@@ -15,5 +15,6 @@ MonoBehaviour:
   code: testPlayer
   characterName: Test Player
   description: 
-  health: 15
+  maxHealth: 15
+  maxWeaponCount: 2
   prefab: {fileID: 4424852941152127389, guid: b9e9dc216a9ea4758a024defc43212d0, type: 3}
