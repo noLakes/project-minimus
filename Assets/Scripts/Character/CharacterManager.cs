@@ -96,7 +96,8 @@ public class CharacterManager : MonoBehaviour
             // respond to cant switch
             return;
         }
-
+        
+        //_currentWeapon.Interrupt? if interrupt is being used;
         var nextWeaponIndex = _character.Weapons.IndexOf(_currentWeapon) + 1;
         if (nextWeaponIndex == _character.Weapons.Count) nextWeaponIndex = 0;
         

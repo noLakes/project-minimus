@@ -114,6 +114,7 @@ public class Weapon
 
         _weaponAimManager = Owner.Transform.GetComponentInChildren<WeaponAimManager>();
         _weaponAimManager.ResetPosition();
+        _weaponAimManager.ResumeAiming(); // prevents weapon aim staying stuck mid melee swing from previous equipped weapon
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
         
         if (_transform.TryGetComponent<Animator>(out _animator))
