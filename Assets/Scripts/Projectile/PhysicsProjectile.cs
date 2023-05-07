@@ -62,7 +62,7 @@ public class PhysicsProjectile : Projectile
             return;
         }
 
-        Debug.Log("Registering Hit");
+        //Debug.Log("Registering Hit");
         
         if (!persistAfterHit)
         {

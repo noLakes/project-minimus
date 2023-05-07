@@ -33,7 +33,7 @@ public class CharacterManager : MonoBehaviour
     public void Damage(int amount)
     {
         _character.Health -= amount;
-        Debug.Log(transform.name + " took " + amount + " damage.");
+        //Debug.Log(transform.name + " took " + amount + " damage.");
         if(_character.Health <= 0) Die();
     }
 
@@ -44,7 +44,7 @@ public class CharacterManager : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log(transform.name + " is dead.");
+        //Debug.Log(transform.name + " is dead.");
         // update Game Instance CHARACTERS list if needed
         Destroy(transform.gameObject);
     }
@@ -74,6 +74,19 @@ public class CharacterManager : MonoBehaviour
         _character.AddWeapon(newWeapon);
 
         return newWeapon;
+    }
+
+    public Weapon DropWeapon()
+    {
+        var droppedWeapon = _currentWeapon;
+        _currentWeapon = null;
+        droppedWeapon.Unequip();
+        Character.RemoveWeapon(droppedWeapon);
+        _weaponAimManager.SetWeapon(null);
+
+        Vector2 mouseDir = (Utility.GetMouseWorldPosition2D() - (Vector2)transform.position).normalized;
+        Weapon.SpawnInWorld(droppedWeapon, (Vector2)transform.position + mouseDir);
+        return droppedWeapon;
     }
 
     public void SwitchWeapon()
@@ -108,7 +121,7 @@ public class CharacterManager : MonoBehaviour
     {
         if (_nearbyInteractables.Contains(interactable)) return;
         _nearbyInteractables.Add(interactable);
-        Debug.Log(interactable.transform.name + "added to " + name + "interactable pool");
+        //Debug.Log(interactable.transform.name + "added to " + name + "interactable pool");
         UpdateInteractables();
     }
 
@@ -116,7 +129,7 @@ public class CharacterManager : MonoBehaviour
     {
         if (!_nearbyInteractables.Contains(interactable)) return;
         _nearbyInteractables.Remove(interactable);
-        Debug.Log(interactable.transform.name + "removed from " + name + "interactable pool");
+        //Debug.Log(interactable.transform.name + "removed from " + name + "interactable pool");
         UpdateInteractables();
     }
 

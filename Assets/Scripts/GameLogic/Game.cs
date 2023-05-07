@@ -52,7 +52,8 @@ public class Game : MonoBehaviour
         _playerCharacter.EquipWeapon(startingWeapon);
         
         // spawn test weapon in world
-        var testWep = Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
+        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
+        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
 
         for (var i = 0; i < 5; i++)
         {

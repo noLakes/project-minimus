@@ -17,7 +17,18 @@ public class WeaponPickup : Interactable
 
     private void HandlePickup(CharacterManager cm)
     {
-        cm.AddWeapon(new Weapon(_weaponData, cm.Character));
+        if (cm.Character.Weapons.Count == cm.Character.Stats.maxWeaponCount)
+        {
+            // handle dropping current weapon
+            cm.DropWeapon();
+            var newWeapon = cm.AddWeapon(new Weapon(_weaponData, cm.Character));
+            cm.EquipWeapon(newWeapon);
+        }
+        else
+        {
+            cm.AddWeapon(new Weapon(_weaponData, cm.Character));
+        }
+        
         Destroy(this.gameObject);
     }
     
