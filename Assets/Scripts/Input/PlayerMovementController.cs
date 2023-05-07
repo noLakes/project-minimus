@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     [SerializeField] float speed;
     public Rigidbody2D rb;
@@ -21,5 +21,4 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = _moveDirection * speed;
     }
-
 }
