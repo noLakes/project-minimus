@@ -4,11 +4,11 @@ using BehaviorTree;
 
 public class CheckEnemyInAttackRange : Node
 {
-    UnitManager manager;
+    AIController _aiController;
 
-    public CheckEnemyInAttackRange(UnitManager manager) : base()
+    public CheckEnemyInAttackRange(AIController aiController) : base()
     {
-        this.manager = manager;
+        _aiController = aiController;
     }
 
     public override NodeState Evaluate()
@@ -26,28 +26,27 @@ public class CheckEnemyInAttackRange : Node
         // and we haven't cleared it from the data yet)
         if (!target)
         {
-            //Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
+            Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
             root.ClearData("currentTarget");
             state = NodeState.FAILURE;
             return state;
         }
 
-        float attackRange = manager.Unit.attackRange;
+        float attackRange = _aiController.CharacterManager.CurrentWeapon.Stats.Range;
 
-        bool isInRange = Utility.CalcUnitTargetDistance(manager, target.GetComponent<UnitManager>()) <= attackRange;
-        //state = isInRange ? NodeState.SUCCESS : NodeState.FAILURE;
+        bool isInRange = Vector2.Distance(_aiController.transform.position, target.position) <= attackRange;
 
         if(isInRange)
         {
             root.ClearData("followDestination");
             state = NodeState.SUCCESS;
-            manager.StopMoving();
-            //Debug.Log("Attack target IN RANGE");
+            _aiController.StopMoving();
+            Debug.Log("Attack target IN RANGE");
         }
         else
         {
             state = NodeState.FAILURE;
-            //Debug.Log("Attack target NOT IN RANGE");
+            Debug.Log("Attack target NOT IN RANGE");
         }
 
         return state;

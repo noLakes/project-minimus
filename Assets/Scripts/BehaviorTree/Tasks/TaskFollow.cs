@@ -4,13 +4,13 @@ using BehaviorTree;
 
 public class TaskFollow : Node
 {
-    CharacterManager manager;
-    Vector3 lastTargetPosition;
+    private AIController _aiController;
+    private Vector2 _lastTargetPosition;
 
-    public TaskFollow(CharacterManager manager) : base()
+    public TaskFollow(AIController aiController) : base()
     {
-        this.manager = manager;
-        lastTargetPosition = Vector3.zero;
+        _aiController = aiController;
+        _lastTargetPosition = Vector2.zero;
     }
 
     public override NodeState Evaluate()
@@ -18,31 +18,31 @@ public class TaskFollow : Node
         //Debug.Log("Following");
         Transform currentTarget = (Transform)root.GetData("currentTarget");
 
-        Vector2 targetPosition = Utility.TargetClosestPosition(manager, currentTarget.GetComponent<UnitManager>());
+        Vector2 targetPosition = currentTarget.position;
 
-        if (!manager.ValidPathTo(targetPosition))
+        if (!_aiController.ValidPathTo(targetPosition))
         {
             targetPosition = Utility.GetClosePositionWithRadius(currentTarget.position, 5f);
 
-            if (targetPosition == Vector3.zero)
+            if (targetPosition == Vector2.zero)
             {
-                lastTargetPosition = Vector3.zero;
+                _lastTargetPosition = Vector3.zero;
                 state = NodeState.FAILURE;
                 return state;
             }
         }
         
-        manager.TryMove(targetPosition);
-        lastTargetPosition = targetPosition;
+        _aiController.TryMove(targetPosition);
+        _lastTargetPosition = targetPosition;
 
         // check if the agent has reached destination
-        float d = Vector3.Distance(manager.transform.position, targetPosition);
-        if (d <= manager.navMeshAgent.stoppingDistance)
+        float d = Vector3.Distance(_aiController.transform.position, targetPosition);
+        if (d <= _aiController.NavMeshAgent.stoppingDistance)
         {
-            lastTargetPosition = Vector3.zero;
+            _lastTargetPosition = Vector3.zero;
             //Debug.Log("SUCCESS FOLLOW: REACHED");
             //root.ClearData("currentTarget");
-            manager.StopMoving();
+            _aiController.StopMoving();
             state = NodeState.SUCCESS;
             return state;
         }

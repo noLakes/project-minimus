@@ -4,35 +4,35 @@ using BehaviorTree;
 
 public class TaskSetFollowDestination : Node
 {
-    CharacterManager manager;
+    private AIController _aiController;
 
-    public TaskSetFollowDestination(CharacterManager manager) : base()
+    public TaskSetFollowDestination(AIController aiController) : base()
     {
-        this.manager = manager;
+        _aiController = aiController;
     }
 
     public override NodeState Evaluate()
     {
         Transform currentTarget = (Transform)root.GetData("currentTarget");
 
-        Vector3 targetPosition = Utility.TargetClosestPosition(manager, currentTarget.GetComponent<UnitManager>());
+        Vector2 targetPosition = currentTarget.position;
 
-        if (!manager.ValidPathTo(targetPosition))
+        if (!_aiController.ValidPathTo(targetPosition))
         {
             targetPosition = Utility.GetClosePositionWithRadius(currentTarget.position, 5f);
 
-            if (targetPosition == Vector3.zero)
+            if (targetPosition == Vector2.zero)
             {
                 root.ClearData("followDestination");
                 root.ClearData("currentTarget");
-                manager.StopMoving();
+                _aiController.StopMoving();
                 state = NodeState.FAILURE;
                 return state;
             }
         }
         
         root.SetData("followDestination", targetPosition);
-        manager.TryMove(targetPosition);
+        _aiController.TryMove(targetPosition);
 
         state = NodeState.RUNNING;
         return state;

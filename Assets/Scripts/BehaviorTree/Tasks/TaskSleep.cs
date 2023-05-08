@@ -3,17 +3,17 @@ using BehaviorTree;
 
 public class TaskSleep : Node
 {
-    CharacterManager manager;
+    AIController _aiController;
 
-    public TaskSleep(CharacterManager manager)
+    public TaskSleep(AIController aiController)
     {
-        this.manager = manager;
+        _aiController = aiController;
     }
 
     public override NodeState Evaluate()
     {
         root.Sleep();
-        manager.OnSleep();
+        _aiController.OnSleep();
         state = NodeState.SUCCESS;
         return state;
     }

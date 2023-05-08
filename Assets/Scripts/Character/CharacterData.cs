@@ -12,4 +12,5 @@ public class CharacterData : ScriptableObject
     public int maxHealth;
     public int maxWeaponCount;
     public GameObject prefab;
+    public float fovRadius;
 }

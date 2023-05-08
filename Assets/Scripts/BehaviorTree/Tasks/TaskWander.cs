@@ -4,33 +4,31 @@ using BehaviorTree;
 
 public class TaskWander : Node
 {
-    CharacterManager manager;
+    AIController _aiController;
     float fovRadius;
 
-    public TaskWander(CharacterManager manager) : base()
+    public TaskWander(AIController aiController) : base()
     {
-        this.manager = manager;
-        fovRadius = manager.Unit.data.fieldOfView;
+        _aiController = aiController;
+        fovRadius = aiController.Character.Stats.fovRadius;
     }
 
     public override NodeState Evaluate()
     {
-        bool valid = false;
+        var valid = false;
 
-        Vector3 movePoint = Vector3.zero;
-        Vector3 direction;
-        float distance = 0f;
+        Vector2 movePoint = Vector2.zero;
 
         while (!valid)
         {
-            distance = Random.Range((fovRadius * 0.2f), fovRadius);
-            direction = Random.insideUnitCircle * distance;
-            movePoint = manager.transform.position + new Vector3(direction.x, 0f, direction.y);
+            var distance = Random.Range((fovRadius * 0.2f), fovRadius);
+            var direction = Random.insideUnitCircle * distance;
+            movePoint = (Vector2)_aiController.transform.position + new Vector2(direction.x, direction.y);
 
-            if (manager.ValidPathTo(movePoint)) valid = true;
+            if (_aiController.ValidPathTo(movePoint)) valid = true;
         }
 
-        //Debug.Log("Wandering to: " + movePoint);
+        Debug.Log("Wandering to: " + movePoint);
 
         root.SetData("destinationPoint", (object)movePoint);
 

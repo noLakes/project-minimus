@@ -4,36 +4,23 @@ using BehaviorTree;
 
 public class TaskSetIdle : Node
 {
-    CharacterManager manager;
+    private AIController _aiController;
 
-    public TaskSetIdle(CharacterManager manager) : base()
+    public TaskSetIdle(AIController aiController) : base()
     {
-        this.manager = manager;
+        _aiController = aiController;
     }
 
     public override NodeState Evaluate()
     {
-        if (!manager.isIdle)
+        if (!_aiController.IsIdle)
         {
-            manager.ActAsNavObstacle();
+            //_aiController.ActAsNavObstacle(); may not be needed in this project
+            _aiController.SetIdleStatus(true);
             Debug.Log("Set Idle");
         }
 
         state = NodeState.SUCCESS;
         return state;
-
-        /*
-        old
-        if(!manager.isIdle && !manager.moving)
-        {
-            //Debug.Log("Setting " + manager.gameObject.name + " to idle");
-            manager.ActAsNavObstacle();
-            state = NodeState.SUCCESS;
-            return state;
-        }
-
-        state = NodeState.FAILURE;
-        return state;
-        */
     }
 }

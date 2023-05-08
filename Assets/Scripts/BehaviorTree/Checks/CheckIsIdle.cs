@@ -4,16 +4,16 @@ using BehaviorTree;
 
 public class CheckIsIdle: Node
 {
-    private CharacterManager manager;
+    private AIController _aiController;
 
-    public CheckIsIdle(CharacterManager manager)
+    public CheckIsIdle(AIController aiController)
     {
-        this.manager = manager;
+        _aiController = aiController;
     }
 
     public override NodeState Evaluate()
     {
-        state = manager.isIdle ? NodeState.SUCCESS : NodeState.FAILURE;
+        state = _aiController.IsIdle ? NodeState.SUCCESS : NodeState.FAILURE;
         return state;
     }
 }
