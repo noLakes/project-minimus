@@ -21,6 +21,11 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
         if (Input.GetKeyDown(KeyCode.E)) HandleInteractionPressed();
         if (Input.GetKeyDown(KeyCode.Space)) HandleSpacePressed();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Game.Instance.TestEnemy.TryMove(Utility.GetMouseWorldPosition2D());
+        }
     }
 
     private void HandleLeftClick()

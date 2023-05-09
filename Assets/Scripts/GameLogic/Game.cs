@@ -55,6 +55,20 @@ public class Game : MonoBehaviour
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
 
+        // for testing enemy
+        
+        var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
+        {
+            Transform =
+            {
+                position = new Vector3(0, 5, 0),
+                name = "Enemy"
+            }
+        };
+
+        TestEnemy = enemy.Transform.GetComponent<AIController>();
+        
+        /*
         for (var i = 0; i < 5; i++)
         {
             var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
@@ -66,6 +80,8 @@ public class Game : MonoBehaviour
                 }
             };
         }
+        */
+        
         
         GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
     }
@@ -119,6 +135,7 @@ public class Game : MonoBehaviour
 
     public bool GameIsPaused => _gameIsPaused;
     public CharacterManager PlayerCharacter => _playerCharacter;
+    public AIController TestEnemy;
 
     private void OnApplicationQuit()
     {
