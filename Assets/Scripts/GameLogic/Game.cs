@@ -65,6 +65,9 @@ public class Game : MonoBehaviour
                 name = "Enemy"
             }
         };
+        var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
+        var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
+        enemyCharacter.EquipWeapon(enemyWep);
 
         TestEnemy = enemy.Transform.GetComponent<AIController>();
         

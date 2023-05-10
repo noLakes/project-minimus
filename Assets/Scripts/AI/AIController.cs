@@ -7,6 +7,7 @@ public class AIController : MonoBehaviour
 {
     private Character _character;
     private CharacterManager _characterManager;
+    private AIWeaponAimManager _aiWeaponAimManager;
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
     private bool _isIdle;
@@ -15,6 +16,7 @@ public class AIController : MonoBehaviour
     {
         _characterManager = GetComponent<CharacterManager>();
         _character = _characterManager.Character;
+        _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
@@ -24,6 +26,11 @@ public class AIController : MonoBehaviour
     private void Update()
     {
         DrawPath();
+        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+        {
+            _navMeshAgent.ResetPath();
+            _path = new NavMeshPath();
+        }
     }
 
     public bool TryMove(Vector2 point)
@@ -46,7 +53,8 @@ public class AIController : MonoBehaviour
     
     public bool ValidPathTo(Vector2 location)
     {
-        return NavMesh.CalculatePath(transform.position, location, _navMeshAgent.areaMask, _path);
+        var validity = NavMesh.CalculatePath(transform.position, location, _navMeshAgent.areaMask, _path);
+        return validity;
     }
     
     public bool ValidPathTo(Transform target) => ValidPathTo(target.position);
@@ -62,6 +70,14 @@ public class AIController : MonoBehaviour
     public void StopMoving()
     {
         // implement
+    }
+
+    public bool TryAttack(Vector2 point)
+    {
+        // check line of sight? or do that in ai BT?
+        _aiWeaponAimManager.AimTowards(point);
+        _characterManager.Attack(point);
+        return true;
     }
 
     public void SetIdleStatus(bool status)

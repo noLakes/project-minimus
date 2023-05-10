@@ -24,7 +24,8 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Game.Instance.TestEnemy.TryMove(Utility.GetMouseWorldPosition2D());
+            //Game.Instance.TestEnemy.TryMove(Utility.GetMouseWorldPosition2D());
+            Game.Instance.TestEnemy.TryAttack(Utility.GetMouseWorldPosition2D());
         }
     }
 

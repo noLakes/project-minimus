@@ -5,16 +5,16 @@ using UnityEngine;
 public class WeaponAimManager : MonoBehaviour
 {
     public SpriteRenderer weaponRenderer, characterRenderer;
-    private Vector3 _aimDirection;
-    private Weapon _weapon;
-    private bool _pauseAim = false;
+    protected Vector3 AimDirection;
+    protected Weapon Weapon;
+    protected bool PauseAim = false;
 
     private void Update()
     {
-        if (transform.childCount == 0 || _pauseAim ) return;
+        if (transform.childCount == 0 || PauseAim ) return;
 
-        _aimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
-        var angle = Mathf.Atan2(_aimDirection.y, _aimDirection.x) * Mathf.Rad2Deg;
+        AimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;
+        var angle = Mathf.Atan2(AimDirection.y, AimDirection.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
 
         // flip weapon with local y scale so it is always upright
@@ -49,7 +49,7 @@ public class WeaponAimManager : MonoBehaviour
 
     public void SetWeapon(Weapon weapon)
     {
-        _weapon = weapon;
+        Weapon = weapon;
     }
 
     public void ResetPosition()
@@ -59,6 +59,6 @@ public class WeaponAimManager : MonoBehaviour
         transform.localScale = Vector3.one;
     }
 
-    public void PauseAiming() => _pauseAim = true;
-    public void ResumeAiming() => _pauseAim = false;
+    public void PauseAiming() => PauseAim = true;
+    public void ResumeAiming() => PauseAim = false;
 }
