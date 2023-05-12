@@ -18,4 +18,10 @@ public class ProjectileSpawner : MonoBehaviour
     {
         // do nothing by default
     }
+    
+    // spawn without direction will just shoot toward weapon forward
+    public virtual void Spawn()
+    {
+        // do nothing by default
+    }
 }

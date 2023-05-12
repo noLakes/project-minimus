@@ -46,7 +46,8 @@ public class Weapon
             {
                 if (_weaponAttackManager.Ready)
                 {
-                    _projectileSpawner.Spawn(attackLocation);
+                    //_projectileSpawner.Spawn(attackLocation); old method for shooting toward dir in world
+                    _projectileSpawner.Spawn(); // new method shoots toward weapon forward direction
                     _weaponAttackManager.OnWeaponAttack();
                 }
                 break;
