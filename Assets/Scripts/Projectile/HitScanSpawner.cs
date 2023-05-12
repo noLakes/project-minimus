@@ -8,7 +8,7 @@ public class HitScanSpawner : ProjectileSpawner
     //[SerializeField] private GameObject tracerPrefab;
 
     [SerializeField] private LayerMask layerMask;
-    public override void Spawn(Vector2 shootPoint, Quaternion rotation)
+    public override void Spawn(Vector2 shootPoint)
     {
         Vector2 origin = spawnPoint.position;
         Vector2 shootDir = (shootPoint - origin).normalized;

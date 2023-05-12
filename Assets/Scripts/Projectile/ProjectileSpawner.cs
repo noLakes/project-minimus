@@ -14,7 +14,7 @@ public class ProjectileSpawner : MonoBehaviour
         Weapon = weapon;
     }
     
-    public virtual void Spawn(Vector2 shootPoint, Quaternion rotation)
+    public virtual void Spawn(Vector2 shootPoint)
     {
         // do nothing by default
     }

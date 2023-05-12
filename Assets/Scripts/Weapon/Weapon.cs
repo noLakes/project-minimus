@@ -46,7 +46,7 @@ public class Weapon
             {
                 if (_weaponAttackManager.Ready)
                 {
-                    _projectileSpawner.Spawn(attackLocation, Quaternion.identity);
+                    _projectileSpawner.Spawn(attackLocation);
                     _weaponAttackManager.OnWeaponAttack();
                 }
                 break;
