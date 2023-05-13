@@ -11,7 +11,7 @@ public class Game : MonoBehaviour
     public static Game Instance { get; private set; }
     
     private bool _gameIsPaused;
-    private CharacterManager _playerCharacter;
+    private PlayerCharacterManager _playerCharacter;
 
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
@@ -46,7 +46,7 @@ public class Game : MonoBehaviour
     {
         // spawn test player
         var player = new Character(gameGlobalParameters.startingCharacter);
-        _playerCharacter = player.Transform.GetComponent<CharacterManager>();
+        _playerCharacter = player.Transform.GetComponent<PlayerCharacterManager>();
         _playerCharacter.Character.SetPosition(Vector3.zero);
         var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
@@ -69,7 +69,7 @@ public class Game : MonoBehaviour
         var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
         enemyCharacter.EquipWeapon(enemyWep);
 
-        TestEnemy = enemy.Transform.GetComponent<AIController>();
+        TestEnemy = enemy.Transform.GetComponent<AICharacterManager>();
         
         /*
         for (var i = 0; i < 5; i++)
@@ -137,8 +137,8 @@ public class Game : MonoBehaviour
     }
 
     public bool GameIsPaused => _gameIsPaused;
-    public CharacterManager PlayerCharacter => _playerCharacter;
-    public AIController TestEnemy;
+    public PlayerCharacterManager PlayerCharacter => _playerCharacter;
+    public AICharacterManager TestEnemy;
 
     private void OnApplicationQuit()
     {

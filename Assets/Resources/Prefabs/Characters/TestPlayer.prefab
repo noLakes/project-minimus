@@ -93,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4424852941152127385}
-  - component: {fileID: 4424852941152127367}
+  - component: {fileID: 230875588682748009}
   - component: {fileID: 4424852941152127387}
   - component: {fileID: 4424852941152127386}
   - component: {fileID: 4424852941152127366}
@@ -122,7 +122,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4424852941152127367
+--- !u!114 &230875588682748009
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4424852941152127389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b9f0bd3d004d54d9ac02ba2453954c, type: 3}
+  m_Script: {fileID: 11500000, guid: e6b9e4aa6c491a84c9b6e16e38e047d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponParent: {fileID: 6644171423116298762}

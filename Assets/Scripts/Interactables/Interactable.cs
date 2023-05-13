@@ -12,19 +12,12 @@ public abstract class Interactable : MonoBehaviour
     
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log(name + "enters interaction range");
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            other.GetComponent<CharacterManager>().AddNearbyInteractable(transform);
-        }
+        other.GetComponent<PlayerCharacterManager>().AddNearbyInteractable(transform);
     }
 
     protected void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            other.GetComponent<CharacterManager>().RemoveNearbyInteractable(transform);
-        }
+        other.GetComponent<PlayerCharacterManager>().RemoveNearbyInteractable(transform);
     }
     
     /*

@@ -4,19 +4,19 @@ using BehaviorTree;
 
 public class TaskSetIdle : Node
 {
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
 
-    public TaskSetIdle(AIController aiController) : base()
+    public TaskSetIdle(AICharacterManager aiCharacterManager) : base()
     {
-        _aiController = aiController;
+        _aiCharacterManager = aiCharacterManager;
     }
 
     public override NodeState Evaluate()
     {
-        if (!_aiController.IsIdle)
+        if (!_aiCharacterManager.IsIdle)
         {
             //_aiController.ActAsNavObstacle(); may not be needed in this project
-            _aiController.SetIdleStatus(true);
+            _aiCharacterManager.SetIdleStatus(true);
             Debug.Log("Set Idle");
         }
 

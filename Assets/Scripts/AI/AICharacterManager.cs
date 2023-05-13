@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : MonoBehaviour
+public class AICharacterManager : CharacterManager
 {
-    private Character _character;
-    private CharacterManager _characterManager;
     private AIWeaponAimManager _aiWeaponAimManager;
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
@@ -14,8 +12,6 @@ public class AIController : MonoBehaviour
     
     private void Start()
     {
-        _characterManager = GetComponent<CharacterManager>();
-        _character = _characterManager.Character;
         _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
@@ -76,7 +72,7 @@ public class AIController : MonoBehaviour
     {
         // check line of sight? or do that in ai BT?
         _aiWeaponAimManager.AimTowards(point);
-        _characterManager.Attack(point);
+        Attack(point);
         return true;
     }
 
@@ -89,9 +85,7 @@ public class AIController : MonoBehaviour
     {
         // respond to BT sleeping
     }
-
-    public Character Character => _character;
-    public CharacterManager CharacterManager => _characterManager;
+    
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public bool IsIdle => _isIdle;
 }

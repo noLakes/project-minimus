@@ -4,16 +4,16 @@ using BehaviorTree;
 
 public class TaskStopMoving : Node
 {
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
 
-    public TaskStopMoving(AIController aiController) : base()
+    public TaskStopMoving(AICharacterManager aiCharacterManager) : base()
     {
-        _aiController = aiController;
+        _aiCharacterManager = aiCharacterManager;
     }
 
     public override NodeState Evaluate()
     {
-        _aiController.StopMoving();
+        _aiCharacterManager.StopMoving();
 
         state = NodeState.SUCCESS;
         return state;

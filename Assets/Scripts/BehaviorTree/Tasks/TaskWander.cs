@@ -4,13 +4,13 @@ using BehaviorTree;
 
 public class TaskWander : Node
 {
-    AIController _aiController;
+    AICharacterManager _aiCharacterManager;
     float fovRadius;
 
-    public TaskWander(AIController aiController) : base()
+    public TaskWander(AICharacterManager aiCharacterManager) : base()
     {
-        _aiController = aiController;
-        fovRadius = aiController.Character.Stats.fovRadius;
+        _aiCharacterManager = aiCharacterManager;
+        fovRadius = aiCharacterManager.Character.Stats.fovRadius;
     }
 
     public override NodeState Evaluate()
@@ -23,9 +23,9 @@ public class TaskWander : Node
         {
             var distance = Random.Range((fovRadius * 0.2f), fovRadius);
             var direction = Random.insideUnitCircle * distance;
-            movePoint = (Vector2)_aiController.transform.position + new Vector2(direction.x, direction.y);
+            movePoint = (Vector2)_aiCharacterManager.transform.position + new Vector2(direction.x, direction.y);
 
-            if (_aiController.ValidPathTo(movePoint)) valid = true;
+            if (_aiCharacterManager.ValidPathTo(movePoint)) valid = true;
         }
 
         Debug.Log("Wandering to: " + movePoint);

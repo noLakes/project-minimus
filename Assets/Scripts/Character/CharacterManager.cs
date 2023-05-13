@@ -11,18 +11,16 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private Transform weaponParent;
     private WeaponAimManager _weaponAimManager;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    private List<Transform> _nearbyInteractables;
 
-    public void Initialize(Character character)
+    public virtual void Initialize(Character character)
     {
         _character = character;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         weaponParent = transform.Find("WeaponParent");
         _weaponAimManager = weaponParent.GetComponent<WeaponAimManager>();
-        _nearbyInteractables = new List<Transform>();
     }
 
     void Update()
@@ -104,36 +102,6 @@ public class CharacterManager : MonoBehaviour
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
     
-    public void Interact()
-    {
-        if (_nearbyInteractables.Count == 0) return;
-        _nearbyInteractables[0].GetComponent<Interactable>().Interact(this);
-    }
-
-    private void UpdateInteractables()
-    {
-        if (_nearbyInteractables.Count < 2) return;
-        _nearbyInteractables = _nearbyInteractables.OrderBy
-        (
-            i => Vector2.Distance(i.position, transform.position)
-        ).ToList();
-    }
-    public void AddNearbyInteractable(Transform interactable)
-    {
-        if (_nearbyInteractables.Contains(interactable)) return;
-        _nearbyInteractables.Add(interactable);
-        //Debug.Log(interactable.transform.name + "added to " + name + "interactable pool");
-        UpdateInteractables();
-    }
-
-    public void RemoveNearbyInteractable(Transform interactable)
-    {
-        if (!_nearbyInteractables.Contains(interactable)) return;
-        _nearbyInteractables.Remove(interactable);
-        //Debug.Log(interactable.transform.name + "removed from " + name + "interactable pool");
-        UpdateInteractables();
-    }
-
     public Character Character
     {
         get => _character;

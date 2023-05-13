@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AIWeaponAimManager : WeaponAimManager
 {
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
     
     private void Start()
     {
-        _aiController = GetComponent<AIController>();
+        _aiCharacterManager = GetComponent<AICharacterManager>();
     }
     
     private void Update()

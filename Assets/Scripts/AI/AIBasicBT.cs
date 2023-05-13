@@ -7,11 +7,11 @@ using Tree = BehaviorTree.Tree;
 
 public class AIBT : Tree
 {
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
     
     private void Awake()
     {
-        _aiController = GetComponent<AIController>();
+        _aiCharacterManager = GetComponent<AICharacterManager>();
     }
 
     protected override Node SetupTree()

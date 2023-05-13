@@ -4,11 +4,11 @@ using BehaviorTree;
 
 public class CheckHasFollowDestination: Node
 {
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
 
-    public CheckHasFollowDestination(AIController aiController)
+    public CheckHasFollowDestination(AICharacterManager aiCharacterManager)
     {
-        _aiController = aiController;
+        _aiCharacterManager = aiCharacterManager;
     }
 
     public override NodeState Evaluate()
@@ -25,7 +25,7 @@ public class CheckHasFollowDestination: Node
         Vector2 followPoint = (Vector2)followDestination;
         Transform target = (Transform)root.GetData("currentTarget");
 
-        if(Vector2.Distance(followPoint, target.position) > _aiController.CharacterManager.CurrentWeapon.Stats.Range / 2)
+        if(Vector2.Distance(followPoint, target.position) > _aiCharacterManager.CurrentWeapon.Stats.Range / 2)
         {
             Debug.Log("follow out of ideal range");
             Debug.Log("Updating follow dest");

@@ -8,15 +8,15 @@ public class CheckPlayerInFOVRange : Node
 {
     // this class may need to be changed to handle scanning for multiple enemies in future
     
-    private AIController _aiController;
+    private AICharacterManager _aiCharacterManager;
     private float _fovRadius;
     private Transform _transform;
     
-    public CheckPlayerInFOVRange(AIController aiController) : base()
+    public CheckPlayerInFOVRange(AICharacterManager aiCharacterManager) : base()
     {
-        _aiController = aiController;
-        _fovRadius = _aiController.Character.Stats.fovRadius;
-        _transform = _aiController.transform;
+        _aiCharacterManager = aiCharacterManager;
+        _fovRadius = _aiCharacterManager.Character.Stats.fovRadius;
+        _transform = _aiCharacterManager.transform;
     }
 
     public override NodeState Evaluate()

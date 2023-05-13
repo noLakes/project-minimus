@@ -4,11 +4,11 @@ using BehaviorTree;
 
 public class CheckEnemyInAttackRange : Node
 {
-    AIController _aiController;
+    AICharacterManager _aiCharacterManager;
 
-    public CheckEnemyInAttackRange(AIController aiController) : base()
+    public CheckEnemyInAttackRange(AICharacterManager aiCharacterManager) : base()
     {
-        _aiController = aiController;
+        _aiCharacterManager = aiCharacterManager;
     }
 
     public override NodeState Evaluate()
@@ -32,15 +32,15 @@ public class CheckEnemyInAttackRange : Node
             return state;
         }
 
-        float attackRange = _aiController.CharacterManager.CurrentWeapon.Stats.Range;
+        float attackRange = _aiCharacterManager.CurrentWeapon.Stats.Range;
 
-        bool isInRange = Vector2.Distance(_aiController.transform.position, target.position) <= attackRange;
+        bool isInRange = Vector2.Distance(_aiCharacterManager.transform.position, target.position) <= attackRange;
 
         if(isInRange)
         {
             root.ClearData("followDestination");
             state = NodeState.SUCCESS;
-            _aiController.StopMoving();
+            _aiCharacterManager.StopMoving();
             Debug.Log("Attack target IN RANGE");
         }
         else
