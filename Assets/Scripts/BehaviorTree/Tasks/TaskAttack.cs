@@ -4,18 +4,18 @@ using BehaviorTree;
 
 public class TaskAttack : Node
 {
-    CharacterManager manager;
+    AICharacterManager _aiCharacterManager;
 
-    public TaskAttack(CharacterManager manager) : base()
+    public TaskAttack(AICharacterManager aiCharacterManager) : base()
     {
-        this.manager = manager;
+        _aiCharacterManager = aiCharacterManager;
     }
 
     public override NodeState Evaluate()
     {
         object currentTarget = root.GetData("currentTarget");
         var targetTransform = (Transform)currentTarget;
-        manager.Attack(targetTransform.position);
+        _aiCharacterManager.TryAttack(targetTransform.position);
         state = NodeState.SUCCESS;
         return state;
     }
