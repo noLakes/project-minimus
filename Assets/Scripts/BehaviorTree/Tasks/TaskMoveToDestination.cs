@@ -17,12 +17,12 @@ public class TaskMoveToDestination : Node
 
         Vector2 destination = (Vector2)destinationPoint;
         // check to see if the destination point was changed
-        // and we need to re-update the agent's destination
-        if (destination != (Vector2)_aiCharacterManager.NavMeshAgent.destination && Vector2.Distance(destination, _aiCharacterManager.NavMeshAgent.destination) > 0.5f)
+        if (destination != (Vector2)_aiCharacterManager.NavMeshAgent.destination)
         {
             var canMove = _aiCharacterManager.TryMove(destination);
             state = canMove ? NodeState.RUNNING : NodeState.FAILURE;
             if(state == NodeState.FAILURE) Debug.Log("Cannot reach: " + destination);
+            Debug.Log("EXIT 1: " + state);
             return state;
         }
 
@@ -31,11 +31,14 @@ public class TaskMoveToDestination : Node
         if (d <= _aiCharacterManager.NavMeshAgent.stoppingDistance)
         {
             root.ClearData("destinationPoint");
+            _aiCharacterManager.StopMoving();
             state = NodeState.SUCCESS;
+            Debug.Log("EXIT 2: " + state);
             return state;
         }
-
+        
         state = NodeState.RUNNING;
+        Debug.Log("EXIT 3: " + state);
         return state;
     }
 }

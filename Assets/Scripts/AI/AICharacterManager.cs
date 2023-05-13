@@ -22,11 +22,6 @@ public class AICharacterManager : CharacterManager
     private void Update()
     {
         DrawPath();
-        if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
-        {
-            _navMeshAgent.ResetPath();
-            _path = new NavMeshPath();
-        }
     }
 
     public bool TryMove(Vector2 point)
@@ -65,7 +60,8 @@ public class AICharacterManager : CharacterManager
     
     public void StopMoving()
     {
-        // implement
+        _navMeshAgent.ResetPath();
+        _path = new NavMeshPath();
     }
 
     public bool TryAttack(Vector2 point)

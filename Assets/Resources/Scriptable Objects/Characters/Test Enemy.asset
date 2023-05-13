@@ -18,3 +18,4 @@ MonoBehaviour:
   maxHealth: 5
   maxWeaponCount: 0
   prefab: {fileID: 4424852941152127389, guid: 6a7ce1a0e057b654d9a25ad6b2c5a1a1, type: 3}
+  fovRadius: 4

@@ -8,6 +8,7 @@ public class CheckHasDestination : Node
         object destinationPoint = root.GetData("destinationPoint");
         if (destinationPoint == null)
         {
+            Debug.Log("No destination");
             state = NodeState.FAILURE;
             return state;
         }

@@ -4,35 +4,40 @@ using BehaviorTree;
 
 public class TaskWander : Node
 {
-    AICharacterManager _aiCharacterManager;
-    float fovRadius;
+    private AICharacterManager _aiCharacterManager;
+    private float _fovRadius;
 
     public TaskWander(AICharacterManager aiCharacterManager) : base()
     {
         _aiCharacterManager = aiCharacterManager;
-        fovRadius = aiCharacterManager.Character.Stats.fovRadius;
+        _fovRadius = aiCharacterManager.Character.Stats.fovRadius;
     }
 
     public override NodeState Evaluate()
     {
         var valid = false;
 
-        Vector2 movePoint = Vector2.zero;
+        var wanderPoint = Vector2.zero;
 
         while (!valid)
         {
-            var distance = Random.Range((fovRadius * 0.2f), fovRadius);
-            var direction = Random.insideUnitCircle * distance;
-            movePoint = (Vector2)_aiCharacterManager.transform.position + new Vector2(direction.x, direction.y);
+            wanderPoint = GenerateWanderPoint();
 
-            if (_aiCharacterManager.ValidPathTo(movePoint)) valid = true;
+            if (_aiCharacterManager.ValidPathTo(wanderPoint)) valid = true;
         }
 
-        Debug.Log("Wandering to: " + movePoint);
+        Debug.Log("Wandering to: " + wanderPoint);
 
-        root.SetData("destinationPoint", (object)movePoint);
+        root.SetData("destinationPoint", (object)wanderPoint);
 
         state = NodeState.SUCCESS;
         return state;
+    }
+
+    private Vector2 GenerateWanderPoint()
+    {
+        var distance = Random.Range((_fovRadius * 0.2f), _fovRadius);
+        var direction = Random.insideUnitCircle * distance;
+        return (Vector2)_aiCharacterManager.transform.position + (direction * distance);
     }
 }
