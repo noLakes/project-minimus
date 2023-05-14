@@ -30,6 +30,7 @@ public class AIBasicBT : Tree
         var executeAttackNode = new Sequence(new List<Node>
         {
             new CheckEnemyInAttackRange(_aiCharacterManager),
+            new TaskStopMoving(_aiCharacterManager),
             new TaskAttack(_aiCharacterManager)
         });
 

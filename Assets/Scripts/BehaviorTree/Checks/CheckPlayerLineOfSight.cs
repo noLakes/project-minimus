@@ -11,7 +11,7 @@ public class CheckPlayerLineOfSight : Node
     private AICharacterManager _aiCharacterManager;
     private float _fovRadius;
     private Transform _transform;
-    int layerMask =~ LayerMask.GetMask("Enemy");
+    private int layerMask = ~(1 << 7 | 1 << 9);
     
     public CheckPlayerLineOfSight(AICharacterManager aiCharacterManager) : base()
     {
@@ -45,11 +45,10 @@ public class CheckPlayerLineOfSight : Node
         RaycastHit2D ray = Physics2D.Raycast(_transform.position, dir, _fovRadius, layerMask);
 
         if (ray.collider == null) return false;
-
-        bool los = ray.collider.gameObject.layer == LayerMask.NameToLayer("Player");
-        Debug.Log(ray.collider.gameObject.name);
-        Debug.DrawLine(_transform.position, _transform.position + (dir * _fovRadius), Color.yellow, 0.25f);
-        Debug.Log("LOS: " + los);
-        return los;
+        
+        //Debug.Log(ray.collider.gameObject.name);
+        Debug.DrawLine(_transform.position, ray.collider.transform.position, Color.yellow, 0.25f);
+        
+        return ray.collider.gameObject.layer == LayerMask.NameToLayer("Player");
     }
 }

@@ -37,7 +37,8 @@ public class TaskWander : Node
     private Vector2 GenerateWanderPoint()
     {
         var distance = Random.Range((_fovRadius * 0.2f), _fovRadius);
-        var direction = Random.insideUnitCircle * distance;
+        var direction = Random.insideUnitCircle;
+        Debug.Log("Wander distance: " + distance + " / In direction: " + direction);
         return (Vector2)_aiCharacterManager.transform.position + (direction * distance);
     }
 }

@@ -8,7 +8,7 @@ public class PlayerCharacterManager : CharacterManager
 {
     private List<Transform> _nearbyInteractables;
 
-    private void Awake()
+    private new void Awake()
     {
         base.Awake();
         _nearbyInteractables = new List<Transform>();
