@@ -13,10 +13,10 @@ public class TaskAttack : Node
 
     public override NodeState Evaluate()
     {
-        object currentTarget = root.GetData("currentTarget");
+        object currentTarget = GetData("currentTarget");
         var targetTransform = (Transform)currentTarget;
         _aiCharacterManager.TryAttack(targetTransform.position);
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }

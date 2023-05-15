@@ -6,7 +6,7 @@ public class TaskSucceed : Node
 {
     public override NodeState Evaluate()
     {
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }

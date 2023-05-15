@@ -13,7 +13,7 @@ public class TaskSetFollowDestination : Node
 
     public override NodeState Evaluate()
     {
-        Transform currentTarget = (Transform)root.GetData("currentTarget");
+        Transform currentTarget = (Transform)GetData("currentTarget");
 
         Vector2 targetPosition = currentTarget.position;
 
@@ -23,18 +23,18 @@ public class TaskSetFollowDestination : Node
 
             if (targetPosition == Vector2.zero)
             {
-                root.ClearData("followDestination");
-                root.ClearData("currentTarget");
+                ClearData("followDestination");
+                ClearData("currentTarget");
                 _aiCharacterManager.StopMoving();
-                state = NodeState.FAILURE;
-                return state;
+                _state = NodeState.FAILURE;
+                return _state;
             }
         }
         
-        root.SetData("followDestination", targetPosition);
+        Parent.Parent.SetData("followDestination", targetPosition);
         _aiCharacterManager.TryMove(targetPosition);
 
-        state = NodeState.RUNNING;
-        return state;
+        _state = NodeState.RUNNING;
+        return _state;
     }
 }

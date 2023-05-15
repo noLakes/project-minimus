@@ -13,7 +13,7 @@ public class CheckIsIdle: Node
 
     public override NodeState Evaluate()
     {
-        state = _aiCharacterManager.IsIdle ? NodeState.SUCCESS : NodeState.FAILURE;
-        return state;
+        _state = _aiCharacterManager.IsIdle ? NodeState.SUCCESS : NodeState.FAILURE;
+        return _state;
     }
 }

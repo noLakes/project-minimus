@@ -6,25 +6,25 @@ public class CheckHasTarget: Node
 {
     public override NodeState Evaluate()
     {
-        object currentTarget = root.GetData("currentTarget");
+        object currentTarget = GetData("currentTarget");
         if (currentTarget == null)
         {
-            root.ClearData("followDestination");
-            state = NodeState.FAILURE;
-            return state;
+            ClearData("followDestination");
+            _state = NodeState.FAILURE;
+            return _state;
         }
 
         // (in case the target object is gone - for example it died
         // and we haven't cleared it from the data yet)
         if (!((Transform) currentTarget))
         {
-            root.ClearData("followDestination");
-            root.ClearData("currentTarget");
-            state = NodeState.FAILURE;
-            return state;
+            ClearData("followDestination");
+            ClearData("currentTarget");
+            _state = NodeState.FAILURE;
+            return _state;
         }
-        
-        state = NodeState.SUCCESS;
-        return state;
+
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }

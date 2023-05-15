@@ -20,7 +20,7 @@ public class TaskSetIdle : Node
             Debug.Log("Set Idle");
         }
 
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }

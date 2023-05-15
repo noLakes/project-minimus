@@ -5,13 +5,13 @@ namespace BehaviorTree
 {
     public class Sequence : Node
     {
-        private bool isRandom;
+        private bool _isRandom;
 
-        public Sequence() : base() { isRandom = false; }
-        public Sequence(bool isRandom) : base() { this.isRandom = isRandom; }
+        public Sequence() : base() { _isRandom = false; }
+        public Sequence(bool isRandom) : base() { this._isRandom = isRandom; }
         public Sequence(List<Node> children, bool isRandom = false) : base(children)
         {
-            this.isRandom = isRandom;
+            _isRandom = isRandom;
         }
 
         public static List<T> Shuffle<T>(List<T> list)
@@ -23,28 +23,28 @@ namespace BehaviorTree
         public override NodeState Evaluate()
         {
             bool anyChildIsRunning = false;
-            if (isRandom)
-                children = Shuffle(children);
+            if (_isRandom)
+                Children = Shuffle(Children);
 
-            foreach (Node node in children)
+            foreach (Node node in Children)
             {
                 switch (node.Evaluate())
                 {
                     case NodeState.FAILURE:
-                        state = NodeState.FAILURE;
-                        return state;
+                        _state = NodeState.FAILURE;
+                        return _state;
                     case NodeState.SUCCESS:
                         continue;
                     case NodeState.RUNNING:
                         anyChildIsRunning = true;
                         continue;
                     default:
-                        state = NodeState.SUCCESS;
-                        return state;
+                        _state = NodeState.SUCCESS;
+                        return _state;
                 }
             }
-            state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
-            return state;
+            _state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+            return _state;
         }
     }
 }

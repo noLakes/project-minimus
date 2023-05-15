@@ -5,16 +5,16 @@ namespace BehaviorTree
 {
     public class Chance : Node
     {
-        private float chance;
+        private float _chance;
 
         public Chance(float chance) : base()
         {
-            this.chance = chance;
+            _chance = chance;
         }
         public Chance(float chance, List<Node> children)
             : base(children)
         {
-            this.chance = chance;
+            _chance = chance;
         }
 
         public override NodeState Evaluate()
@@ -23,17 +23,17 @@ namespace BehaviorTree
 
             float roll = Random.Range(0f, 1f);
 
-            if(roll <= chance)
+            if(roll <= _chance)
             {
                 //Debug.Log("Chance node passed with: " + roll + "/" + chance);
-                state = children[0].Evaluate();
+                _state = Children[0].Evaluate();
             }
             else
             {
-                state = NodeState.FAILURE;
+                _state = NodeState.FAILURE;
             }
 
-            return state;
+            return State;
         }
     }
 }

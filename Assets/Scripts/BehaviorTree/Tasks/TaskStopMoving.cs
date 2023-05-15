@@ -15,7 +15,7 @@ public class TaskStopMoving : Node
     {
         _aiCharacterManager.StopMoving();
 
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }

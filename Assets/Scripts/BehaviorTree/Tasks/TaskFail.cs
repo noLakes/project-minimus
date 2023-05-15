@@ -6,7 +6,7 @@ public class TaskFail : Node
 {
     public override NodeState Evaluate()
     {
-        state = NodeState.FAILURE;
-        return state;
+        _state = NodeState.FAILURE;
+        return _state;
     }
 }

@@ -4,7 +4,7 @@ using BehaviorTree;
 
 public class CheckEnemyInAttackRange : Node
 {
-    AICharacterManager _aiCharacterManager;
+    private AICharacterManager _aiCharacterManager;
 
     public CheckEnemyInAttackRange(AICharacterManager aiCharacterManager) : base()
     {
@@ -13,11 +13,11 @@ public class CheckEnemyInAttackRange : Node
 
     public override NodeState Evaluate()
     {
-        object currentTarget = root.GetData("currentTarget");
+        object currentTarget = GetData("currentTarget");
         if (currentTarget == null)
         {
-            state = NodeState.FAILURE;
-            return state;
+            _state = NodeState.FAILURE;
+            return State;
         }
 
         Transform target = (Transform)currentTarget;
@@ -27,9 +27,9 @@ public class CheckEnemyInAttackRange : Node
         if (!target)
         {
             Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
-            root.ClearData("currentTarget");
-            state = NodeState.FAILURE;
-            return state;
+            ClearData("currentTarget");
+            _state = NodeState.FAILURE;
+            return State;
         }
 
         float attackRange = _aiCharacterManager.CurrentWeapon.Stats.Range;
@@ -38,17 +38,17 @@ public class CheckEnemyInAttackRange : Node
 
         if(isInRange)
         {
-            root.ClearData("followDestination");
-            state = NodeState.SUCCESS;
+            ClearData("followDestination");
+            _state = NodeState.SUCCESS;
             _aiCharacterManager.StopMoving();
             Debug.Log("Attack target IN RANGE");
         }
         else
         {
-            state = NodeState.FAILURE;
+            _state = NodeState.FAILURE;
             Debug.Log("Attack target NOT IN RANGE");
         }
 
-        return state;
+        return _state;
     }
 }

@@ -28,10 +28,10 @@ public class TaskWander : Node
 
         Debug.Log("Wandering to: " + wanderPoint);
 
-        root.SetData("destinationPoint", (object)wanderPoint);
+        Parent.SetData("destinationPoint", (object)wanderPoint);
 
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 
     private Vector2 GenerateWanderPoint()

@@ -13,7 +13,7 @@ namespace BehaviorTree
         {
             bool anyChildIsRunning = false;
             int nFailedChildren = 0;
-            foreach (Node node in children)
+            foreach (Node node in Children)
             {
                 switch (node.Evaluate())
                 {
@@ -26,15 +26,15 @@ namespace BehaviorTree
                         anyChildIsRunning = true;
                         continue;
                     default:
-                        state = NodeState.SUCCESS;
-                        return state;
+                        _state = NodeState.SUCCESS;
+                        return _state;
                 }
             }
-            if (nFailedChildren == children.Count)
-                state = NodeState.FAILURE;
+            if (nFailedChildren == Children.Count)
+                _state = NodeState.FAILURE;
             else
-                state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
-            return state;
+                _state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+            return _state;
         }
     }
 }

@@ -16,8 +16,6 @@ public class AIBasicBT : Tree
 
     protected override Node SetupTree()
     {
-        Node root;
-
         var checkEnemyNode = new Sequence(new List<Node>
         {
             new Inverter(new List<Node>
@@ -62,7 +60,7 @@ public class AIBasicBT : Tree
             new TaskWander(_aiCharacterManager)
         });
 
-        root = new Selector(new List<Node>
+        var root = new Selector(new List<Node>
         {
             checkEnemyNode,
             mainAttackNode,
@@ -70,6 +68,7 @@ public class AIBasicBT : Tree
             wanderNode
         });
 
+        Debug.Log("Root has children " + root.hasChildren);
         return root;
     }
 }

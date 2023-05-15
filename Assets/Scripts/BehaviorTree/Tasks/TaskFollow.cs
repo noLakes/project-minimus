@@ -16,7 +16,7 @@ public class TaskFollow : Node
     public override NodeState Evaluate()
     {
         //Debug.Log("Following");
-        Transform currentTarget = (Transform)root.GetData("currentTarget");
+        Transform currentTarget = (Transform)GetData("currentTarget");
 
         Vector2 targetPosition = currentTarget.position;
 
@@ -27,8 +27,8 @@ public class TaskFollow : Node
             if (targetPosition == Vector2.zero)
             {
                 _lastTargetPosition = Vector3.zero;
-                state = NodeState.FAILURE;
-                return state;
+                _state = NodeState.FAILURE;
+                return _state;
             }
         }
         
@@ -43,12 +43,12 @@ public class TaskFollow : Node
             //Debug.Log("SUCCESS FOLLOW: REACHED");
             //root.ClearData("currentTarget");
             _aiCharacterManager.StopMoving();
-            state = NodeState.SUCCESS;
-            return state;
+            _state = NodeState.SUCCESS;
+            return _state;
         }
 
         //Debug.Log("RUNNING FOLLOW");
-        state = NodeState.RUNNING;
-        return state;
+        _state = NodeState.RUNNING;
+        return _state;
     }
 }

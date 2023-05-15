@@ -11,7 +11,7 @@ public class CheckPlayerLineOfSight : Node
     private AICharacterManager _aiCharacterManager;
     private float _fovRadius;
     private Transform _transform;
-    private int layerMask = ~(1 << 7 | 1 << 9);
+    private int _layerMask = ~(1 << 7 | 1 << 9);
     
     public CheckPlayerLineOfSight(AICharacterManager aiCharacterManager) : base()
     {
@@ -29,20 +29,19 @@ public class CheckPlayerLineOfSight : Node
 
         if (playerDistance <= _fovRadius && HasLineOfSight())
         {
-            root.SetData("currentTarget", Game.Instance.PlayerCharacter.transform);
-            state = NodeState.SUCCESS;
-            root.Wake();
-            return state;
+            Parent.Parent.SetData("currentTarget", Game.Instance.PlayerCharacter.transform);
+            _state = NodeState.SUCCESS;
+            return _state;
         }
         
-        state = NodeState.FAILURE;
-        return state;
+        _state = NodeState.FAILURE;
+        return _state;
     }
 
     private bool HasLineOfSight()
     {
         var dir = (Game.Instance.PlayerCharacter.transform.position - _transform.position).normalized;
-        RaycastHit2D ray = Physics2D.Raycast(_transform.position, dir, _fovRadius, layerMask);
+        RaycastHit2D ray = Physics2D.Raycast(_transform.position, dir, _fovRadius, _layerMask);
 
         if (ray.collider == null) return false;
         

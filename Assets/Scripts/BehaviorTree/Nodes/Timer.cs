@@ -5,9 +5,9 @@ namespace BehaviorTree
 {
     public class Timer : Node
     {
-        private float delay;
-        private float time;
-        public bool running { get => state == NodeState.RUNNING; }
+        private float _delay;
+        private float _time;
+        public bool running { get => State == NodeState.RUNNING; }
 
         public delegate void TickEnded();
         public delegate void Tick(float taskTime, float timeRemaining);
@@ -16,16 +16,16 @@ namespace BehaviorTree
 
         public Timer(float delay, Tick onTick = null, TickEnded onTickEnded = null) : base()
         {
-            this.delay = delay;
-            time = delay;
+            _delay = delay;
+            _time = delay;
             this.onTick = onTick;
             this.onTickEnded = onTickEnded;
         }
         public Timer(float delay, List<Node> children, Tick onTick = null, TickEnded onTickEnded = null)
             : base(children)
         {
-            this.delay = delay;
-            time = delay;
+            _delay = delay;
+            _time = delay;
             this.onTick = onTick;
             this.onTickEnded = onTickEnded;
         }
@@ -33,41 +33,36 @@ namespace BehaviorTree
         public override NodeState Evaluate()
         {
             if (!hasChildren) return NodeState.FAILURE;
-            if (time <= 0)
+            if (_time <= 0)
             {
                 //Debug.Log("Timer complete, triggering ability.");
-                time = delay;
-                state = children[0].Evaluate();
+                _time = _delay;
+                _state = Children[0].Evaluate();
                 if (onTickEnded != null)
                     onTickEnded();
                 if (onTick != null)
-                    onTick(delay, time);
+                    onTick(_delay, _time);
                 //root.liveNodes.Remove(this);
-                state = NodeState.SUCCESS;
+                _state = NodeState.SUCCESS;
             }
             else
             {
-                //if(!root.liveNodes.Contains(this)) root.liveNodes.Add(this);
-
-                time -= Time.deltaTime;
+                _time -= Time.deltaTime;
                 if (onTick != null)
-                    onTick(delay, time);
-                state = NodeState.RUNNING;
+                    onTick(_delay, _time);
+                _state = NodeState.RUNNING;
             }
-            root.SetDirty(true);
-            return state;
+            return _state;
         }
 
         public void SetTimer(float delay, Tick onTick = null, TickEnded onTickEnded = null)
         {
             //Debug.Log("Timer updated with delay of: " + delay);
-            if (running) state = NodeState.FAILURE;
-            this.delay = delay;
-            this.time = delay;
+            if (running) _state = NodeState.FAILURE;
+            _delay = delay;
+            _time = delay;
             this.onTick = onTick;
             this.onTickEnded = onTickEnded;
-            
-            //if(root.liveNodes.Contains(this)) root.liveNodes.Remove(this);
         }
     }
 }

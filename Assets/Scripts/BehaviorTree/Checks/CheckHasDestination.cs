@@ -5,14 +5,14 @@ public class CheckHasDestination : Node
 {
     public override NodeState Evaluate()
     {
-        object destinationPoint = root.GetData("destinationPoint");
+        object destinationPoint = GetData("destinationPoint");
         if (destinationPoint == null)
         {
             //Debug.Log("No destination");
-            state = NodeState.FAILURE;
-            return state;
+            _state = NodeState.FAILURE;
+            return State;
         }
-        state = NodeState.SUCCESS;
-        return state;
+        _state = NodeState.SUCCESS;
+        return _state;
     }
 }
