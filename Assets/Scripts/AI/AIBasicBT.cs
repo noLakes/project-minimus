@@ -16,15 +16,6 @@ public class AIBasicBT : Tree
 
     protected override Node SetupTree()
     {
-        var checkEnemyNode = new Sequence(new List<Node>
-        {
-            new Inverter(new List<Node>
-            {
-                new CheckHasTarget()
-            }),
-            new CheckPlayerLineOfSight(_aiCharacterManager)
-        });
-
         var executeAttackNode = new Sequence(new List<Node>
         {
             new CheckEnemyInAttackRange(_aiCharacterManager),
@@ -41,12 +32,17 @@ public class AIBasicBT : Tree
         var mainAttackNode = new Sequence(new List<Node>
         {
             new CheckHasTarget(),
-            new CheckPlayerLineOfSight(_aiCharacterManager),
+            new CheckCanSeeTarget(_aiCharacterManager),
             new Selector(new List<Node>
             {
                 executeAttackNode,
                 pursueTargetNode
             })
+        });
+
+        var lookForTargetNode = new Selector(new List<Node>
+        {
+            new CheckCanSeePlayer(_aiCharacterManager)
         });
 
         var movementNode = new Sequence(new List<Node>
@@ -62,13 +58,12 @@ public class AIBasicBT : Tree
 
         var root = new Selector(new List<Node>
         {
-            checkEnemyNode,
             mainAttackNode,
+            lookForTargetNode,
             movementNode,
             wanderNode
         });
-
-        Debug.Log("Root has children " + root.hasChildren);
+        
         return root;
     }
 }

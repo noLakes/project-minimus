@@ -40,8 +40,8 @@ public class TaskFollow : Node
         if (d <= _aiCharacterManager.NavMeshAgent.stoppingDistance)
         {
             _lastTargetPosition = Vector3.zero;
-            //Debug.Log("SUCCESS FOLLOW: REACHED");
-            //root.ClearData("currentTarget");
+            Debug.Log("SUCCESS FOLLOW: REACHED");
+            ClearData("followDestination");
             _aiCharacterManager.StopMoving();
             _state = NodeState.SUCCESS;
             return _state;

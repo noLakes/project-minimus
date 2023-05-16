@@ -26,7 +26,7 @@ public class CheckEnemyInAttackRange : Node
         // and we haven't cleared it from the data yet)
         if (!target)
         {
-            Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
+            //Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
             ClearData("currentTarget");
             _state = NodeState.FAILURE;
             return State;
@@ -40,13 +40,12 @@ public class CheckEnemyInAttackRange : Node
         {
             ClearData("followDestination");
             _state = NodeState.SUCCESS;
-            _aiCharacterManager.StopMoving();
-            Debug.Log("Attack target IN RANGE");
+            //Debug.Log("Attack target IN RANGE");
         }
         else
         {
             _state = NodeState.FAILURE;
-            Debug.Log("Attack target NOT IN RANGE");
+            //Debug.Log("Attack target NOT IN RANGE");
         }
 
         return _state;
