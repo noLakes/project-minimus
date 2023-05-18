@@ -28,7 +28,7 @@ public class TaskWander : Node
 
         Debug.Log("Wandering to: " + wanderPoint);
 
-        Parent.SetData("destinationPoint", (object)wanderPoint);
+        Parent.Parent.SetData("destinationPoint", (object)wanderPoint);
 
         _state = NodeState.SUCCESS;
         return _state;
@@ -38,7 +38,7 @@ public class TaskWander : Node
     {
         var distance = Random.Range((_fovRadius * 0.2f), _fovRadius);
         var direction = Random.insideUnitCircle;
-        Debug.Log("Wander distance: " + distance + " / In direction: " + direction);
+        //Debug.Log("Wander distance: " + distance + " / In direction: " + direction);
         return (Vector2)_aiCharacterManager.transform.position + (direction * distance);
     }
 }

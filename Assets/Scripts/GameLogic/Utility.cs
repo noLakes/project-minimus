@@ -70,13 +70,14 @@ public static class Utility
     
     public static bool HasLineOfSight(Transform viewer, Transform target, float radius, LayerMask layerMask)
     {
-        var dir = (target.position - viewer.position).normalized;
-        RaycastHit2D ray = Physics2D.Raycast(viewer.position, dir, radius, layerMask);
+        var position = viewer.position;
+        var dir = (target.position - position).normalized;
+        RaycastHit2D ray = Physics2D.Raycast(position, dir, radius, layerMask);
 
         if (ray.collider == null) return false;
         
         //Debug.Log(ray.collider.gameObject.name);
-        Debug.DrawLine(viewer.position, ray.collider.transform.position, Color.yellow, 0.25f);
+        Debug.DrawLine(viewer.position, ray.point, Color.yellow, 0.25f);
 
         return ray.collider.transform == target;
     }

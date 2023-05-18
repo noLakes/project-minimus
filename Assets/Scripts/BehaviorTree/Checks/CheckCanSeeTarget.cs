@@ -42,7 +42,8 @@ public class CheckCanSeeTarget : Node
             _state = NodeState.SUCCESS;
             return _state;
         }
-
+        
+        Debug.Log("Cannot see Target");
         ClearData("currentTarget");
         _state = NodeState.FAILURE;
         return _state;

@@ -40,9 +40,10 @@ public class AIBasicBT : Tree
             })
         });
 
-        var lookForTargetNode = new Selector(new List<Node>
+        var lookForTargetNode = new Sequence(new List<Node>
         {
-            new CheckCanSeePlayer(_aiCharacterManager)
+            new CheckCanSeePlayer(_aiCharacterManager),
+            new TaskStopMoving(_aiCharacterManager)
         });
 
         var movementNode = new Sequence(new List<Node>
@@ -51,7 +52,7 @@ public class AIBasicBT : Tree
             new TaskMoveToDestination(_aiCharacterManager)
         });
 
-        var wanderNode = new Timer(5f, new List<Node>
+        var wanderNode = new Timer(1f, new List<Node>
         {
             new TaskWander(_aiCharacterManager)
         });
