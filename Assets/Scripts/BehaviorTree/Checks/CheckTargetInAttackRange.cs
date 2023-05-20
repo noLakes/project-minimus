@@ -2,11 +2,11 @@ using UnityEngine;
 
 using BehaviorTree;
 
-public class CheckEnemyInAttackRange : Node
+public class CheckTargetInAttackRange : Node
 {
     private AICharacterManager _aiCharacterManager;
 
-    public CheckEnemyInAttackRange(AICharacterManager aiCharacterManager) : base()
+    public CheckTargetInAttackRange(AICharacterManager aiCharacterManager) : base()
     {
         _aiCharacterManager = aiCharacterManager;
     }
