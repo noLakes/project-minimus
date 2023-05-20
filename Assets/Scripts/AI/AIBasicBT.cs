@@ -53,7 +53,7 @@ public class AIBasicBT : Tree
             new TaskMoveToDestination(_aiCharacterManager)
         });
 
-        var wanderNode = new Timer(1f, new List<Node>
+        var wanderNode = new Timer(10f, new List<Node>
         {
             new TaskWander(_aiCharacterManager)
         });

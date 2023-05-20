@@ -19,7 +19,7 @@ MonoBehaviour:
   type: 1
   damage: 1
   attackRate: 1
-  range: 1
+  range: 5
   magazineSize: 0
   reloadTime: 0
   onHitEffects: []
