@@ -15,12 +15,12 @@ public class TaskFollow : Node
     {
         Debug.Log("Following");
         Transform currentTarget = (Transform)GetData("currentTarget");
-
         Vector2 targetPosition = currentTarget.position;
 
         if (!_aiCharacterManager.TryMove(targetPosition))
         {
-            targetPosition = Utility.GetClosePositionWithRadius(currentTarget.position, 5f);
+            targetPosition = Utility.GetClosePositionWithRadius(targetPosition, 5f);
+            // targetPosition = Utility.GetClosePositionWithRadius(currentTarget.position, 5f);
 
             if (targetPosition == Vector2.zero || !_aiCharacterManager.TryMove(targetPosition))
             {
@@ -29,7 +29,7 @@ public class TaskFollow : Node
             }
         }
         
-        Parent.Parent.SetData("followDestination", (object)targetPosition);
+        Parent.Parent.SetData("followDestination", targetPosition);
         Debug.Log("RUNNING FOLLOW");
         _state = NodeState.RUNNING;
         return _state;
