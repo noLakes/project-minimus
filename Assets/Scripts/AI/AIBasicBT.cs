@@ -18,8 +18,10 @@ public class AIBasicBT : Tree
     {
         var executeAttackNode = new Sequence(new List<Node>
         {
+            new CheckCanSeeTarget(_aiCharacterManager),
             new CheckTargetInAttackRange(_aiCharacterManager),
             new TaskStopMoving(_aiCharacterManager),
+            new TaskStopFollowing(),
             new TaskAttack(_aiCharacterManager)
         });
 
@@ -32,7 +34,6 @@ public class AIBasicBT : Tree
         var mainAttackNode = new Sequence(new List<Node>
         {
             new CheckHasTarget(),
-            new CheckCanSeeTarget(_aiCharacterManager),
             new Selector(new List<Node>
             {
                 executeAttackNode,

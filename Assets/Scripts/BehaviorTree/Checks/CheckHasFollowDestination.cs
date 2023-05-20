@@ -23,9 +23,9 @@ public class CheckHasFollowDestination: Node
         }
 
         Vector2 followPoint = (Vector2)followDestination;
-        Transform target = (Transform)GetData("currentTarget");
+        Vector2 lastSeenPos = (Vector2)GetData("targetLastSeenPos");
 
-        if(Vector2.Distance(followPoint, target.position) >= _aiCharacterManager.CurrentWeapon.Stats.Range / 2)
+        if(Vector2.Distance(followPoint, lastSeenPos) >= _aiCharacterManager.CurrentWeapon.Stats.Range / 2)
         {
             Debug.Log("follow out of ideal range");
             _state = NodeState.FAILURE;

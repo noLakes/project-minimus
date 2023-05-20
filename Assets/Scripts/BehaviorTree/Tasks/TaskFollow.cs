@@ -14,22 +14,20 @@ public class TaskFollow : Node
     public override NodeState Evaluate()
     {
         Debug.Log("Following");
-        Transform currentTarget = (Transform)GetData("currentTarget");
-        Vector2 targetPosition = currentTarget.position;
+        Vector2 targetPos = (Vector2)GetData("targetLastSeenPos");
 
-        if (!_aiCharacterManager.TryMove(targetPosition))
+        if (!_aiCharacterManager.TryMove(targetPos))
         {
-            targetPosition = Utility.GetClosePositionWithRadius(targetPosition, 5f);
-            // targetPosition = Utility.GetClosePositionWithRadius(currentTarget.position, 5f);
+            targetPos = Utility.GetClosePositionWithRadius(targetPos, 5f);
 
-            if (targetPosition == Vector2.zero || !_aiCharacterManager.TryMove(targetPosition))
+            if (targetPos == Vector2.zero || !_aiCharacterManager.TryMove(targetPos))
             {
                 _state = NodeState.FAILURE;
                 return _state;
             }
         }
         
-        Parent.Parent.SetData("followDestination", targetPosition);
+        Parent.Parent.SetData("followDestination", targetPos);
         Debug.Log("RUNNING FOLLOW");
         _state = NodeState.RUNNING;
         return _state;

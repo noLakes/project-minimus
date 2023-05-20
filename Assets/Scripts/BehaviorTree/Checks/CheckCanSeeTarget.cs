@@ -28,17 +28,21 @@ public class CheckCanSeeTarget : Node
         if (!target)
         {
             ClearData("currentTarget");
+            ClearData("targetLastSeenPos");
             _state = NodeState.FAILURE;
             return _state;
         }
+
+        Vector2 targetPos = target.position;
             
         var targetDistance = Vector2.Distance(
             _transform.position,
-            target.position
+            targetPos
             );
 
         if (targetDistance <= _fovRadius && Utility.HasLineOfSight(_transform, target, _fovRadius, _layerMask))
         {
+            Parent.Parent.SetData("targetLastSeenPos", targetPos);
             _state = NodeState.SUCCESS;
             return _state;
         }
