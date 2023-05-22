@@ -198,6 +198,16 @@ public class Weapon
         return weapon;
     }
 
+    public int GetFactionLayerMask()
+    {
+        if (_owner == Game.Instance.PlayerCharacter.Character)
+        {
+            return (1 << 7 | 1 << 12);
+        }
+        
+        return (1 << 6 | 1 << 12);
+    }
+
     private void ComputeRange()
     {
         switch (_data.type)

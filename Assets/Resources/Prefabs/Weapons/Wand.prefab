@@ -51,7 +51,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 5059694604530273643}
   layerMask:
     serializedVersion: 2
-    m_Bits: 4480
+    m_Bits: 4224
 --- !u!114 &1928235211752504703
 MonoBehaviour:
   m_ObjectHideFlags: 0
