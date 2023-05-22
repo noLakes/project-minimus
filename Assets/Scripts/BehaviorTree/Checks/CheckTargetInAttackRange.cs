@@ -31,10 +31,10 @@ public class CheckTargetInAttackRange : Node
             _state = NodeState.FAILURE;
             return State;
         }
-
-        float attackRange = _aiCharacterManager.CurrentWeapon.Stats.Range;
-
-        bool isInRange = Vector2.Distance(_aiCharacterManager.transform.position, target.position) <= attackRange;
+        
+        float range = _aiCharacterManager.CurrentWeapon.ComputedRange + target.GetComponent<CharacterManager>().Size / 2;
+        
+        bool isInRange = Vector2.Distance(_aiCharacterManager.transform.position, target.position) <= range;
 
         if(isInRange)
         {

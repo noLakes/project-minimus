@@ -84,4 +84,6 @@ public class WeaponAttackManager : MonoBehaviour
         var position = hitBoxOrigin == null ? Vector3.zero : hitBoxOrigin.position;
         Gizmos.DrawWireSphere(position, hitRadius);
     }
+
+    public float HitRadius => hitRadius;
 }

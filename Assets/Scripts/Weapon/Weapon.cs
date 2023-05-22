@@ -10,6 +10,7 @@ public class Weapon
     private readonly WeaponData _data;
     private readonly WeaponStats _baseStats;
     private WeaponStats _activeStats;
+    private float _computedRange; // for melee and physiscs weapons
     private Transform _transform;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
@@ -122,7 +123,7 @@ public class Weapon
         _owner = owner;
         CreateTransform();
         
-        if (_transform.TryGetComponent<ProjectileSpawner>(out _projectileSpawner))
+        if (_transform.TryGetComponent(out _projectileSpawner))
         {
             _projectileSpawner.Initialize(this);
         }
@@ -135,7 +136,7 @@ public class Weapon
         _weaponAimManager.ResumeAiming(); // prevents weapon aim staying stuck mid melee swing from previous equipped weapon
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
         
-        if (_transform.TryGetComponent<Animator>(out _animator))
+        if (_transform.TryGetComponent(out _animator))
         {
             _transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
         }
@@ -143,6 +144,7 @@ public class Weapon
         _transform.position = owner.Transform.position + _transform.localPosition;
         var parent = Owner.Transform.Find("WeaponParent");
         _transform.parent = parent;
+        ComputeRange();
         _equipped = true;
     }
 
@@ -195,9 +197,31 @@ public class Weapon
         wp.Initialize(weapon.Data);
         return weapon;
     }
+
+    private void ComputeRange()
+    {
+        switch (_data.type)
+        {
+            case WeaponType.Melee:
+            {
+                float ownerHalfSize = _owner.Transform.GetComponent<CharacterManager>().Size / 2;
+                Debug.Log("ComputeRange: " + ownerHalfSize + " / " + _weaponAttackManager.HitRadius * 1.9f);
+                _computedRange = (_weaponAttackManager.HitRadius * 1.95f) + ownerHalfSize;
+                break;
+            }
+            case WeaponType.Ranged:
+            {
+                // not implemented yet
+                _computedRange = _activeStats.Range; // replace this
+                break;
+            }
+        }
+        Debug.Log("ComputedRange: " + _computedRange);
+    }
     
     public WeaponData Data => _data;
     public WeaponStats Stats => _activeStats;
+    public float ComputedRange => _computedRange;
     public Transform Transform => _transform;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public bool Equipped => _equipped;

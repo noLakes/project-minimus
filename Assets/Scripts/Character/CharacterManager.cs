@@ -103,6 +103,11 @@ public class CharacterManager : MonoBehaviour
         
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
+
+    public float Size
+    {
+        get => spriteRenderer.GetComponent<Renderer>().bounds.size.x;
+    }
     
     public Character Character
     {
