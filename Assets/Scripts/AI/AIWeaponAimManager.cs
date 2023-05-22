@@ -5,6 +5,7 @@ using UnityEngine;
 public class AIWeaponAimManager : WeaponAimManager
 {
     private AICharacterManager _aiCharacterManager;
+    [SerializeField] private float aimRotationSpeed;
     
     private void Start()
     {

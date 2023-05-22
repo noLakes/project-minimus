@@ -11,7 +11,7 @@ public class CheckCanSeeTarget : Node
     private AICharacterManager _aiCharacterManager;
     private float _fovRadius;
     private Transform _transform;
-    private int _layerMask = ~(1 << 7 | 1 << 9);
+    private int _layerMask = ~(1 << 7 | 1 << 8 | 1 << 9);
     
     public CheckCanSeeTarget(AICharacterManager aiCharacterManager) : base()
     {

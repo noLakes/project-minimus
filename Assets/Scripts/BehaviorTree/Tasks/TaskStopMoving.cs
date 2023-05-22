@@ -13,7 +13,7 @@ public class TaskStopMoving : Node
 
     public override NodeState Evaluate()
     {
-        _aiCharacterManager.StopMoving();
+        if(_aiCharacterManager.HasPath) _aiCharacterManager.StopMoving();
         
         Debug.Log("Stop moving");
         ClearData("destinationPoint");

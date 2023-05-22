@@ -19,9 +19,9 @@ public class AIBasicBT : Tree
         var executeAttackNode = new Sequence(new List<Node>
         {
             new CheckCanSeeTarget(_aiCharacterManager),
+            new TaskAimAtTarget(_aiCharacterManager),
             new CheckTargetInAttackRange(_aiCharacterManager),
             new TaskStopMoving(_aiCharacterManager),
-            new TaskStopFollowing(),
             new TaskAttack(_aiCharacterManager)
         });
 
@@ -50,7 +50,8 @@ public class AIBasicBT : Tree
         var movementNode = new Sequence(new List<Node>
         {
             new CheckHasDestination(),
-            new TaskMoveToDestination(_aiCharacterManager)
+            new TaskMoveToDestination(_aiCharacterManager),
+            new TaskAimTowardMove(_aiCharacterManager)
         });
 
         var wanderNode = new Timer(10f, new List<Node>

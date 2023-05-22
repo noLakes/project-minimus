@@ -9,7 +9,7 @@ public class AICharacterManager : CharacterManager
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
     private bool _isIdle;
-    
+
     private void Start()
     {
         _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();
@@ -63,15 +63,7 @@ public class AICharacterManager : CharacterManager
         _navMeshAgent.ResetPath();
         _path = new NavMeshPath();
     }
-
-    public bool TryAttack(Vector2 point)
-    {
-        // check line of sight? or do that in ai BT?
-        _aiWeaponAimManager.AimTowards(point);
-        Attack(point);
-        return true;
-    }
-
+    
     public void SetIdleStatus(bool status)
     {
         _isIdle = status;
@@ -84,4 +76,6 @@ public class AICharacterManager : CharacterManager
     
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public bool IsIdle => _isIdle;
+    public AIWeaponAimManager AIWeaponAimManager => _aiWeaponAimManager;
+    public bool HasPath => _navMeshAgent.hasPath;
 }

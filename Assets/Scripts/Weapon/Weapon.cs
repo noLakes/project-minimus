@@ -28,28 +28,45 @@ public class Weapon
         _owner = owner;
     }
 
-    public void Attack(Vector2 attackLocation)
+    public void Attack()
     {
+        if (!_weaponAttackManager.Ready) return;
+        
         switch (_data.type)
         {
             case WeaponType.Melee:
             {
-                if (_weaponAttackManager.Ready)
-                {
-                    _animator.SetTrigger("Attack");
-                    _weaponAttackManager.OnWeaponAttack();
-                    _weaponAimManager.PauseAiming();
-                }
+                _animator.SetTrigger("Attack");
+                _weaponAttackManager.OnWeaponAttack();
+                _weaponAimManager.PauseAiming();
                 break;
             }
             case WeaponType.Ranged:
             {
-                if (_weaponAttackManager.Ready)
-                {
-                    //_projectileSpawner.Spawn(attackLocation); old method for shooting toward dir in world
-                    _projectileSpawner.Spawn(); // new method shoots toward weapon forward direction
-                    _weaponAttackManager.OnWeaponAttack();
-                }
+                _projectileSpawner.Spawn(); // shoots toward weapon forward direction
+                _weaponAttackManager.OnWeaponAttack();
+                break;
+            }
+        }
+    }
+
+    public void Attack(Vector2 attackLocation)
+    {
+        if (!_weaponAttackManager.Ready) return;
+        
+        switch (_data.type)
+        {
+            case WeaponType.Melee:
+            {
+                _animator.SetTrigger("Attack");
+                _weaponAttackManager.OnWeaponAttack();
+                _weaponAimManager.PauseAiming();
+                break;
+            }
+            case WeaponType.Ranged:
+            {
+                _projectileSpawner.Spawn(attackLocation); // shoots towards location regardless of aim
+                _weaponAttackManager.OnWeaponAttack();
                 break;
             }
         }
@@ -185,4 +202,5 @@ public class Weapon
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public bool Equipped => _equipped;
     public Character Owner => _owner;
+    public bool CanAttack => _weaponAttackManager.Ready;
 }

@@ -47,6 +47,8 @@ public class CharacterManager : MonoBehaviour
         Destroy(transform.gameObject);
     }
 
+    public void Attack() => _currentWeapon.Attack();
+    
     public void Attack(Vector2 location)
     {
         _currentWeapon.Attack(location);
