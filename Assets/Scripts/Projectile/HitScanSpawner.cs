@@ -31,7 +31,7 @@ public class HitScanSpawner : ProjectileSpawner
 
         RaycastHit2D ray = Physics2D.Raycast(origin, dir, Weapon.Stats.Range, Weapon.GetFactionLayerMask());
 
-        DrawTracer(origin, dir);
+        //DrawTracer(origin, dir);
 
         if (ray.collider == null) return;
         
@@ -44,9 +44,5 @@ public class HitScanSpawner : ProjectileSpawner
     private void DrawTracer(Vector2 origin, Vector2 dir)
     {
         // implement after making tracer prefabs
-        Debug.DrawLine(
-            origin,
-            origin + (dir * Weapon.Stats.Range),
-                Color.red, 2f);
     }
 }

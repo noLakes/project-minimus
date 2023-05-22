@@ -22,13 +22,15 @@ public class Game : MonoBehaviour
 
     public GameGlobalParameters gameGlobalParameters;
 
-    public static int PLAYER_MASK = 1 << 6;
-    public static int ENEMY_MASK = 1 << 7;
-    public static int PROJECTILE_MASK = 1 << 8;
-    public static int INTERACTABLE_MASK = 1 << 9;
-    public static int WALL_MASK = 1 << 12;
-    public static int GROUND_MASK = 1 << 13;
-
+    public LayerMask PlayerMask;
+    public LayerMask EnemyMask;
+    public LayerMask InteractableMask;
+    public LayerMask WallMask;
+    public LayerMask GroundMask;
+    public LayerMask ProjectilMask;
+    public LayerMask TargetPlayerHitScanMask;
+    public LayerMask TargetEnemyHitScanMask;
+    
     private void Awake()
     {
         if (Instance != null)

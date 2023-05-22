@@ -44458,6 +44458,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CHARACTER_CONTAINER: {fileID: 335856986}
   gameGlobalParameters: {fileID: 11400000, guid: d817b96fe74250c4b8d968e5102a4bc9, type: 2}
+  PlayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  EnemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  InteractableMask:
+    serializedVersion: 2
+    m_Bits: 512
+  WallMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  ProjectilMask:
+    serializedVersion: 2
+    m_Bits: 256
+  TargetPlayerHitScanMask:
+    serializedVersion: 2
+    m_Bits: 4160
+  TargetEnemyHitScanMask:
+    serializedVersion: 2
+    m_Bits: 4224
   TestEnemy: {fileID: 0}
 --- !u!4 &1888224442
 Transform:

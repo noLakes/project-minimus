@@ -200,12 +200,9 @@ public class Weapon
 
     public int GetFactionLayerMask()
     {
-        if (_owner == Game.Instance.PlayerCharacter.Character)
-        {
-            return (1 << 7 | 1 << 12);
-        }
-        
-        return (1 << 6 | 1 << 12);
+        return _owner == Game.Instance.PlayerCharacter.Character
+            ? Game.Instance.TargetEnemyHitScanMask
+            : Game.Instance.TargetPlayerHitScanMask;
     }
 
     private void ComputeRange()
