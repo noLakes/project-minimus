@@ -33,7 +33,7 @@ public class CheckCanSeePlayer : Node
             return _state;
         }
         
-        Debug.Log("Cannot see Player");
+        //Debug.Log("Cannot see Player");
         _state = NodeState.FAILURE;
         return _state;
     }

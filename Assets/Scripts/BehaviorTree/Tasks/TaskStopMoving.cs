@@ -15,7 +15,7 @@ public class TaskStopMoving : Node
     {
         if(_aiCharacterManager.HasPath) _aiCharacterManager.StopMoving();
         
-        Debug.Log("Stop moving");
+        //Debug.Log("Stop moving");
         ClearData("destinationPoint");
         _state = NodeState.SUCCESS;
         return _state;

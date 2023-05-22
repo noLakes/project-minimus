@@ -26,7 +26,7 @@ public class TaskWander : Node
             if (_aiCharacterManager.ValidPathTo(wanderPoint)) valid = true;
         }
 
-        Debug.Log("Wandering to: " + wanderPoint);
+        //Debug.Log("Wandering to: " + wanderPoint);
 
         Parent.Parent.SetData("destinationPoint", (object)wanderPoint);
 

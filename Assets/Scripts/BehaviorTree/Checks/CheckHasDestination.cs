@@ -8,12 +8,12 @@ public class CheckHasDestination : Node
         object destinationPoint = GetData("destinationPoint");
         if (destinationPoint == null)
         {
-            Debug.Log("No destination");
+            //Debug.Log("No destination");
             _state = NodeState.FAILURE;
             return State;
         }
         
-        Debug.Log("Has Destination");
+        //Debug.Log("Has Destination");
         _state = NodeState.SUCCESS;
         return _state;
     }

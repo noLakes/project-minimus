@@ -124,6 +124,7 @@ public class PhysicsProjectile : Projectile
                 _collider = null;
             }
             
+            Debug.Log("Projectile range: " + _distanceTravelled);
             enabled = false;
         }
         else

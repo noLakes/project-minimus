@@ -103,7 +103,6 @@ public class RigidBodyProjectile : Projectile
     {
         if (persistAfterStop)
         {
-            Debug.Log("Turning off projectile script");
             _rb.velocity = Vector2.zero;
             _collider.isTrigger = false;
             
@@ -119,7 +118,6 @@ public class RigidBodyProjectile : Projectile
         }
         else
         {
-            Debug.Log("Destroying stopped projectile");
             Destroy(gameObject);
         }
     }

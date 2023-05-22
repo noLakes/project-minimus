@@ -22,7 +22,7 @@ public class TaskMoveToDestination : Node
             var canMove = _aiCharacterManager.TryMove(destination);
             _state = canMove ? NodeState.RUNNING : NodeState.FAILURE;
             if(_state == NodeState.FAILURE) Debug.Log("Cannot reach: " + destination);
-            Debug.Log("EXIT 1: " + _state);
+            //Debug.Log("EXIT 1: " + _state);
             return _state;
         }
 
@@ -33,12 +33,12 @@ public class TaskMoveToDestination : Node
             ClearData("destinationPoint");
             _aiCharacterManager.StopMoving();
             _state = NodeState.SUCCESS;
-            Debug.Log("EXIT 2: " + _state);
+            //Debug.Log("EXIT 2: " + _state);
             return _state;
         }
         
         _state = NodeState.RUNNING;
-        Debug.Log("EXIT 3: " + _state);
+        //Debug.Log("EXIT 3: " + _state);
         return _state;
     }
 }

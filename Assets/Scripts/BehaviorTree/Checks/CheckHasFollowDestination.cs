@@ -17,7 +17,7 @@ public class CheckHasFollowDestination: Node
         
         if (followDestination == null)
         {
-            Debug.Log("no follow");
+            //Debug.Log("no follow");
             _state = NodeState.FAILURE;
             return _state;
         }
@@ -27,7 +27,7 @@ public class CheckHasFollowDestination: Node
 
         if(Vector2.Distance(followPoint, lastSeenPos) >= _aiCharacterManager.CurrentWeapon.Stats.Range / 4)
         {
-            Debug.Log("follow out of ideal range");
+            //Debug.Log("follow out of ideal range");
             _state = NodeState.FAILURE;
             return _state;
         }

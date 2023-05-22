@@ -13,7 +13,7 @@ public class TaskFollow : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log("Following");
+        //Debug.Log("Following");
         Vector2 targetPos = (Vector2)GetData("targetLastSeenPos");
 
         if (!_aiCharacterManager.TryMove(targetPos))
@@ -28,7 +28,7 @@ public class TaskFollow : Node
         }
         
         Parent.Parent.SetData("followDestination", targetPos);
-        Debug.Log("RUNNING FOLLOW");
+        //Debug.Log("RUNNING FOLLOW");
         _state = NodeState.RUNNING;
         return _state;
     }

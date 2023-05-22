@@ -17,7 +17,7 @@ public class TaskSetIdle : Node
         {
             //_aiController.ActAsNavObstacle(); may not be needed in this project
             _aiCharacterManager.SetIdleStatus(true);
-            Debug.Log("Set Idle");
+            //Debug.Log("Set Idle");
         }
 
         _state = NodeState.SUCCESS;
