@@ -21,7 +21,7 @@ public class HitScanSpawner : ProjectileSpawner
         // hit
         Debug.Log("Hit: " + ray.collider.name);
         Debug.DrawLine(origin, ray.point, Color.cyan, 2f);
-        Weapon.ProcessHit(ray.collider, ray.point);
+        Weapon.ProcessHit(ray.collider, ray.point, origin);
     }
 
     public override void Spawn()
@@ -38,7 +38,7 @@ public class HitScanSpawner : ProjectileSpawner
         // hit
         Debug.Log("Hit: " + ray.collider.name);
         Debug.DrawLine(origin, ray.point, Color.cyan, 2f);
-        Weapon.ProcessHit(ray.collider, ray.point);
+        Weapon.ProcessHit(ray.collider, ray.point, origin);
     }
     
     private void DrawTracer(Vector2 origin, Vector2 dir)

@@ -36,5 +36,14 @@ namespace BehaviorTree
         }
 
         protected abstract Node SetupTree();
+
+        // for feeding data in to root node data context
+        public void SetData(string key, object value)
+        {
+            _root.SetData(key, value);
+        }
+
+        public object GetData(string key) => _root.GetData(key);
+
     }
 }

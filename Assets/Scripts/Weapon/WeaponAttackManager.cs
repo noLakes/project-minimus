@@ -75,7 +75,7 @@ public class WeaponAttackManager : MonoBehaviour
     {
         foreach (Collider2D c in Physics2D.OverlapCircleAll(hitBoxOrigin.position, hitRadius))
         {
-            _weapon.ProcessHit(c, c.transform.position);
+            _weapon.ProcessHit(c, c.transform.position, transform.position);
         }
     }
     private void OnDrawGizmosSelected()

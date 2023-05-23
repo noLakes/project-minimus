@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Tree = BehaviorTree.Tree;
 
 public class AICharacterManager : CharacterManager
 {
     private AIWeaponAimManager _aiWeaponAimManager;
+    private Tree _behaviorTree;
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
     private bool _isIdle;
@@ -13,6 +15,7 @@ public class AICharacterManager : CharacterManager
     private void Start()
     {
         _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();
+        _behaviorTree = GetComponent<Tree>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
@@ -22,6 +25,35 @@ public class AICharacterManager : CharacterManager
     private void Update()
     {
         DrawPath();
+    }
+
+    public override void ReceiveHit(Transform attacker, Vector2 origin)
+    {
+        object currentTarget = _behaviorTree.GetData("currentTarget");
+        if (currentTarget != null) return; // already has target
+        InvestigatePointDirection(origin);
+    }
+
+    private void InvestigatePointDirection(Vector2 point)
+    {
+        Vector2 investigateDir = (point - (Vector2)transform.position).normalized;
+
+        Vector2 investigatePoint = (Vector2)transform.position + (investigateDir * _character.Stats.fovRadius);
+        
+        if (!ValidPathTo(investigatePoint))
+        {
+            investigatePoint = Utility.GetClosePositionWithRadius(investigatePoint, 5f);
+
+            if (investigatePoint == Vector2.zero || !ValidPathTo(investigatePoint))
+            {
+                Debug.Log(_character.Code + " Cannot investigate attack origin");
+                return;
+            }
+        }
+        
+        Debug.Log("investigating attack origin direction");
+        Debug.DrawLine(transform.position, investigatePoint, Color.green, 5f);
+        _behaviorTree.SetData("destinationPoint", investigatePoint);
     }
 
     public bool TryMove(Vector2 point)
@@ -69,11 +101,6 @@ public class AICharacterManager : CharacterManager
         _isIdle = status;
     }
 
-    public void OnSleep()
-    {
-        // respond to BT sleeping
-    }
-    
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public bool IsIdle => _isIdle;
     public AIWeaponAimManager AIWeaponAimManager => _aiWeaponAimManager;

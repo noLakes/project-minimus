@@ -73,29 +73,31 @@ public class Weapon
         }
     }
 
-    public bool ProcessHit(Collider2D collider, Vector2 hitPoint)
+    public bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)
     {
         var validHit = false;
 
         // check collider Transform to see if target should be hit
+        // FIX THIS PLZ!!!
         if (collider.transform.tag == "Obstacle") validHit = true;
         else if (collider.transform.tag == "Character") validHit = true;
 
-        if(validHit) OnHit(collider, hitPoint);
+        if(validHit) OnHit(collider, hitPoint, origin);
         
         return validHit;
     }
 
-    private void OnHit(Collider2D collider, Vector2 hitPosition)
+    private void OnHit(Collider2D collider, Vector2 hitPosition, Vector2 origin)
     {
         // apply hit actions
         if (!collider.transform.TryGetComponent<CharacterManager>(out var cm)) return;
         cm.Damage(_activeStats.Damage);
+        cm.ReceiveHit(_owner.Transform, origin);
             
         // if weapon has on hit effects
         if (_activeStats.OnHitEffects.Count > 0)
         {
-            // generate effect args s truct
+            // generate effect args struct
             var effectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
 
             foreach(var e in _activeStats.OnHitEffects)

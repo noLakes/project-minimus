@@ -48,7 +48,7 @@ public static class Utility
         return string.Join(" ", words);
     }
     
-    public static Vector3 GetClosePositionWithRadius(Vector2 target, float radius = 2f)
+    public static Vector2 GetClosePositionWithRadius(Vector2 target, float radius = 2f)
     {
         NavMeshHit hit;
 
@@ -57,12 +57,11 @@ public static class Utility
         if (NavMesh.SamplePosition(target, out hit, radius, NavMesh.AllAreas))
         {
             result = hit.position;
-            Debug.Log("Found near position: " + result);
-            //Debug.DrawLine(result, result + Vector3.up * 5f, Color.cyan, 1f);
+            //Debug.Log("Found near position: " + result);
         }
         else
         {
-            Debug.Log("No close position");
+            //Debug.Log("No close position");
         }
 
         return result;

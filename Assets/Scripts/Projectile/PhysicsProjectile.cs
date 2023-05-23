@@ -48,7 +48,7 @@ public class PhysicsProjectile : Projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         // check if hit collider belongs to hittable target....
-        if (_linkedWeapon.ProcessHit(other, transform.position))
+        if (_linkedWeapon.ProcessHit(other, transform.position, _origin))
         {
             OnHit(other, other.ClosestPoint(transform.position));
         }
@@ -87,7 +87,7 @@ public class PhysicsProjectile : Projectile
 
         if (!ray.collider) return;
         
-        if (_linkedWeapon.ProcessHit(ray.collider, ray.point))
+        if (_linkedWeapon.ProcessHit(ray.collider, ray.point, _origin))
         {
             OnHit(ray.collider, ray.point);
         }

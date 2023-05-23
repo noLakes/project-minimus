@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
-    private Character _character;
+    protected Character _character;
     private Weapon _currentWeapon;
     [SerializeField] private Transform weaponParent;
     private WeaponAimManager _weaponAimManager;
@@ -33,6 +33,12 @@ public class CharacterManager : MonoBehaviour
         _character.Health -= amount;
         //Debug.Log(transform.name + " took " + amount + " damage.");
         if(_character.Health <= 0) Die();
+    }
+
+    public virtual void ReceiveHit(Transform attacker, Vector2 origin)
+    {
+        // do nothing by default?
+        // AI will respond with override method
     }
 
     public void Heal(int amount)
