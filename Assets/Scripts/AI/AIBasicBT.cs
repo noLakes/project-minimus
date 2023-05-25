@@ -41,6 +41,13 @@ public class AIBasicBT : Tree
             })
         });
 
+        var respondToAttackNode = new Sequence(new List<Node>
+        {
+            new CheckWasAttacked(),
+            new TaskStopMoving(_aiCharacterManager),
+            new TaskInvestigateAttackOrigin(_aiCharacterManager)
+        });
+
         var lookForTargetNode = new Sequence(new List<Node>
         {
             new CheckCanSeePlayer(_aiCharacterManager),
@@ -62,6 +69,7 @@ public class AIBasicBT : Tree
         var root = new Selector(new List<Node>
         {
             mainAttackNode,
+            respondToAttackNode,
             lookForTargetNode,
             movementNode,
             wanderNode

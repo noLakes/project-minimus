@@ -29,33 +29,9 @@ public class AICharacterManager : CharacterManager
 
     public override void ReceiveHit(Transform attacker, Vector2 origin)
     {
-        object currentTarget = _behaviorTree.GetData("currentTarget");
-        if (currentTarget != null) return; // already has target
-        InvestigatePointDirection(origin);
+        _behaviorTree.SetData("attackedFromOrigin", origin);
     }
-
-    private void InvestigatePointDirection(Vector2 point)
-    {
-        Vector2 investigateDir = (point - (Vector2)transform.position).normalized;
-
-        Vector2 investigatePoint = (Vector2)transform.position + (investigateDir * _character.Stats.fovRadius);
-        
-        if (!ValidPathTo(investigatePoint))
-        {
-            investigatePoint = Utility.GetClosePositionWithRadius(investigatePoint, 5f);
-
-            if (investigatePoint == Vector2.zero || !ValidPathTo(investigatePoint))
-            {
-                Debug.Log(_character.Code + " Cannot investigate attack origin");
-                return;
-            }
-        }
-        
-        Debug.Log("investigating attack origin direction");
-        Debug.DrawLine(transform.position, investigatePoint, Color.green, 5f);
-        _behaviorTree.SetData("destinationPoint", investigatePoint);
-    }
-
+    
     public bool TryMove(Vector2 point)
     {
         // try move
