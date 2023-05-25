@@ -7,6 +7,7 @@ public class TaskSucceed : Node
     public override NodeState Evaluate()
     {
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

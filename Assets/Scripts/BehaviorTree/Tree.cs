@@ -33,6 +33,8 @@ namespace BehaviorTree
         private void RunTree()
         {
             _root.Evaluate();
+            Debug.Log(GetData("callStack"));
+            _root.ClearData("callStack");
         }
 
         protected abstract Node SetupTree();
@@ -44,6 +46,5 @@ namespace BehaviorTree
         }
 
         public object GetData(string key) => _root.GetData(key);
-
     }
 }

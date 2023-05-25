@@ -30,6 +30,7 @@ public class CheckCanSeeTarget : Node
             ClearData("currentTarget");
             ClearData("targetLastSeenPos");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
@@ -44,12 +45,14 @@ public class CheckCanSeeTarget : Node
         {
             Parent.Parent.SetData("targetLastSeenPos", targetPos);
             _state = NodeState.SUCCESS;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
         
         //Debug.Log("Cannot see Target");
         ClearData("currentTarget");
         _state = NodeState.FAILURE;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

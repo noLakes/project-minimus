@@ -17,6 +17,7 @@ public class TaskAttack : Node
         //var targetTransform = (Transform)currentTarget;
         _state = _aiCharacterManager.CurrentWeapon.CanAttack ? NodeState.SUCCESS : NodeState.RUNNING;
         if(_state == NodeState.SUCCESS) _aiCharacterManager.Attack();
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

@@ -21,6 +21,7 @@ public class TaskSetIdle : Node
         }
 
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

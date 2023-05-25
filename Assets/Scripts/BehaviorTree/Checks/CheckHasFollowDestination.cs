@@ -19,6 +19,7 @@ public class CheckHasFollowDestination: Node
         {
             //Debug.Log("no follow");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
@@ -29,10 +30,12 @@ public class CheckHasFollowDestination: Node
         {
             //Debug.Log("follow out of ideal range");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

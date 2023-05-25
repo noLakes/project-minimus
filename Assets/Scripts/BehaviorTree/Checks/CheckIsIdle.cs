@@ -14,6 +14,7 @@ public class CheckIsIdle: Node
     public override NodeState Evaluate()
     {
         _state = _aiCharacterManager.IsIdle ? NodeState.SUCCESS : NodeState.FAILURE;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

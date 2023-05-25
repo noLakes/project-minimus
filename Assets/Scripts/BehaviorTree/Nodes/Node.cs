@@ -101,6 +101,28 @@ namespace BehaviorTree
             _dataContext[key] = value;
         }
 
+        // used for debugging
+        protected void ThrowResultToDebugCallStack(string nodeName, NodeState result)
+        {
+            if (_parent != null)
+            {
+                _parent.ThrowResultToDebugCallStack(nodeName, result);
+            }
+            else
+            {
+                string resultText = nodeName + ": " + result;
+                // append result to callstack string
+                object callStackText = GetData("callStack");
+                
+                if (callStackText == null)
+                    SetData("callStack", resultText);
+                else
+                {
+                    SetData("callStack", (string)callStackText + " / " + resultText);
+                }
+            }
+        }
+
         public bool hasChildren { get => Children.Count > 0; }
         public NodeState State => _state;
         public Node Parent => _parent;

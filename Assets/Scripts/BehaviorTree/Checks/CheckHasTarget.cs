@@ -11,6 +11,7 @@ public class CheckHasTarget: Node
         {
             ClearData("followDestination");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
@@ -21,10 +22,12 @@ public class CheckHasTarget: Node
             ClearData("followDestination");
             ClearData("currentTarget");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

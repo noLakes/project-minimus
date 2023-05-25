@@ -21,6 +21,7 @@ public class TaskInvestigateAttackOrigin : Node
         if (attackOrigin == null)
         {
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
 
@@ -38,6 +39,7 @@ public class TaskInvestigateAttackOrigin : Node
                 Debug.Log(_aiCM.Character.Code + " Cannot investigate attack origin");
                 ClearData("attackedFromOrigin"); // clears investigate point to prevent re-checking same attack instance
                 _state = NodeState.FAILURE;
+                ThrowResultToDebugCallStack(GetType().Name, _state);
                 return _state;
             }
         }
@@ -47,6 +49,7 @@ public class TaskInvestigateAttackOrigin : Node
         Parent.Parent.SetData("destinationPoint", investigatePoint);
         ClearData("attackedFromOrigin"); // clears investigate point to prevent re-checking same attack instance
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

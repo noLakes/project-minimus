@@ -10,11 +10,13 @@ public class CheckHasDestination : Node
         {
             //Debug.Log("No destination");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return State;
         }
         
         //Debug.Log("Has Destination");
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

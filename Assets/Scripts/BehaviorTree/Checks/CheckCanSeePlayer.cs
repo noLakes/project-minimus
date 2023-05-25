@@ -30,11 +30,13 @@ public class CheckCanSeePlayer : Node
         {
             Parent.Parent.SetData("currentTarget", Game.Instance.PlayerCharacter.transform);
             _state = NodeState.SUCCESS;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
         
         //Debug.Log("Cannot see Player");
         _state = NodeState.FAILURE;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

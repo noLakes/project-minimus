@@ -19,6 +19,7 @@ public class TaskAimAtTarget : Node
         
         _aiCharacterManager.AIWeaponAimManager.AimTowards(targetTransform.position);
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

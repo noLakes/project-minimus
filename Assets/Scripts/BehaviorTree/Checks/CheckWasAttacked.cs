@@ -11,10 +11,12 @@ public class CheckWasAttacked : Node
         if (attackOrigin == null)
         {
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return _state;
         }
         
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

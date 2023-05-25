@@ -27,6 +27,7 @@ public class TaskSetFollowDestination : Node
                 ClearData("currentTarget");
                 _aiCharacterManager.StopMoving();
                 _state = NodeState.FAILURE;
+                ThrowResultToDebugCallStack(GetType().Name, _state);
                 return _state;
             }
         }
@@ -35,6 +36,7 @@ public class TaskSetFollowDestination : Node
         _aiCharacterManager.TryMove(targetPosition);
 
         _state = NodeState.RUNNING;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

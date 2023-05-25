@@ -8,6 +8,7 @@ public class TaskStopFollowing: Node
     {
         ClearData("followDestination");
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

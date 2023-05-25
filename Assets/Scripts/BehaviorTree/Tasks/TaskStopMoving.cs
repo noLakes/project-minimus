@@ -18,6 +18,7 @@ public class TaskStopMoving : Node
         //Debug.Log("Stop moving");
         ClearData("destinationPoint");
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

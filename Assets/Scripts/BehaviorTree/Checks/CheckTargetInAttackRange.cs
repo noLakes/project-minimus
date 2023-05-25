@@ -17,6 +17,7 @@ public class CheckTargetInAttackRange : Node
         if (currentTarget == null)
         {
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return State;
         }
 
@@ -29,6 +30,7 @@ public class CheckTargetInAttackRange : Node
             //Debug.Log("CHECK ENEMY RANGE FAILED. TARGET GONE");
             ClearData("currentTarget");
             _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
             return State;
         }
         
@@ -48,6 +50,7 @@ public class CheckTargetInAttackRange : Node
             //Debug.Log("Attack target NOT IN RANGE");
         }
 
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

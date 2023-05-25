@@ -23,6 +23,7 @@ public class TaskFollow : Node
             if (targetPos == Vector2.zero || !_aiCharacterManager.TryMove(targetPos))
             {
                 _state = NodeState.FAILURE;
+                ThrowResultToDebugCallStack(GetType().Name, _state);
                 return _state;
             }
         }
@@ -30,6 +31,7 @@ public class TaskFollow : Node
         Parent.Parent.SetData("followDestination", targetPos);
         //Debug.Log("RUNNING FOLLOW");
         _state = NodeState.RUNNING;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 }

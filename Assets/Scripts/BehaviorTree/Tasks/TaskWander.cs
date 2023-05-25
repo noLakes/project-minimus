@@ -31,6 +31,7 @@ public class TaskWander : Node
         Parent.Parent.SetData("destinationPoint", (object)wanderPoint);
 
         _state = NodeState.SUCCESS;
+        ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;
     }
 
