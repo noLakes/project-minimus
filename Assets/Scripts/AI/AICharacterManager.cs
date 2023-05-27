@@ -11,7 +11,7 @@ public class AICharacterManager : CharacterManager
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
     private bool _isIdle;
-
+    
     private void Start()
     {
         _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();

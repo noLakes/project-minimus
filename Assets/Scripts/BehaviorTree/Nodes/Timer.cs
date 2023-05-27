@@ -38,18 +38,15 @@ namespace BehaviorTree
                 //Debug.Log("Timer complete, triggering ability.");
                 _time = _delay;
                 _state = Children[0].Evaluate();
-                if (onTickEnded != null)
-                    onTickEnded();
-                if (onTick != null)
-                    onTick(_delay, _time);
+                onTickEnded?.Invoke();
+                onTick?.Invoke(_delay, _time);
                 //root.liveNodes.Remove(this);
                 _state = NodeState.SUCCESS;
             }
             else
             {
                 _time -= Time.deltaTime;
-                if (onTick != null)
-                    onTick(_delay, _time);
+                onTick?.Invoke(_delay, _time);
                 _state = NodeState.RUNNING;
             }
             return _state;

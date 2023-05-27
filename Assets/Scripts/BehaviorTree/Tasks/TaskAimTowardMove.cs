@@ -15,6 +15,14 @@ public class TaskAimTowardMove : Node
     public override NodeState Evaluate()
     {
         object destinationPoint = GetData("destinationPoint");
+
+        if (destinationPoint == null)
+        {
+            _state = NodeState.FAILURE;
+            ThrowResultToDebugCallStack(GetType().Name, _state);
+            return _state;
+        }
+        
         Vector2 destination = (Vector2)destinationPoint;
         
         _aiCharacterManager.AIWeaponAimManager.AimTowards(destination);
