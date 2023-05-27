@@ -11,6 +11,7 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private Transform weaponParent;
     private WeaponAimManager _weaponAimManager;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    private bool _isPlayer;
 
     public virtual void Initialize(Character character)
     {
@@ -28,10 +29,15 @@ public class CharacterManager : MonoBehaviour
 
     }
 
+    public void SetAsPlayer()
+    {
+        _isPlayer = true;
+    }
+
     public void Damage(int amount)
     {
         _character.Health -= amount;
-        //Debug.Log(transform.name + " took " + amount + " damage.");
+        if(_isPlayer) EventManager.TriggerEvent("PlayerStatsChange");
         if(_character.Health <= 0) Die();
     }
 
@@ -44,6 +50,7 @@ public class CharacterManager : MonoBehaviour
     public void Heal(int amount)
     {
         _character.Health += amount;
+        if(_isPlayer) EventManager.TriggerEvent("PlayerStatsChange");
     }
 
     private void Die()
@@ -73,6 +80,7 @@ public class CharacterManager : MonoBehaviour
             );
 
         _weaponAimManager.SetWeapon(weapon);
+        if(_isPlayer) EventManager.TriggerEvent("PlayerWeaponChange");
     }
 
     public Weapon AddWeapon(Weapon newWeapon)
@@ -115,13 +123,7 @@ public class CharacterManager : MonoBehaviour
         get => spriteRenderer.GetComponent<Renderer>().bounds.size.x;
     }
     
-    public Character Character
-    {
-        get => _character;
-    }
-
-    public Weapon CurrentWeapon
-    {
-        get => _currentWeapon;
-    }
+    public Character Character => _character;
+    public Weapon CurrentWeapon => _currentWeapon;
+    public bool IsPlayer => _isPlayer;
 }

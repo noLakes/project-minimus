@@ -52,6 +52,7 @@ public class Game : MonoBehaviour
         _playerCharacter.Character.SetPosition(Vector3.zero);
         var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
+        _playerCharacter.SetAsPlayer();
         
         // spawn test weapon in world
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));

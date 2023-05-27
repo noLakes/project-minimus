@@ -7,10 +7,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private Transform playerInfoPanel;
+    [SerializeField] private Text playerHealthText;
+    [SerializeField] private Text playerEquippedWeaponText;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdatePlayerInfoPanel();
     }
 
     // Update is called once per frame
@@ -19,15 +23,26 @@ public class UIManager : MonoBehaviour
         
     }
 
+    private void UpdatePlayerInfoPanel()
+    {
+        CharacterManager playerCM = Game.Instance.PlayerCharacter;
+        Character player = playerCM.Character;
+        
+        playerHealthText.text = "HP: " + player.Health + "/" + player.MaxHealth;
+        playerEquippedWeaponText.text = playerCM.CurrentWeapon.Data.name;
+    }
+
+    private void OnPlayerStatsChange() => UpdatePlayerInfoPanel();
+
     private void OnEnable()
     {
-        //EventManager.AddListener("PauseGame", OnPauseGame);
-        //EventManager.AddListener("ResumeGame", OnResumeGame);
+        EventManager.AddListener("PlayerStatsChange", OnPlayerStatsChange);
+        EventManager.AddListener("PlayerWeaponChange", OnPlayerStatsChange);
     }
 
     private void OnDisable()
     {
-        //EventManager.RemoveListener("PauseGame", OnPauseGame);
-        //EventManager.RemoveListener("ResumeGame", OnResumeGame);
+        EventManager.RemoveListener("PlayerStatsChange", OnPlayerStatsChange);
+        EventManager.RemoveListener("PlayerWeaponChange", OnPlayerStatsChange);
     }
 }
