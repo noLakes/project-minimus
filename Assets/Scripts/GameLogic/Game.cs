@@ -60,6 +60,7 @@ public class Game : MonoBehaviour
 
         // for testing enemy
         
+        /*
         var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
         {
             Transform =
@@ -73,21 +74,7 @@ public class Game : MonoBehaviour
         enemyCharacter.EquipWeapon(enemyWep);
 
         TestEnemy = enemy.Transform.GetComponent<AICharacterManager>();
-        
-        /*
-        for (var i = 0; i < 5; i++)
-        {
-            var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
-            {
-                Transform =
-                {
-                    position = Vector3.zero + (Vector3.up * i) * 2,
-                    name = "Enemy" + i
-                }
-            };
-        }
         */
-        
         
         GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
     }

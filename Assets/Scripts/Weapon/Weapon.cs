@@ -42,6 +42,11 @@ public class Weapon
                 _weaponAimManager.PauseAiming();
                 break;
             }
+            case WeaponType.PhysicsMelee:
+            {
+                // do physics melee stuff
+                break;
+            }
             case WeaponType.Ranged:
             {
                 _projectileSpawner.Spawn(); // shoots toward weapon forward direction
@@ -62,6 +67,13 @@ public class Weapon
                 _animator.SetTrigger("Attack");
                 _weaponAttackManager.OnWeaponAttack();
                 _weaponAimManager.PauseAiming();
+                break;
+            }
+            case WeaponType.PhysicsMelee:
+            {
+                _weaponAttackManager.OnWeaponAttack();
+                
+                //_weaponAimManager.PauseAiming();
                 break;
             }
             case WeaponType.Ranged:
@@ -137,6 +149,12 @@ public class Weapon
         _weaponAimManager.ResetPosition();
         _weaponAimManager.ResumeAiming(); // prevents weapon aim staying stuck mid melee swing from previous equipped weapon
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        
+        // link hinge joint
+        if (_transform.TryGetComponent<HingeJoint2D>(out HingeJoint2D hinge))
+        {
+            hinge.connectedBody = _owner.Transform.GetComponent<Rigidbody2D>();
+        }
         
         if (_transform.TryGetComponent(out _animator))
         {
