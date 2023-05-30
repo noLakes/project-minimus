@@ -7,14 +7,14 @@ using UnityEngine.Serialization;
 public class WeaponAttackManager : MonoBehaviour
 {
     private Weapon _weapon;
-    private bool _reloading;
-    private bool _refreshing;
+    protected bool Refreshing;
+    protected bool Reloading;
     private int _attackCounter;
     [SerializeField] private Transform hitBoxOrigin;
     [SerializeField] private float hitRadius;
     private IEnumerator _activeAttackRefreshRoutine;
     private IEnumerator _activeReloadRoutine;
-    public bool Ready => !_reloading && !_refreshing;
+    public virtual bool Ready => !Refreshing && !Reloading;
 
     public void Initialize(Weapon weapon)
     {
@@ -45,18 +45,18 @@ public class WeaponAttackManager : MonoBehaviour
 
     private IEnumerator ReloadCoroutine()
     {
-        _reloading = true;
+        Reloading = true;
         yield return new WaitForSeconds(_weapon.Stats.ReloadTime);
-        _reloading = false;
+        Reloading = false;
         _attackCounter = 0;
         _activeReloadRoutine = null;
     }
 
     private IEnumerator AttackRefreshCoroutine()
     {
-        _refreshing = true;
+        Refreshing = true;
         yield return new WaitForSeconds(_weapon.Stats.AttackRate);
-        _refreshing = false;
+        Refreshing = false;
         _activeReloadRoutine = null;
     }
 
@@ -64,8 +64,8 @@ public class WeaponAttackManager : MonoBehaviour
     {
         if(_activeReloadRoutine != null) StopCoroutine(_activeReloadRoutine);
         if(_activeAttackRefreshRoutine != null) StopCoroutine(_activeAttackRefreshRoutine);
-        _reloading = false;
-        _refreshing = false;
+        Reloading = false;
+        Refreshing = false;
         _attackCounter = 0;
     }
 

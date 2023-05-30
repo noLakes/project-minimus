@@ -18,7 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 6901648086932577002, guid: 39c4901355926824f9e65757bb1e7993, type: 3}
   type: 1
   damage: 2
-  attackRate: 0.8
+  attackRate: 0.1
   range: 1.5
   magazineSize: 0
   reloadTime: 0

@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
         // spawn test player
         var player = new Character(gameGlobalParameters.startingCharacter);
         _playerCharacter = player.Transform.GetComponent<PlayerCharacterManager>();
-        _playerCharacter.Character.SetPosition(Vector3.zero);
+        _playerCharacter.Character.SetPosition(new Vector3(-3f, 0f, 0f));
         var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
         _playerCharacter.EquipWeapon(startingWeapon);
         _playerCharacter.SetAsPlayer();

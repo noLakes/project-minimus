@@ -11,6 +11,9 @@ public class WeaponAimManager : MonoBehaviour
 
     private void Update()
     {
+        Vector2 pos = transform.position;
+        Debug.DrawLine(pos, pos + ((Vector2)transform.right * 0.5f), Color.black);
+
         if (transform.childCount == 0 || PauseAim ) return;
 
         AimDirection = (Utility.GetMouseWorldPosition() - transform.position).normalized;

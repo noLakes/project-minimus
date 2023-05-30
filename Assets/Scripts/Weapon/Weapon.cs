@@ -44,6 +44,7 @@ public class Weapon
             }
             case WeaponType.PhysicsMelee:
             {
+                //var hinge = _transform.GetComponent<HingeJoint2D>();
                 // do physics melee stuff
                 break;
             }
@@ -72,8 +73,8 @@ public class Weapon
             case WeaponType.PhysicsMelee:
             {
                 _weaponAttackManager.OnWeaponAttack();
-                
-                //_weaponAimManager.PauseAiming();
+                var hinge = _transform.GetComponent<HingeJoint2D>();
+                hinge.useMotor = true;
                 break;
             }
             case WeaponType.Ranged:
