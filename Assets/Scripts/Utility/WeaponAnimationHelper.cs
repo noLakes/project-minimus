@@ -2,22 +2,22 @@ using UnityEngine;
 
 public class WeaponAnimationHelper : MonoBehaviour
 {
-    private Weapon _weapon;
+    private WeaponManager _weaponManager;
 
-    public void Initialize(Weapon weapon)
+    public void Initialize(WeaponManager weapon)
     {
-        _weapon = weapon;
+        _weaponManager = weapon;
     }
 
     // triggered by animation events
     public void AttackStart()
     {
-        _weapon.OnAttackAnimationStart();
+        _weaponManager.OnAttackAnimationStart();
     }
     
     // triggered by animation events
     public void AttackEnd()
     {
-        _weapon.OnAttackAnimationEnd();
+        _weaponManager.OnAttackAnimationEnd();
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIWeaponAimManager : WeaponAimManager
+public class AICharacterWeaponAimer : CharacterWeaponAimer
 {
     private AICharacterManager _aiCharacterManager;
     [SerializeField] private float aimRotationSpeed;

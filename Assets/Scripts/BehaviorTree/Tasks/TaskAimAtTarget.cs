@@ -17,7 +17,7 @@ public class TaskAimAtTarget : Node
         object currentTarget = GetData("currentTarget");
         var targetTransform = (Transform)currentTarget;
         
-        _aiCharacterManager.AIWeaponAimManager.AimTowards(targetTransform.position);
+        _aiCharacterManager.AICharacterWeaponAimer.AimTowards(targetTransform.position);
         _state = NodeState.SUCCESS;
         ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;

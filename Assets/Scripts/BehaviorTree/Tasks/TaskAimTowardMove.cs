@@ -25,7 +25,7 @@ public class TaskAimTowardMove : Node
         
         Vector2 destination = (Vector2)destinationPoint;
         
-        _aiCharacterManager.AIWeaponAimManager.AimTowards(destination);
+        _aiCharacterManager.AICharacterWeaponAimer.AimTowards(destination);
         _state = NodeState.SUCCESS;
         ThrowResultToDebugCallStack(GetType().Name, _state);
         return _state;

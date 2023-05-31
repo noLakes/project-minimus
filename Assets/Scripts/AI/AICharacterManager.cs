@@ -6,7 +6,7 @@ using Tree = BehaviorTree.Tree;
 
 public class AICharacterManager : CharacterManager
 {
-    private AIWeaponAimManager _aiWeaponAimManager;
+    private AICharacterWeaponAimer _aiCharacterWeaponAimer;
     private Tree _behaviorTree;
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
@@ -14,7 +14,7 @@ public class AICharacterManager : CharacterManager
     
     private void Start()
     {
-        _aiWeaponAimManager = transform.Find("WeaponParent").GetComponent<AIWeaponAimManager>();
+        _aiCharacterWeaponAimer = transform.Find("WeaponParent").GetComponent<AICharacterWeaponAimer>();
         _behaviorTree = GetComponent<Tree>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
@@ -79,6 +79,6 @@ public class AICharacterManager : CharacterManager
 
     public NavMeshAgent NavMeshAgent => _navMeshAgent;
     public bool IsIdle => _isIdle;
-    public AIWeaponAimManager AIWeaponAimManager => _aiWeaponAimManager;
+    public AICharacterWeaponAimer AICharacterWeaponAimer => _aiCharacterWeaponAimer;
     public bool HasPath => _navMeshAgent.hasPath;
 }

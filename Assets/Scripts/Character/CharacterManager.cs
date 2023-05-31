@@ -9,7 +9,7 @@ public class CharacterManager : MonoBehaviour
     protected Character _character;
     private Weapon _currentWeapon;
     [SerializeField] private Transform weaponParent;
-    private WeaponAimManager _weaponAimManager;
+    private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool _isPlayer;
 
@@ -21,7 +21,7 @@ public class CharacterManager : MonoBehaviour
     protected virtual void Awake()
     {
         weaponParent = transform.Find("WeaponParent");
-        _weaponAimManager = weaponParent.GetComponent<WeaponAimManager>();
+        _characterWeaponAimer = weaponParent.GetComponent<CharacterWeaponAimer>();
     }
 
     void Update()
@@ -74,12 +74,12 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon = weapon;
         _currentWeapon.Equip(_character);
         
-        _weaponAimManager.UpdateSpriteRenderers(
+        _characterWeaponAimer.UpdateSpriteRenderers(
             _currentWeapon.SpriteRenderer,
             spriteRenderer
             );
 
-        _weaponAimManager.SetWeapon(weapon);
+        _characterWeaponAimer.SetWeapon(weapon);
         if(_isPlayer) EventManager.TriggerEvent("PlayerWeaponChange");
     }
 
@@ -96,7 +96,7 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon = null;
         droppedWeapon.Unequip();
         Character.RemoveWeapon(droppedWeapon);
-        _weaponAimManager.SetWeapon(null);
+        _characterWeaponAimer.SetWeapon(null);
 
         Vector2 mouseDir = (Utility.GetMouseWorldPosition2D() - (Vector2)transform.position).normalized;
         Weapon.SpawnInWorld(droppedWeapon, (Vector2)transform.position + mouseDir);

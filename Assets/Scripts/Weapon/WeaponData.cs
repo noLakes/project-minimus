@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum WeaponType
 {
-    Melee,
+    AnimationMelee,
     PhysicsMelee,
     Ranged
 }

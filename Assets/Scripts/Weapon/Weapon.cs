@@ -10,13 +10,9 @@ public class Weapon
     private readonly WeaponData _data;
     private readonly WeaponStats _baseStats;
     private WeaponStats _activeStats;
-    private float _computedRange; // for melee and physiscs weapons
     private Transform _transform;
     private SpriteRenderer _spriteRenderer;
-    private Animator _animator;
-    private ProjectileSpawner _projectileSpawner;
-    private WeaponAttackManager _weaponAttackManager;
-    private WeaponAimManager _weaponAimManager;
+    private WeaponManager _weaponManager;
     private bool _equipped;
     private Character _owner;
     
@@ -31,59 +27,12 @@ public class Weapon
 
     public void Attack()
     {
-        if (!_weaponAttackManager.Ready) return;
-        
-        switch (_data.type)
-        {
-            case WeaponType.Melee:
-            {
-                _animator.SetTrigger("Attack");
-                _weaponAttackManager.OnWeaponAttack();
-                _weaponAimManager.PauseAiming();
-                break;
-            }
-            case WeaponType.PhysicsMelee:
-            {
-                //var hinge = _transform.GetComponent<HingeJoint2D>();
-                // do physics melee stuff
-                break;
-            }
-            case WeaponType.Ranged:
-            {
-                _projectileSpawner.Spawn(); // shoots toward weapon forward direction
-                _weaponAttackManager.OnWeaponAttack();
-                break;
-            }
-        }
+        _weaponManager.Attack();
     }
 
     public void Attack(Vector2 attackLocation)
     {
-        if (!_weaponAttackManager.Ready) return;
-        
-        switch (_data.type)
-        {
-            case WeaponType.Melee:
-            {
-                _animator.SetTrigger("Attack");
-                _weaponAttackManager.OnWeaponAttack();
-                _weaponAimManager.PauseAiming();
-                break;
-            }
-            case WeaponType.PhysicsMelee:
-            {
-                _weaponAttackManager.OnWeaponAttack();
-                var hinge = _transform.GetComponent<HingeJoint2D>();
-                hinge.useMotor = true;
-                break;
-            }
-            case WeaponType.Ranged:
-            {
-                _projectileSpawner.Spawn(attackLocation); // shoots towards location regardless of aim
-                _weaponAttackManager.OnWeaponAttack();
-                break;
-            }
-        }
+        _weaponManager.Attack(attackLocation);
     }
 
     public bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)
@@ -123,49 +72,18 @@ public class Weapon
         // play animation or particle effects
     }
 
-    public void OnAttackAnimationStart()
-    {
-        // do something
-    }
-    
-    public void OnAttackAnimationEnd()
-    {
-        _weaponAimManager.ResumeAiming();
-    }
-
     public void Equip(Character owner)
     {
         _owner = owner;
         CreateTransform();
         
-        if (_transform.TryGetComponent(out _projectileSpawner))
-        {
-            _projectileSpawner.Initialize(this);
-        }
+        _weaponManager = _transform.GetComponent<WeaponManager>();
+        _weaponManager.Initialize(this);
 
-        _weaponAttackManager = _transform.GetComponent<WeaponAttackManager>();
-        _weaponAttackManager.Initialize(this);
-
-        _weaponAimManager = Owner.Transform.GetComponentInChildren<WeaponAimManager>();
-        _weaponAimManager.ResetPosition();
-        _weaponAimManager.ResumeAiming(); // prevents weapon aim staying stuck mid melee swing from previous equipped weapon
         _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
-        
-        // link hinge joint
-        if (_transform.TryGetComponent<HingeJoint2D>(out HingeJoint2D hinge))
-        {
-            hinge.connectedBody = _owner.Transform.GetComponent<Rigidbody2D>();
-        }
-        
-        if (_transform.TryGetComponent(out _animator))
-        {
-            _transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
-        }
-        
         _transform.position = owner.Transform.position + _transform.localPosition;
         var parent = Owner.Transform.Find("WeaponParent");
         _transform.parent = parent;
-        ComputeRange();
         _equipped = true;
     }
 
@@ -173,9 +91,7 @@ public class Weapon
     {
         GameObject.Destroy(_transform.gameObject);
         _transform = null;
-        _projectileSpawner = null;
-        _weaponAttackManager = null;
-        _weaponAimManager = null;
+        _weaponManager = null;
         _equipped = false;
     }
 
@@ -192,7 +108,7 @@ public class Weapon
     private void ToggleAttackComponentsActive(bool status)
     {
         if (_transform.TryGetComponent<Animator>(out var anim)) anim.enabled = status;
-        if (_transform.TryGetComponent<WeaponAttackManager>(out var attackMan)) attackMan.enabled = status;
+        if (_transform.TryGetComponent<WeaponManager>(out var attackMan)) attackMan.enabled = status;
         if (_transform.TryGetComponent<WeaponAnimationHelper>(out var animHelp)) animHelp.enabled = status;
     }
 
@@ -226,33 +142,13 @@ public class Weapon
             : Game.Instance.TargetPlayerHitScanMask;
     }
 
-    private void ComputeRange()
-    {
-        switch (_data.type)
-        {
-            case WeaponType.Melee:
-            {
-                float ownerHalfSize = _owner.Transform.GetComponent<CharacterManager>().Size / 2;
-                Debug.Log("ComputeRange: " + ownerHalfSize + " / " + _weaponAttackManager.HitRadius * 1.9f);
-                _computedRange = (_weaponAttackManager.HitRadius * 1.95f) + ownerHalfSize;
-                break;
-            }
-            case WeaponType.Ranged:
-            {
-                // not implemented yet
-                _computedRange = _activeStats.Range; // replace this
-                break;
-            }
-        }
-        Debug.Log("ComputedRange: " + _computedRange);
-    }
-    
     public WeaponData Data => _data;
     public WeaponStats Stats => _activeStats;
-    public float ComputedRange => _computedRange;
+    public float ComputedRange => _weaponManager.ComputedRange;
     public Transform Transform => _transform;
+    public WeaponManager Manager => _weaponManager;
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public bool Equipped => _equipped;
     public Character Owner => _owner;
-    public bool CanAttack => _weaponAttackManager.Ready;
+    public bool CanAttack => _weaponManager.Ready;
 }
