@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5059694603599579340}
   - component: {fileID: 5261010406450674018}
-  - component: {fileID: 1928235211752504703}
+  - component: {fileID: 4692285440887021299}
   - component: {fileID: 1756935981621800848}
   m_Layer: 0
   m_Name: Physics Crossbow
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6293776764116966831, guid: d36dfc57739749f49a0e7c884da27b0f, type: 3}
   spawnPoint: {fileID: 5059694604530273643}
---- !u!114 &1928235211752504703
+--- !u!114 &4692285440887021299
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,11 +58,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5059694603599579343}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8e342b5254b246119cf035d3503b3f1, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bce40ebad1c4c14f80e3ef4c3f821bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitBoxOrigin: {fileID: 0}
-  hitRadius: 0
 --- !u!212 &1756935981621800848
 SpriteRenderer:
   m_ObjectHideFlags: 0

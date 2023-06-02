@@ -27,12 +27,12 @@ public class Weapon
 
     public void Attack()
     {
-        _weaponManager.Attack();
+        if(_weaponManager.Ready) _weaponManager.Attack();
     }
 
     public void Attack(Vector2 attackLocation)
     {
-        _weaponManager.Attack(attackLocation);
+        if(_weaponManager.Ready) _weaponManager.Attack(attackLocation);
     }
 
     public bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)
@@ -79,8 +79,7 @@ public class Weapon
         
         _weaponManager = _transform.GetComponent<WeaponManager>();
         _weaponManager.Initialize(this);
-
-        _spriteRenderer = _transform.GetComponent<SpriteRenderer>();
+        
         _transform.position = owner.Transform.position + _transform.localPosition;
         var parent = Owner.Transform.Find("WeaponParent");
         _transform.parent = parent;
@@ -104,7 +103,7 @@ public class Weapon
 
         return _transform = GameObject.Instantiate(_data.prefab).transform;
     }
-
+    
     private void ToggleAttackComponentsActive(bool status)
     {
         if (_transform.TryGetComponent<Animator>(out var anim)) anim.enabled = status;
@@ -117,7 +116,10 @@ public class Weapon
         var weapon = new Weapon(initialData);
         weapon.CreateTransform();
         weapon._transform.position = spawnPoint;
-        weapon.ToggleAttackComponentsActive(false);
+        
+        var wepManager = weapon._transform.GetComponent<WeaponManager>();
+        wepManager.ConvertToPickup();
+        wepManager.enabled = false;
         
         var wp = weapon._transform.AddComponent<WeaponPickup>();
         wp.Initialize(weapon.Data);
@@ -128,8 +130,11 @@ public class Weapon
     {
         weapon.CreateTransform();
         weapon._transform.position = spawnPoint;
-        weapon.ToggleAttackComponentsActive(false);
         
+        var wepManager = weapon._transform.GetComponent<WeaponManager>();
+        wepManager.ConvertToPickup();
+        wepManager.enabled = false;
+
         var wp = weapon._transform.AddComponent<WeaponPickup>();
         wp.Initialize(weapon.Data);
         return weapon;
@@ -147,7 +152,6 @@ public class Weapon
     public float ComputedRange => _weaponManager.ComputedRange;
     public Transform Transform => _transform;
     public WeaponManager Manager => _weaponManager;
-    public SpriteRenderer SpriteRenderer => _spriteRenderer;
     public bool Equipped => _equipped;
     public Character Owner => _owner;
     public bool CanAttack => _weaponManager.Ready;

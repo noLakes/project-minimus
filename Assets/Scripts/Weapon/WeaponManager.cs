@@ -10,6 +10,7 @@ public class WeaponManager : MonoBehaviour
     
     protected CharacterWeaponAimer CharacterWeaponAimer;
     protected Animator Animator;
+    private SpriteRenderer _spriteRenderer;
     
     protected bool Refreshing;
     protected bool Reloading;
@@ -31,6 +32,8 @@ public class WeaponManager : MonoBehaviour
         {
             transform.GetComponent<WeaponAnimationHelper>()?.Initialize(this);
         }
+        
+        _spriteRenderer = Weapon.Transform.GetComponent<SpriteRenderer>();
 
         ComputeRange();
     }
@@ -125,4 +128,17 @@ public class WeaponManager : MonoBehaviour
         */
         
     }
+    
+    public virtual void ConvertToPickup()
+    {
+        if (Animator != null)
+        {
+            Destroy(Animator);
+            Animator = null;
+            
+            if(TryGetComponent<WeaponAnimationHelper>(out var animHelper)) Destroy(animHelper);
+        }
+    }
+
+    public SpriteRenderer SpriteRenderer => _spriteRenderer;
 }

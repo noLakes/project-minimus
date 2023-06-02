@@ -41,6 +41,6 @@ public class AnimatedMeleeWeaponManager : WeaponManager
             Weapon.ProcessHit(c, c.transform.position, transform.position);
         }
     }
-    
+
     public float HitRadius => hitRadius;
 }

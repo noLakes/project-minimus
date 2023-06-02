@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class PHYMeleeWeaponManager : WeaponManager
@@ -26,5 +27,13 @@ public class PHYMeleeWeaponManager : WeaponManager
         _hinge.useMotor = true;
         AttackRefresh();
         CheckReload();
+    }
+    
+    public override void ConvertToPickup()
+    {
+        base.ConvertToPickup();
+        Destroy(_hinge);
+        _hinge = null;
+        Destroy(GetComponent<Rigidbody2D>());
     }
 }

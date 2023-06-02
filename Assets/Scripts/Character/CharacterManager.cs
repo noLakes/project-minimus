@@ -75,7 +75,7 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Equip(_character);
         
         _characterWeaponAimer.UpdateSpriteRenderers(
-            _currentWeapon.SpriteRenderer,
+            _currentWeapon.Manager.SpriteRenderer,
             spriteRenderer
             );
 

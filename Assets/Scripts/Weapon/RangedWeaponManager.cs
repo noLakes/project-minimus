@@ -28,4 +28,11 @@ public class RangedWeaponManager : WeaponManager
         AttackRefresh();
         CheckReload();
     }
+    
+    public override void ConvertToPickup()
+    {
+        base.ConvertToPickup();
+        Destroy(_projectileSpawner);
+        _projectileSpawner = null;
+    }
 }
