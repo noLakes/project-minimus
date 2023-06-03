@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6293776764116966831, guid: edb65ec82f29ea647a27b565d474f633, type: 3}
   spawnPoint: {fileID: 5059694604530273643}
+  _trailRendererPrefab: {fileID: 8848347806289676252, guid: 42b3a02f2f83bff4f9bb6dcf2260a55e, type: 3}
 --- !u!114 &8573242776361615930
 MonoBehaviour:
   m_ObjectHideFlags: 0

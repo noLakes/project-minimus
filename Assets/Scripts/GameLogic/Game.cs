@@ -60,7 +60,7 @@ public class Game : MonoBehaviour
 
         // for testing enemy
         
-        /*
+        // spawn basic enemy
         var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
         {
             Transform =
@@ -73,9 +73,6 @@ public class Game : MonoBehaviour
         var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
         enemyCharacter.EquipWeapon(enemyWep);
 
-        TestEnemy = enemy.Transform.GetComponent<AICharacterManager>();
-        */
-        
         GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
     }
 

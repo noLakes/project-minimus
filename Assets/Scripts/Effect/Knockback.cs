@@ -10,6 +10,7 @@ public class Knockback : Effect
     [Range(0f, 2f)] public float releaseTime;
     private Rigidbody2D _targetRb;
     private Vector2 _direction;
+    
     public override void Apply(EffectArgs args)
     {
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
