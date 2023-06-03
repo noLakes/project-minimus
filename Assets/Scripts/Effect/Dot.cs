@@ -33,4 +33,13 @@ public class Dot : Effect
             timeElapsed += tickInterval;
         }
     }
+
+    static Dot Create(float duration, float tickInterval, int damage)
+    {
+        var dot = ScriptableObject.CreateInstance<Dot>();
+        dot.duration = duration;
+        dot.tickInterval = tickInterval;
+        dot.damage = damage;
+        return dot;
+    }
 }

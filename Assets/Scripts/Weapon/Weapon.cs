@@ -103,13 +103,6 @@ public class Weapon
 
         return _transform = GameObject.Instantiate(_data.prefab).transform;
     }
-    
-    private void ToggleAttackComponentsActive(bool status)
-    {
-        if (_transform.TryGetComponent<Animator>(out var anim)) anim.enabled = status;
-        if (_transform.TryGetComponent<WeaponManager>(out var attackMan)) attackMan.enabled = status;
-        if (_transform.TryGetComponent<WeaponAnimationHelper>(out var animHelp)) animHelp.enabled = status;
-    }
 
     public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
     {
