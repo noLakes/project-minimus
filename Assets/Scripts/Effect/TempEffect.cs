@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Buff : Effect
+[CreateAssetMenu(fileName = "TempEffect", menuName = "Scriptable Objects/Effects/TempEffect", order = 4)]
+public class TempEffect : Effect
 {
     public float duration;
     private CharacterManager _character;
@@ -11,6 +12,7 @@ public class Buff : Effect
 
     public override void Apply(EffectArgs args)
     {
+        Debug.Log("Applying Buff for " + duration + "s");
         if (!args.Target.TryGetComponent<CharacterManager>(out _character)) return;
         _initialArgs = args;
         ApplyEffects();
@@ -20,6 +22,7 @@ public class Buff : Effect
 
     public override void Remove()
     {
+        Debug.Log("Removing Buff");
         if (ActiveRunRoutine == null) return;
         Game.Instance.StopCoroutine(ActiveRunRoutine);
         ActiveRunRoutine = null;
@@ -37,6 +40,7 @@ public class Buff : Effect
     {
         foreach (var effect in targetEffects)
         {
+            Debug.Log("Applying sub effect: " + effect.name);
             effect.Apply(_initialArgs);
         }
     }
@@ -45,6 +49,7 @@ public class Buff : Effect
     {
         foreach (var effect in targetEffects)
         {
+            Debug.Log("Removing sub effect: " + effect.name);
             effect.Remove();
         }
     }
