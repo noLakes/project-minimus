@@ -17,9 +17,10 @@ MonoBehaviour:
   description: A basic sword
   prefab: {fileID: 6901648086932577002, guid: 47ebaa4e9189d47d3adcce579b80986d, type: 3}
   type: 0
-  damage: 2
-  attackRate: 0.8
-  range: 1.5
-  magazineSize: 0
-  reloadTime: 0
-  onHitEffects: []
+  baseStats:
+    damage: 1
+    attackRate: 0.6
+    magazineSize: 0
+    reloadTime: 0
+    range: 1.5
+    onHitEffects: []

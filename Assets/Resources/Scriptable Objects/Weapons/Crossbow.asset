@@ -17,9 +17,11 @@ MonoBehaviour:
   description: A simple crossbow
   prefab: {fileID: 5059694603599579343, guid: 9223c863936f2984cabff64acdd79f9f, type: 3}
   type: 1
-  damage: 4
-  attackRate: 0
-  range: 50
-  magazineSize: 1
-  reloadTime: 2
-  onHitEffects: []
+  baseStats:
+    damage: 2
+    attackRate: 0
+    magazineSize: 1
+    reloadTime: 1.5
+    range: 10
+    onHitEffects:
+    - {fileID: 11400000, guid: dadb7ea1a479f184bb85800d2221007f, type: 2}

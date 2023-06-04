@@ -19,10 +19,10 @@ public class Character
     {
         _uid = System.Guid.NewGuid().ToString();
         _data = initialData;
-        _baseStats = new CharacterStats(initialData);
+        _baseStats = _data.baseStats;
         _activeStats = _baseStats;
         _code = _data.code;
-        _health = _data.maxHealth;
+        _health = _baseStats.maxHealth;
 
         _weapons = new List<Weapon>();
 
@@ -66,7 +66,7 @@ public class Character
     
     public void AddPassiveItem(PassiveItem pItem)
     {
-        if (_passiveItemInventory.ContainsKey(pItem.Data.code))
+        if (HasPassiveItem(pItem.Data.code))
         {
             Debug.Log(_data.characterName + " already has " + pItem.Data.itemName + " in inventory");
             return;
@@ -79,7 +79,7 @@ public class Character
     
     public void RemovePassiveItem(string code)
     {
-        if (!_passiveItemInventory.ContainsKey(code)) return;
+        if (!HasPassiveItem(code)) return;
 
         var pItem = _passiveItemInventory[code];
         pItem.RemoveModsFromCharacter(this);
@@ -88,7 +88,12 @@ public class Character
     }
 
     public void RemovePassiveItem(PassiveItem pItem) => RemovePassiveItem(pItem.Data.code);
-    
+
+    public bool HasPassiveItem(string code)
+    {
+        return _passiveItemInventory.ContainsKey(code);
+    }
+
     public string Code
     {
         get => _code;
@@ -104,6 +109,12 @@ public class Character
     {
         get => _activeStats.maxHealth;
         set => _activeStats.maxHealth = Mathf.Max(0, value);
+    }
+
+    public float Speed
+    {
+        get => _activeStats.speed;
+        set => _activeStats.speed = value;
     }
 
     public CharacterStats Stats => _activeStats;

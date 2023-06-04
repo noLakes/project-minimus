@@ -20,7 +20,7 @@ public class Weapon
     {
         uid = System.Guid.NewGuid().ToString();
         _data = initialData;
-        _baseStats = new WeaponStats(initialData);
+        _baseStats = _data.baseStats;
         _activeStats = _baseStats;
         _owner = owner;
     }
@@ -53,16 +53,16 @@ public class Weapon
     {
         // apply hit actions
         if (!collider.transform.TryGetComponent<CharacterManager>(out var cm)) return;
-        cm.Damage(_activeStats.Damage);
+        cm.Damage(_activeStats.damage);
         cm.ReceiveHit(_owner.Transform, origin);
             
         // if weapon has on hit effects
-        if (_activeStats.OnHitEffects.Count > 0)
+        if (_activeStats.onHitEffects.Count > 0)
         {
             // generate effect args struct
             var effectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
 
-            foreach(var e in _activeStats.OnHitEffects)
+            foreach(var e in _activeStats.onHitEffects)
             {
                 e.Apply(effectArgs);
             }

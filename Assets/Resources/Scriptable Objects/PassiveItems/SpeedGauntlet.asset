@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   code: speedGauntlet
   itemName: Speed Gauntlet
-  prefab: {fileID: 1980352014186742960, guid: 368d6c15365840f458cfcf00f5443069, type: 3}
+  pickupPrefab: {fileID: 1980352014186742960, guid: 368d6c15365840f458cfcf00f5443069, type: 3}
   uiSprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   passiveEffects:
   - {fileID: 11400000, guid: 976fc873f0840bd4990794da4f4bc758, type: 2}

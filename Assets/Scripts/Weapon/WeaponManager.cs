@@ -50,9 +50,9 @@ public class WeaponManager : MonoBehaviour
     
     protected void CheckReload()
     {
-        if (Weapon.Stats.MagazineSize <= 0) return;
+        if (Weapon.Stats.magazineSize <= 0) return;
         _attackCounter ++;
-        if(_attackCounter >= Weapon.Stats.MagazineSize) Reload();
+        if(_attackCounter >= Weapon.Stats.magazineSize) Reload();
     }
 
     protected void Reload()
@@ -70,7 +70,7 @@ public class WeaponManager : MonoBehaviour
     protected IEnumerator ReloadCoroutine()
     {
         Reloading = true;
-        yield return new WaitForSeconds(Weapon.Stats.ReloadTime);
+        yield return new WaitForSeconds(Weapon.Stats.reloadTime);
         Reloading = false;
         _attackCounter = 0;
         _activeReloadRoutine = null;
@@ -79,7 +79,7 @@ public class WeaponManager : MonoBehaviour
     protected IEnumerator AttackRefreshCoroutine()
     {
         Refreshing = true;
-        yield return new WaitForSeconds(Weapon.Stats.AttackRate);
+        yield return new WaitForSeconds(Weapon.Stats.attackRate);
         Refreshing = false;
         _activeReloadRoutine = null;
     }
@@ -105,7 +105,7 @@ public class WeaponManager : MonoBehaviour
     
     protected void ComputeRange()
     {
-        ComputedRange = Weapon.Stats.Range;
+        ComputedRange = Weapon.Stats.range;
         // needs to be re-implemented
         /*
         switch (Weapon.Data.type)

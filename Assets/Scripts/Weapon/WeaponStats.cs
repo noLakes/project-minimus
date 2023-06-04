@@ -1,22 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
+[Serializable]
 public struct WeaponStats
 {
-    public int Damage;
-    public float AttackRate;
-    public int MagazineSize;
-    public float ReloadTime;
-    public float Range;
-    public List<Effect> OnHitEffects;
-
-    public WeaponStats(WeaponData data)
-    {
-        Damage = data.damage;
-        AttackRate = data.attackRate;
-        MagazineSize = data.magazineSize;
-        ReloadTime = data.reloadTime;
-        Range = data.range;
-        OnHitEffects = data.onHitEffects;
-    }
+    public int damage;
+    public float attackRate;
+    public int magazineSize;
+    public float reloadTime;
+    public float range;
+    public List<Effect> onHitEffects;
 }

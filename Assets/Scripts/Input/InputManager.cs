@@ -24,7 +24,7 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Game.Instance.PlayerCharacter.Character.RemovePassiveItem("speedGauntlet");
+            // handle right click
         }
     }
 

@@ -19,36 +19,16 @@ public class ModSpeed : Effect
     {
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
         _initialArgs = args;
-
-        if (cm.TryGetComponent<PlayerMovementController>(out _playerMovementController))
-        {
-            // increase speed
-            _playerMovementController.ModifySpeed(modifier);
-            return;
-        }
-
-        if (cm.TryGetComponent<NavMeshAgent>(out _navMeshAgent))
-        {
-            _navMeshAgent.speed += modifier;
-            // increase speed
-        }
+        cm.Character.Speed += modifier;
+        cm.OnSpeedChange();
     }
 
     public override void Remove()
     {
         if (_initialArgs.Target == null) return;
-
-        if (_playerMovementController != null)
-        {
-            // remove speed
-            _playerMovementController.ModifySpeed(-modifier);
-            return;
-        }
-
-        if (_navMeshAgent != null)
-        {
-            _navMeshAgent.speed -= modifier;
-            // remove speed
-        }
+        if (!_initialArgs.Target.TryGetComponent<CharacterManager>(out var cm)) return;
+        
+        cm.Character.Speed -= modifier;
+        cm.OnSpeedChange();
     }
 }

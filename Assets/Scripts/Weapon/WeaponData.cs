@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum WeaponType
 {
@@ -17,11 +18,5 @@ public class WeaponData : ScriptableObject
     public string description;
     public GameObject prefab;
     public WeaponType type;
-    public int damage;
-    public float attackRate;
-    public float range;
-    public int magazineSize;
-    public float reloadTime;
-
-    public List<Effect> onHitEffects;
+    public WeaponStats baseStats;
 }

@@ -93,7 +93,7 @@ public class RigidBodyProjectile : Projectile
     
     private void HandleRangeCheck()
     {
-        if (_linkedWeapon.Stats.Range > 0f && _distanceTravelled >= _linkedWeapon.Stats.Range)
+        if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
         {
             Stop();
         }

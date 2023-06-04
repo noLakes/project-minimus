@@ -9,9 +9,7 @@ public class CharacterData : ScriptableObject
     public string code;
     public string characterName;
     public string description;
-    public int maxHealth;
-    public int maxWeaponCount;
+    public CharacterStats baseStats;
     public GameObject prefab;
-    public float fovRadius;
     public List<PassiveItemData> startingPassiveItems;
 }

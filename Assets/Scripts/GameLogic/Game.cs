@@ -74,6 +74,8 @@ public class Game : MonoBehaviour
             var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
             var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
             enemyCharacter.EquipWeapon(enemyWep);
+            
+            //enemy.AddPassiveItem(new PassiveItem(DataHandler.LoadPassiveItem("SpeedGauntlet")));
         }
         
         // for testing passive items

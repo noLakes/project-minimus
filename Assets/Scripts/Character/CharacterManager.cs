@@ -118,6 +118,11 @@ public class CharacterManager : MonoBehaviour
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
 
+    public virtual void OnSpeedChange()
+    {
+        // do nothing by default
+    }
+
     public float Size
     {
         get => spriteRenderer.GetComponent<Renderer>().bounds.size.x;

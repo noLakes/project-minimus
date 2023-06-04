@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    [SerializeField] private float speed;
+    private Character _character;
     public Rigidbody2D rb;
 
     private Vector2 _moveDirection;
-    
+
+    private void Start()
+    {
+        _character = Game.Instance.PlayerCharacter.Character;
+    }
+
     private void Update()
     {
         var moveX = Input.GetAxisRaw("Horizontal");
@@ -19,11 +25,6 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        rb.velocity = _moveDirection * speed;
-    }
-
-    public void ModifySpeed(float amount)
-    {
-        speed += amount;
+        rb.velocity = _moveDirection * _character.Stats.speed;
     }
 }

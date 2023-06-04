@@ -11,15 +11,29 @@ public class AICharacterManager : CharacterManager
     private NavMeshAgent _navMeshAgent;
     private NavMeshPath _path;
     private bool _isIdle;
-    
-    private void Start()
+
+    public override void Initialize(Character character)
     {
+        base.Initialize(character);
         _aiCharacterWeaponAimer = transform.Find("WeaponParent").GetComponent<AICharacterWeaponAimer>();
         _behaviorTree = GetComponent<Tree>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.updateRotation = false;
         _navMeshAgent.updateUpAxis = false;
         _path = new NavMeshPath();
+        
+    }
+    
+    private void Start()
+    {
+        /*
+        _aiCharacterWeaponAimer = transform.Find("WeaponParent").GetComponent<AICharacterWeaponAimer>();
+        _behaviorTree = GetComponent<Tree>();
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _navMeshAgent.updateRotation = false;
+        _navMeshAgent.updateUpAxis = false;
+        _path = new NavMeshPath();
+        */
     }
     
     private void Update()
@@ -70,6 +84,11 @@ public class AICharacterManager : CharacterManager
     {
         _navMeshAgent.ResetPath();
         _path = new NavMeshPath();
+    }
+
+    public override void OnSpeedChange()
+    {
+        _navMeshAgent.speed = _character.Stats.speed;
     }
     
     public void SetIdleStatus(bool status)

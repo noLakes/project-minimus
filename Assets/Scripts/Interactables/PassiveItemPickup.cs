@@ -17,6 +17,7 @@ public class PassiveItemPickup : Interactable
     
     private void HandlePickup(CharacterManager cm)
     {
+        if (cm.Character.HasPassiveItem(_passiveItemData.code)) return;
         cm.Character.AddPassiveItem(new PassiveItem(_passiveItemData));
         Destroy(this.gameObject);
     }

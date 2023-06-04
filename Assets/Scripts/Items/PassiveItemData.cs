@@ -8,7 +8,7 @@ public class PassiveItemData : ScriptableObject
 {
     public string code;
     public string itemName;
-    [FormerlySerializedAs("prefab")] public GameObject pickupPrefab;
+    public GameObject pickupPrefab;
     public Sprite uiSprite;
     public List<Effect> passiveEffects;
     public List<Effect> onHitEffects;
