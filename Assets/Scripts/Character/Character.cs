@@ -6,13 +6,14 @@ using System.Linq;
 public class Character
 {
     private readonly string _uid;
-    private CharacterData _data;
+    protected CharacterData _data;
     private CharacterStats _baseStats;
     private CharacterStats _activeStats;
     private string _code;
     public readonly Transform Transform;
     private int _health;
     private List<Weapon> _weapons;
+    private Dictionary<string, PassiveItem> _passiveItemInventory;
 
     public Character(CharacterData initialData)
     {
@@ -29,6 +30,12 @@ public class Character
         Transform = g.transform;
         Transform.parent = Game.Instance.CHARACTER_CONTAINER;
         g.GetComponent<CharacterManager>().Initialize(this);
+
+        _passiveItemInventory = new Dictionary<string, PassiveItem>();
+        foreach (var pItemData in initialData.startingPassiveItems)
+        {
+            AddPassiveItem(new PassiveItem(pItemData));
+        }
     }
 
     public virtual void SetPosition(Vector3 position)
@@ -56,6 +63,31 @@ public class Character
             _weapons.Remove(weapon);
         }
     }
+    
+    public void AddPassiveItem(PassiveItem pItem)
+    {
+        if (_passiveItemInventory.ContainsKey(pItem.Data.code))
+        {
+            Debug.Log(_data.characterName + " already has " + pItem.Data.itemName + " in inventory");
+            return;
+        }
+        
+        _passiveItemInventory.Add(pItem.Data.code, pItem);
+        Debug.Log("added " + pItem.Data.itemName + " to " + _data.characterName +"'s inventory");
+        pItem.ApplyModsToCharacter(this);
+    }
+    
+    public void RemovePassiveItem(string code)
+    {
+        if (!_passiveItemInventory.ContainsKey(code)) return;
+
+        var pItem = _passiveItemInventory[code];
+        pItem.RemoveModsFromCharacter(this);
+        _passiveItemInventory.Remove(code);
+        Debug.Log("removed " + pItem.Data.itemName + " from " + _data.characterName +"'s inventory");
+    }
+
+    public void RemovePassiveItem(PassiveItem pItem) => RemovePassiveItem(pItem.Data.code);
     
     public string Code
     {

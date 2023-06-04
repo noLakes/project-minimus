@@ -13,4 +13,5 @@ public class CharacterData : ScriptableObject
     public int maxWeaponCount;
     public GameObject prefab;
     public float fovRadius;
+    public List<PassiveItemData> startingPassiveItems;
 }

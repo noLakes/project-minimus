@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
     public static WeaponData[] WEAPON_DATA;
+    public static PassiveItemData[] PASSIVE_ITEM_DATA;
 
     public Transform CHARACTER_CONTAINER;
     public List<Character> CHARACTERS;
@@ -59,19 +60,29 @@ public class Game : MonoBehaviour
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
 
         // for testing enemy
-        
-        // spawn basic enemy
-        var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
+        if (true)
         {
-            Transform =
+            // spawn basic enemy
+            var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
             {
-                position = new Vector3(0, 5, 0),
-                name = "Enemy"
-            }
-        };
-        var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
-        var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
-        enemyCharacter.EquipWeapon(enemyWep);
+                Transform =
+                {
+                    position = new Vector3(0, 5, 0),
+                    name = "Enemy"
+                }
+            };
+            var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
+            var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
+            enemyCharacter.EquipWeapon(enemyWep);
+        }
+        
+        // for testing passive items
+        if (true)
+        {
+            PassiveItemData pItem = DataHandler.LoadPassiveItem("SpeedGauntlet");
+            PassiveItem.CreatePickup(pItem, new Vector2(0f, -5f));
+        }
+        
 
         GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
     }
