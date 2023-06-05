@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public struct EffectArgs
@@ -36,5 +37,13 @@ public abstract class Effect : ScriptableObject
     {
         // do nothing by default
         yield return null;
+    }
+
+    public static void ApplyEffectList(List<Effect> effects, EffectArgs args)
+    {
+        foreach (var effect in effects)
+        {
+            effect.Apply(args);
+        }
     }
 }

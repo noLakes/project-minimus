@@ -13,4 +13,19 @@ public struct CharacterStats
     public float rangedDamageModifier;
     public float meleeDamageModifier;
     public List<Effect> onHitEffects;
+
+    public void AddOnHitEffect(Effect e)
+    {
+        onHitEffects.Add(e);
+    }
+
+    public bool RemoveOnHitEffect(Effect e)
+    {
+        if (onHitEffects.Contains(e))
+        {
+            return onHitEffects.Remove(e);
+        }
+
+        return false;
+    }
 }

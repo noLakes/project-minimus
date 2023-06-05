@@ -54,20 +54,6 @@ public class HitScanSpawner : ProjectileSpawner
         var trail = Instantiate(_trailRendererPrefab, (Vector2)transform.position, Quaternion.identity);
         StartCoroutine(CastTracerRoutine(trail, endPos));
     }
-
-    /*
-    private IEnumerator SpawnAndCastTracerRoutine(TrailRenderer trail, Vector2 endPos)
-    {
-        float time = 0f;
-        Vector2 startPos = transform.position;
-
-        while (time < 1)
-        {
-            trail.transform.position = Vector2.Lerp(startPos, endPos, time);
-            time += Time.deltaTime + trail.time;
-            yield return null;
-        }
-    }*/
     
     private IEnumerator CastTracerRoutine(TrailRenderer trail, Vector2 endPos)
     {

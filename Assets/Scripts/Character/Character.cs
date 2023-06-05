@@ -14,6 +14,7 @@ public class Character
     private int _health;
     private List<Weapon> _weapons;
     private Dictionary<string, PassiveItem> _passiveItemInventory;
+    private Weapon _specialWeapon; 
 
     public Character(CharacterData initialData)
     {

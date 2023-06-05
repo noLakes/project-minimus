@@ -19,10 +19,12 @@ public class PassiveItem
             character.Transform, 
             character.Transform.position
             );
+        
+        Effect.ApplyEffectList(_data.passiveEffects, args);
 
-        foreach (var effect in _data.passiveEffects)
+        foreach (var effect in _data.onHitEffects)
         {
-            effect.Apply(args);
+            character.Stats.AddOnHitEffect(effect);
         }
     }
 
@@ -31,6 +33,11 @@ public class PassiveItem
         foreach (var effect in _data.passiveEffects)
         {
             effect.Remove();
+        }
+        
+        foreach (var effect in _data.onHitEffects)
+        {
+            character.Stats.RemoveOnHitEffect(effect);
         }
     }
     

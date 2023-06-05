@@ -57,15 +57,18 @@ public class Weapon
         cm.ReceiveHit(_owner.Transform, origin);
             
         // if weapon has on hit effects
-        if (_activeStats.onHitEffects.Count > 0)
+        if (_activeStats.onHitEffects.Count > 0 && cm != null)
         {
-            // generate effect args struct
-            var effectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
+            Debug.Log("Weapon applying own on hit effects. Count: " + _activeStats.onHitEffects.Count);
+            var wepEffectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
+            Effect.ApplyEffectList(_activeStats.onHitEffects, wepEffectArgs);
+        }
 
-            foreach(var e in _activeStats.onHitEffects)
-            {
-                e.Apply(effectArgs);
-            }
+        if (_owner.Stats.onHitEffects.Count > 0 && cm != null)
+        {
+            Debug.Log("Weapon applying owners on hit effects. Count: " + _owner.Stats.onHitEffects.Count);
+            var charEffectArgs = new EffectArgs(_owner.Transform, cm.transform, hitPosition);
+            Effect.ApplyEffectList(_owner.Stats.onHitEffects, charEffectArgs);
         }
         
         // play sound
