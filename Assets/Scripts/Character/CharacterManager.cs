@@ -8,6 +8,7 @@ public class CharacterManager : MonoBehaviour
 {
     protected Character _character;
     private Weapon _currentWeapon;
+    private SpecialWeapon _currentSpecialWeapon;
     [SerializeField] private Transform weaponParent;
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -22,6 +23,19 @@ public class CharacterManager : MonoBehaviour
     {
         weaponParent = transform.Find("WeaponParent");
         _characterWeaponAimer = weaponParent.GetComponent<CharacterWeaponAimer>();
+    }
+
+    protected virtual void Start()
+    {
+        if (_character.Weapons.Count > 0)
+        {
+            EquipWeapon(_character.Weapons[0]);
+        }
+
+        if (_character.SpecialWeapon != null)
+        {
+            EquipSpecialWeapon(_character.SpecialWeapon);
+        }
     }
 
     void Update()
@@ -65,6 +79,13 @@ public class CharacterManager : MonoBehaviour
     public void Attack(Vector2 location)
     {
         _currentWeapon.Attack(location);
+    }
+
+    public void UseSpecialWeapon() => _currentSpecialWeapon.Attack();
+
+    public void UseSpecialWeapon(Vector2 location)
+    {
+        _currentSpecialWeapon.Attack(location);
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -116,6 +137,32 @@ public class CharacterManager : MonoBehaviour
         if (nextWeaponIndex == _character.Weapons.Count) nextWeaponIndex = 0;
         
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
+    }
+
+    public void EquipSpecialWeapon(SpecialWeapon sWeapon)
+    {
+        if ((_currentSpecialWeapon) != null && sWeapon != _currentSpecialWeapon)
+        {
+            DropSpecialWeapon();
+        }
+        
+        _currentSpecialWeapon = sWeapon;
+        _currentSpecialWeapon.Equip(_character);
+        _character.AddSpecialWeapon(_currentSpecialWeapon);
+        
+        if(_isPlayer) EventManager.TriggerEvent("PlayerSpecialWeaponChange");
+    }
+
+    private SpecialWeapon DropSpecialWeapon()
+    {
+        var droppedSpecialWeapon = _currentSpecialWeapon;
+        _currentSpecialWeapon = null;
+        droppedSpecialWeapon.Unequip();
+        Character.RemoveSpecialWeapon();
+
+        Vector2 mouseDir = (Utility.GetMouseWorldPosition2D() - (Vector2)transform.position).normalized;
+        Weapon.SpawnInWorld(droppedSpecialWeapon, (Vector2)transform.position + mouseDir);
+        return droppedSpecialWeapon;
     }
 
     public virtual void OnSpeedChange()

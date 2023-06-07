@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WeaponPickup : Interactable
 {
-    private WeaponData _weaponData;
+    protected WeaponData _weaponData;
     
     public void Initialize(WeaponData data)
     {
@@ -15,7 +15,7 @@ public class WeaponPickup : Interactable
         collider.isTrigger = true;
     }
 
-    private void HandlePickup(CharacterManager cm)
+    protected virtual void HandlePickup(CharacterManager cm)
     {
         if (cm.Character.Weapons.Count == cm.Character.Stats.maxWeaponCount)
         {

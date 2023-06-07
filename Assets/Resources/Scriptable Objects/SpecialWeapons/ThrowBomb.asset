@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c54da3eb086d846b634214aa5cd117, type: 3}
+  m_Name: ThrowBomb
+  m_EditorClassIdentifier: 
+  code: throwBomb
+  weaponName: Throw Bomb
+  description: 
+  prefab: {fileID: 5059694603599579343, guid: 14712c05c45b5d840a13f171e6a8c11c, type: 3}
+  type: 2
+  baseStats:
+    damage: 5
+    attackRate: 0
+    magazineSize: 1
+    reloadTime: 1
+    range: 10
+    onHitEffects:
+    - {fileID: 11400000, guid: dadb7ea1a479f184bb85800d2221007f, type: 2}

@@ -13,9 +13,9 @@ public class Character
     public readonly Transform Transform;
     private int _health;
     private List<Weapon> _weapons;
+    private SpecialWeapon _specialWeapon;
     private Dictionary<string, PassiveItem> _passiveItemInventory;
-    private Weapon _specialWeapon; 
-
+    
     public Character(CharacterData initialData)
     {
         _uid = System.Guid.NewGuid().ToString();
@@ -95,6 +95,16 @@ public class Character
         return _passiveItemInventory.ContainsKey(code);
     }
 
+    public void AddSpecialWeapon(SpecialWeapon specialWeapon)
+    {
+        _specialWeapon = specialWeapon;
+    }
+
+    public void RemoveSpecialWeapon()
+    {
+        _specialWeapon = null;
+    }
+
     public string Code
     {
         get => _code;
@@ -121,6 +131,7 @@ public class Character
     public CharacterStats Stats => _activeStats;
 
     public List<Weapon> Weapons => _weapons;
+    public SpecialWeapon SpecialWeapon => _specialWeapon;
 
     public override string ToString()
     {

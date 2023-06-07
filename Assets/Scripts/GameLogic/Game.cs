@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
     public static WeaponData[] WEAPON_DATA;
+    public static WeaponData[] SPECIAL_WEAPON_DATA;
     public static PassiveItemData[] PASSIVE_ITEM_DATA;
 
     public Transform CHARACTER_CONTAINER;
@@ -58,9 +59,10 @@ public class Game : MonoBehaviour
         // spawn test weapon in world
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
+        SpecialWeapon.SpawnInWorld(DataHandler.LoadSpecialWeapon("ThrowBomb"), new Vector2(3f, -8f));
 
         // for testing enemy
-        if (true)
+        if (false)
         {
             // spawn basic enemy
             var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))

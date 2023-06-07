@@ -80,4 +80,11 @@ public static class Utility
 
         return ray.collider.transform == target;
     }
+    
+    public static int GetFactionLayerMask(Character character)
+    {
+        return character == Game.Instance.PlayerCharacter.Character
+            ? Game.Instance.TargetEnemyHitScanMask
+            : Game.Instance.TargetPlayerHitScanMask;
+    }
 }

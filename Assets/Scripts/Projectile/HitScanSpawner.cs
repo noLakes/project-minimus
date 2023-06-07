@@ -12,7 +12,7 @@ public class HitScanSpawner : ProjectileSpawner
         Vector2 origin = spawnPoint.position;
         Vector2 shootDir = (shootPoint - origin).normalized;
         
-        RaycastHit2D ray = Physics2D.Raycast(origin, shootDir, Weapon.Stats.range, Weapon.GetFactionLayerMask());
+        RaycastHit2D ray = Physics2D.Raycast(origin, shootDir, Weapon.Stats.range, Utility.GetFactionLayerMask(Weapon.Owner));
         
         if (ray.collider == null)
         {
@@ -32,7 +32,7 @@ public class HitScanSpawner : ProjectileSpawner
         Vector2 origin = spawnPoint.position;
         Vector2 dir = transform.parent.right;
 
-        RaycastHit2D ray = Physics2D.Raycast(origin, dir, Weapon.Stats.range, Weapon.GetFactionLayerMask());
+        RaycastHit2D ray = Physics2D.Raycast(origin, dir, Weapon.Stats.range, Utility.GetFactionLayerMask(Weapon.Owner));
         
 
         if (ray.collider == null)

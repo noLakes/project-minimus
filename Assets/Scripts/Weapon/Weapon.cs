@@ -6,15 +6,15 @@ using UnityEngine.Events;
 
 public class Weapon
 {
-    private string uid;
-    private readonly WeaponData _data;
-    private readonly WeaponStats _baseStats;
-    private WeaponStats _activeStats;
-    private Transform _transform;
-    private SpriteRenderer _spriteRenderer;
-    private WeaponManager _weaponManager;
-    private bool _equipped;
-    private Character _owner;
+    protected string uid;
+    protected readonly WeaponData _data;
+    protected readonly WeaponStats _baseStats;
+    protected WeaponStats _activeStats;
+    protected Transform _transform;
+    protected SpriteRenderer _spriteRenderer;
+    protected WeaponManager _weaponManager;
+    protected bool _equipped;
+    protected Character _owner;
     
     public Weapon(WeaponData initialData, Character owner = null)
     {
@@ -75,17 +75,16 @@ public class Weapon
         // play animation or particle effects
     }
 
-    public void Equip(Character owner)
+    public virtual void Equip(Character owner)
     {
         _owner = owner;
         CreateTransform();
         
         _weaponManager = _transform.GetComponent<WeaponManager>();
         _weaponManager.Initialize(this);
-        
+
         _transform.position = owner.Transform.position + _transform.localPosition;
-        var parent = Owner.Transform.Find("WeaponParent");
-        _transform.parent = parent;
+        _transform.parent = Owner.Transform.Find("WeaponParent");
         _equipped = true;
     }
 
@@ -97,7 +96,7 @@ public class Weapon
         _equipped = false;
     }
 
-    private Transform CreateTransform()
+    protected Transform CreateTransform()
     {
         if (_transform != null)
         {
@@ -109,17 +108,7 @@ public class Weapon
 
     public static Weapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
     {
-        var weapon = new Weapon(initialData);
-        weapon.CreateTransform();
-        weapon._transform.position = spawnPoint;
-        
-        var wepManager = weapon._transform.GetComponent<WeaponManager>();
-        wepManager.ConvertToPickup();
-        wepManager.enabled = false;
-        
-        var wp = weapon._transform.AddComponent<WeaponPickup>();
-        wp.Initialize(weapon.Data);
-        return weapon;
+        return SpawnInWorld(new Weapon(initialData), spawnPoint);
     }
 
     public static Weapon SpawnInWorld(Weapon weapon, Vector2 spawnPoint)
@@ -134,13 +123,6 @@ public class Weapon
         var wp = weapon._transform.AddComponent<WeaponPickup>();
         wp.Initialize(weapon.Data);
         return weapon;
-    }
-
-    public int GetFactionLayerMask()
-    {
-        return _owner == Game.Instance.PlayerCharacter.Character
-            ? Game.Instance.TargetEnemyHitScanMask
-            : Game.Instance.TargetPlayerHitScanMask;
     }
 
     public WeaponData Data => _data;

@@ -26,6 +26,8 @@ public class InputManager : MonoBehaviour
         {
             // handle right click
         }
+
+        if (Input.GetKeyDown(KeyCode.Q)) HandleSpecialWeaponUsed();
     }
 
     private void HandleLeftClick()
@@ -42,6 +44,12 @@ public class InputManager : MonoBehaviour
     private void HandleSpacePressed()
     {
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.SwitchWeapon();
+    }
+
+    private void HandleSpecialWeaponUsed()
+    {
+        var mousePos = Utility.GetMouseWorldPosition2D();
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialWeapon(mousePos);
     }
     
     public InputState State
