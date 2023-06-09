@@ -18,6 +18,7 @@ public class RangedWeaponManager : WeaponManager
     public override void Attack(Vector2 attackLocation)
     {
         _projectileSpawner.Spawn(attackLocation);
+        TriggerOnAttackEffects();
         AttackRefresh();
         CheckReload();
     }
@@ -25,6 +26,7 @@ public class RangedWeaponManager : WeaponManager
     public override void Attack()
     {
         _projectileSpawner.Spawn(); // shoots toward weapon forward direction
+        TriggerOnAttackEffects();
         AttackRefresh();
         CheckReload();
     }

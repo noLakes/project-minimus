@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialWeaponPickup : WeaponPickup
+public class ActiveItemPickup : WeaponPickup
 {
     protected override void HandlePickup(CharacterManager cm)
     {
-        cm.EquipSpecialWeapon(new SpecialWeapon(_weaponData));
+        cm.EquipSpecialWeapon(new ActiveItem(_weaponData));
         
         Destroy(this.gameObject);
     }

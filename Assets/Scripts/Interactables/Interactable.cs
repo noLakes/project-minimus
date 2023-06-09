@@ -18,12 +18,18 @@ public abstract class Interactable : MonoBehaviour
     
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
-        other.GetComponent<PlayerCharacterManager>().AddNearbyInteractable(transform);
+        if (other.TryGetComponent<PlayerCharacterManager>(out var pCM))
+        {
+            pCM.AddNearbyInteractable(transform);
+        }
     }
 
     protected void OnTriggerExit2D(Collider2D other)
     {
-        other.GetComponent<PlayerCharacterManager>().RemoveNearbyInteractable(transform);
+        if (other.TryGetComponent<PlayerCharacterManager>(out var pCM))
+        {
+            pCM.RemoveNearbyInteractable(transform);
+        }
     }
     
     /*

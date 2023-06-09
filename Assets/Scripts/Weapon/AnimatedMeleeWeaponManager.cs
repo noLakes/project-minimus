@@ -10,7 +10,7 @@ public class AnimatedMeleeWeaponManager : WeaponManager
     public override void Attack(Vector2 attackLocation)
     {
         Animator.SetTrigger("Attack");
-        //_weaponManager.OnWeaponAttack();
+        TriggerOnAttackEffects();
         CharacterWeaponAimer.PauseAiming();
         AttackRefresh();
         CheckReload();
@@ -19,7 +19,7 @@ public class AnimatedMeleeWeaponManager : WeaponManager
     public override void Attack()
     {
         Animator.SetTrigger("Attack");
-        //_weaponManager.OnWeaponAttack();
+        TriggerOnAttackEffects();
         CharacterWeaponAimer.PauseAiming();
         AttackRefresh();
         CheckReload();

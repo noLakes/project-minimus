@@ -84,6 +84,13 @@ public class WeaponManager : MonoBehaviour
         _activeReloadRoutine = null;
     }
 
+    protected void TriggerOnAttackEffects()
+    {
+        Transform ownerTransform = Weapon.Owner.Transform;
+        var effectArgs = new EffectArgs(ownerTransform, ownerTransform, transform.position);
+        Effect.ApplyEffectList(Weapon.Stats.onAttackEffects, effectArgs);
+    }
+
     protected void Reset()
     {
         if(_activeReloadRoutine != null) StopCoroutine(_activeReloadRoutine);

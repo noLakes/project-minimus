@@ -18,6 +18,7 @@ public class PHYMeleeWeaponManager : WeaponManager
     public override void Attack(Vector2 attackLocation)
     {
         _hinge.useMotor = true;
+        TriggerOnAttackEffects();
         AttackRefresh();
         CheckReload();
     }
@@ -25,6 +26,7 @@ public class PHYMeleeWeaponManager : WeaponManager
     public override void Attack()
     {
         _hinge.useMotor = true;
+        TriggerOnAttackEffects();
         AttackRefresh();
         CheckReload();
     }

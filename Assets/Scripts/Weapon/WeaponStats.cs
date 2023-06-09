@@ -12,4 +12,5 @@ public struct WeaponStats
     public float reloadTime;
     public float range;
     public List<Effect> onHitEffects;
+    public List<Effect> onAttackEffects; // triggered when user attacks
 }

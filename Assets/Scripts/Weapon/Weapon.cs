@@ -37,6 +37,8 @@ public class Weapon
 
     public bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)
     {
+        if (collider.transform == _owner.Transform) return false;
+        
         var validHit = false;
 
         // check collider Transform to see if target should be hit
@@ -55,7 +57,7 @@ public class Weapon
         if (!collider.transform.TryGetComponent<CharacterManager>(out var cm)) return;
         cm.Damage(_activeStats.damage);
         cm.ReceiveHit(_owner.Transform, origin);
-            
+
         // if weapon has on hit effects
         if (_activeStats.onHitEffects.Count > 0 && cm != null)
         {

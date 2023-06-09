@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SpecialWeapon : Weapon
+public class ActiveItem : Weapon
 {
-    public SpecialWeapon(WeaponData initialData, Character owner = null) : base(initialData, owner)
+    public ActiveItem(WeaponData initialData, Character owner = null) : base(initialData, owner)
     {
         if(_spriteRenderer != null) _spriteRenderer.enabled = false;
     }
@@ -24,12 +24,12 @@ public class SpecialWeapon : Weapon
         _equipped = true;
     }
 
-    public static SpecialWeapon SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
+    public static ActiveItem SpawnInWorld(WeaponData initialData, Vector2 spawnPoint)
     {
-        return SpawnInWorld(new SpecialWeapon(initialData), spawnPoint);
+        return SpawnInWorld(new ActiveItem(initialData), spawnPoint);
     }
 
-    public static SpecialWeapon SpawnInWorld(SpecialWeapon sWeapon, Vector2 spawnPoint)
+    public static ActiveItem SpawnInWorld(ActiveItem sWeapon, Vector2 spawnPoint)
     {
         sWeapon.CreateTransform();
         sWeapon._transform.position = spawnPoint;
@@ -38,7 +38,7 @@ public class SpecialWeapon : Weapon
         wepManager.ConvertToPickup();
         wepManager.enabled = false;
         
-        var swp = sWeapon._transform.AddComponent<SpecialWeaponPickup>();
+        var swp = sWeapon._transform.AddComponent<ActiveItemPickup>();
         swp.Initialize(sWeapon.Data);
         return sWeapon;
     }

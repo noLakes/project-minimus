@@ -8,7 +8,7 @@ public class CharacterManager : MonoBehaviour
 {
     protected Character _character;
     private Weapon _currentWeapon;
-    private SpecialWeapon _currentSpecialWeapon;
+    private ActiveItem _currentActiveItem;
     [SerializeField] private Transform weaponParent;
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -32,9 +32,9 @@ public class CharacterManager : MonoBehaviour
             EquipWeapon(_character.Weapons[0]);
         }
 
-        if (_character.SpecialWeapon != null)
+        if (_character.ActiveItem != null)
         {
-            EquipSpecialWeapon(_character.SpecialWeapon);
+            EquipSpecialWeapon(_character.ActiveItem);
         }
     }
 
@@ -81,11 +81,11 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Attack(location);
     }
 
-    public void UseSpecialWeapon() => _currentSpecialWeapon.Attack();
+    public void UseSpecialWeapon() => _currentActiveItem.Attack();
 
     public void UseSpecialWeapon(Vector2 location)
     {
-        _currentSpecialWeapon.Attack(location);
+        _currentActiveItem.Attack(location);
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -139,26 +139,26 @@ public class CharacterManager : MonoBehaviour
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
 
-    public void EquipSpecialWeapon(SpecialWeapon sWeapon)
+    public void EquipSpecialWeapon(ActiveItem sWeapon)
     {
-        if ((_currentSpecialWeapon) != null && sWeapon != _currentSpecialWeapon)
+        if ((_currentActiveItem) != null && sWeapon != _currentActiveItem)
         {
             DropSpecialWeapon();
         }
         
-        _currentSpecialWeapon = sWeapon;
-        _currentSpecialWeapon.Equip(_character);
-        _character.AddSpecialWeapon(_currentSpecialWeapon);
+        _currentActiveItem = sWeapon;
+        _currentActiveItem.Equip(_character);
+        _character.AddActiveItem(_currentActiveItem);
         
         if(_isPlayer) EventManager.TriggerEvent("PlayerSpecialWeaponChange");
     }
 
-    private SpecialWeapon DropSpecialWeapon()
+    private ActiveItem DropSpecialWeapon()
     {
-        var droppedSpecialWeapon = _currentSpecialWeapon;
-        _currentSpecialWeapon = null;
+        var droppedSpecialWeapon = _currentActiveItem;
+        _currentActiveItem = null;
         droppedSpecialWeapon.Unequip();
-        Character.RemoveSpecialWeapon();
+        Character.RemoveActiveItem();
 
         Vector2 mouseDir = (Utility.GetMouseWorldPosition2D() - (Vector2)transform.position).normalized;
         Weapon.SpawnInWorld(droppedSpecialWeapon, (Vector2)transform.position + mouseDir);

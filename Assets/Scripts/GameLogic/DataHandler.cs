@@ -8,7 +8,7 @@ public static class DataHandler
     {
         Game.CHARACTER_DATA = Resources.LoadAll<CharacterData>("Scriptable Objects/Characters");
         Game.WEAPON_DATA = Resources.LoadAll<WeaponData>("Scriptable Objects/Weapons");
-        Game.SPECIAL_WEAPON_DATA = Resources.LoadAll<WeaponData>("Scriptable Objects/SpecialWeapons");
+        Game.ACTIVE_ITEM_DATA = Resources.LoadAll<WeaponData>("Scriptable Objects/ActiveItems");
         Game.PASSIVE_ITEM_DATA = Resources.LoadAll<PassiveItemData>("Scriptable Objects/PassiveItems");
 
         var gameParametersList = Resources.LoadAll<GameParameters>("Scriptable Objects/Parameters");
@@ -34,9 +34,9 @@ public static class DataHandler
         return Resources.Load<WeaponData>($"Scriptable Objects/Weapons/{name}");
     }
     
-    public static WeaponData LoadSpecialWeapon(string name)
+    public static WeaponData LoadActiveItem(string name)
     {
-        return Resources.Load<WeaponData>($"Scriptable Objects/SpecialWeapons/{name}");
+        return Resources.Load<WeaponData>($"Scriptable Objects/ActiveItems/{name}");
     }
     
     public static PassiveItemData LoadPassiveItem(string name)
