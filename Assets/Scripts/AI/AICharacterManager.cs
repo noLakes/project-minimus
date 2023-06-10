@@ -23,19 +23,7 @@ public class AICharacterManager : CharacterManager
         _path = new NavMeshPath();
         
     }
-    
-    private void Start()
-    {
-        /*
-        _aiCharacterWeaponAimer = transform.Find("WeaponParent").GetComponent<AICharacterWeaponAimer>();
-        _behaviorTree = GetComponent<Tree>();
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _navMeshAgent.updateRotation = false;
-        _navMeshAgent.updateUpAxis = false;
-        _path = new NavMeshPath();
-        */
-    }
-    
+
     private void Update()
     {
         DrawPath();

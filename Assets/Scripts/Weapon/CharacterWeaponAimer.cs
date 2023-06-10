@@ -34,6 +34,8 @@ public class CharacterWeaponAimer : MonoBehaviour
         transform.localScale = localScale;
         
         // hide weapon behind character sprite if aiming overhead
+        if (characterRenderer == null) return;
+        
         if (transform.eulerAngles.z is > 0 and < 180)
         {
             weaponRenderer.sortingOrder = characterRenderer.sortingOrder - 1;

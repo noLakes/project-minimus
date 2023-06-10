@@ -26,6 +26,11 @@ public class Character
         _health = _baseStats.maxHealth;
 
         _weapons = new List<Weapon>();
+        foreach (var wData in _data.startingWeapons)
+        {
+            if (_weapons.Count >= Stats.maxWeaponCount) break;
+            AddWeapon(new Weapon(wData));
+        }
 
         var g = GameObject.Instantiate(_data.prefab) as GameObject;
         Transform = g.transform;

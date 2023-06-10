@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponName: Wand
   description: A simple wand that shoots magic beams
   prefab: {fileID: 5059694603599579343, guid: d39f3352e2c47184d9f0a7cadd28bba3, type: 3}
-  type: 1
+  type: 2
   baseStats:
     damage: 1
     attackRate: 0.5
@@ -24,3 +24,4 @@ MonoBehaviour:
     reloadTime: 0
     range: 10
     onHitEffects: []
+    onAttackEffects: []

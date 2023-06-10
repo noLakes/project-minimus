@@ -7,5 +7,4 @@ public class GameGlobalParameters : GameParameters
 
     [Header("Player Starting Data")] 
     public CharacterData startingCharacter;
-    public WeaponData startingWeapon;
 }

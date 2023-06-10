@@ -17,16 +17,7 @@ public class CharacterManager : MonoBehaviour
     public virtual void Initialize(Character character)
     {
         _character = character;
-    }
-
-    protected virtual void Awake()
-    {
-        weaponParent = transform.Find("WeaponParent");
-        _characterWeaponAimer = weaponParent.GetComponent<CharacterWeaponAimer>();
-    }
-
-    protected virtual void Start()
-    {
+        
         if (_character.Weapons.Count > 0)
         {
             EquipWeapon(_character.Weapons[0]);
@@ -38,6 +29,12 @@ public class CharacterManager : MonoBehaviour
         }
     }
 
+    protected virtual void Awake()
+    {
+        weaponParent = transform.Find("WeaponParent");
+        _characterWeaponAimer = weaponParent.GetComponent<CharacterWeaponAimer>();
+    }
+    
     void Update()
     {
 

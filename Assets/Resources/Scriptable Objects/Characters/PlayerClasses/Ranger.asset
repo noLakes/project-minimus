@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 384ded4e1c9274f6d9b056bd25c5d32b, type: 3}
-  m_Name: Test Enemy
+  m_Name: Ranger
   m_EditorClassIdentifier: 
-  code: testEnemy
-  characterName: Test Enemy
-  description: 
+  code: playerRanger
+  characterName: Ranger
+  description: A woodsman experienced with ranged weapons and hunting
   baseStats:
-    maxHealth: 8
-    maxWeaponCount: 1
-    fovRadius: 10
-    speed: 3
-    rangedDamageModifier: 0
+    maxHealth: 12
+    maxWeaponCount: 2
+    fovRadius: 30
+    speed: 4
+    rangedDamageModifier: 1
     meleeDamageModifier: 0
     onHitEffects: []
-  prefab: {fileID: 4424852941152127389, guid: 6a7ce1a0e057b654d9a25ad6b2c5a1a1, type: 3}
+  prefab: {fileID: 4424852941152127389, guid: d59c65c1b3fd5e54c8ff57397110ad2f, type: 3}
   startingPassiveItems: []
   startingWeapons:
   - {fileID: 11400000, guid: 4b822fcb4c262c54a9dd9240b52dc59e, type: 2}

@@ -52,8 +52,6 @@ public class Game : MonoBehaviour
         var player = new Character(gameGlobalParameters.startingCharacter);
         _playerCharacter = player.Transform.GetComponent<PlayerCharacterManager>();
         _playerCharacter.Character.SetPosition(new Vector3(-3f, 0f, 0f));
-        var startingWeapon = _playerCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, player));
-        //_playerCharacter.EquipWeapon(startingWeapon);
         _playerCharacter.SetAsPlayer();
         
         // spawn test weapon in world
@@ -62,7 +60,7 @@ public class Game : MonoBehaviour
         ActiveItem.SpawnInWorld(DataHandler.LoadActiveItem("ThrowBomb"), new Vector2(3f, -8f));
 
         // for testing enemy
-        if (false)
+        if (true)
         {
             // spawn basic enemy
             var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
@@ -73,10 +71,8 @@ public class Game : MonoBehaviour
                     name = "Enemy"
                 }
             };
-            var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
-            var enemyWep = enemyCharacter.AddWeapon(new Weapon(gameGlobalParameters.startingWeapon, enemy));
-            enemyCharacter.EquipWeapon(enemyWep);
             
+            //var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
             //enemy.AddPassiveItem(new PassiveItem(DataHandler.LoadPassiveItem("SpeedGauntlet")));
         }
         

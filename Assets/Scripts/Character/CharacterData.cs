@@ -12,4 +12,5 @@ public class CharacterData : ScriptableObject
     public CharacterStats baseStats;
     public GameObject prefab;
     public List<PassiveItemData> startingPassiveItems;
+    public List<WeaponData> startingWeapons;
 }

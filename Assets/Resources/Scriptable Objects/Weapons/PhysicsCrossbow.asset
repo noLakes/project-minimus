@@ -16,7 +16,7 @@ MonoBehaviour:
   weaponName: Crossbow
   description: A simple crossbow
   prefab: {fileID: 5059694603599579343, guid: 2c67c511003f76741ae412f466714859, type: 3}
-  type: 1
+  type: 2
   baseStats:
     damage: 2
     attackRate: 0
@@ -24,5 +24,4 @@ MonoBehaviour:
     reloadTime: 1.5
     range: 10
     onHitEffects: []
-    onAttackEffects:
-    - {fileID: 11400000, guid: f5a59980f6f784bffb233c5492a9bbaf, type: 2}
+    onAttackEffects: []

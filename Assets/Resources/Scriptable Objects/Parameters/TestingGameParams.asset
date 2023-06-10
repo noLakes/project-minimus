@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: TestingGameParams
   m_EditorClassIdentifier: 
   _fieldsToShowInGame: []
-  startingCharacter: {fileID: 11400000, guid: 030e58cc9cd294ed885cd3a839cd67fd, type: 2}
-  startingWeapon: {fileID: 11400000, guid: 4b822fcb4c262c54a9dd9240b52dc59e, type: 2}
+  startingCharacter: {fileID: 11400000, guid: 2984d8a071b5d3d4dac3175f40884a0f, type: 2}
