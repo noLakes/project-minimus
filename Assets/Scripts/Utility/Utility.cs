@@ -76,7 +76,7 @@ public static class Utility
         if (ray.collider == null) return false;
         
         //Debug.Log(ray.collider.gameObject.name);
-        Debug.DrawLine(viewer.position, ray.point, Color.yellow, 0.25f);
+        //Debug.DrawLine(viewer.position, ray.point, Color.yellow, 0.25f);
 
         return ray.collider.transform == target;
     }
@@ -86,5 +86,15 @@ public static class Utility
         return character == Game.Instance.PlayerCharacter.Character
             ? Game.Instance.TargetEnemyHitScanMask
             : Game.Instance.TargetPlayerHitScanMask;
+    }
+
+    public static Vector2 GetDirection2D(Vector2 from, Vector2 to)
+    {
+        return (to - from).normalized;
+    }
+
+    public static Vector2 GetDirection2D(Transform fromTarget, Transform toTarget)
+    {
+        return GetDirection2D((Vector2)fromTarget.position, (Vector2)toTarget.position);
     }
 }

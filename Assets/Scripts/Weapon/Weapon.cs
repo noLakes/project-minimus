@@ -55,7 +55,7 @@ public class Weapon
     {
         // apply hit actions
         if (!collider.transform.TryGetComponent<CharacterManager>(out var cm)) return;
-        cm.Damage(_activeStats.damage);
+        cm.Damage(GetDamageWithModifiers());
         cm.ReceiveHit(_owner.Transform, origin);
 
         // if weapon has on hit effects
@@ -75,6 +75,14 @@ public class Weapon
         
         // play sound
         // play animation or particle effects
+    }
+
+    private int GetDamageWithModifiers()
+    {
+        var damage = _activeStats.damage;
+        var cStats = _owner.Stats;
+        damage += _data.type == WeaponType.Ranged ? cStats.rangedDamageModifier : cStats.meleeDamageModifier;
+        return damage;
     }
 
     public virtual void Equip(Character owner)

@@ -9,9 +9,9 @@ public struct CharacterStats
     public int maxHealth;
     public int maxWeaponCount;
     public float fovRadius;
-    [Range(0f, 100f)]public float speed;
-    public float rangedDamageModifier;
-    public float meleeDamageModifier;
+    [Range(0f, 100f)] public float speed;
+    public int rangedDamageModifier;
+    public int meleeDamageModifier;
     public List<Effect> onHitEffects;
 
     public void AddOnHitEffect(Effect e)

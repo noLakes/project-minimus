@@ -84,20 +84,13 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Attack(location);
     }
 
-    public void UseActiveItem() => _currentActiveItem.Attack();
+    public void UseActiveItem() => _currentActiveItem?.Attack();
+    public void UseActiveItem(Vector2 location) => _currentActiveItem?.Attack(location);
 
-    public void UseActiveItem(Vector2 location)
-    {
-        _currentActiveItem.Attack(location);
-    }
+    public void UseSpecialAbility() => _currentSpecialAbility?.Attack();
 
-    public void UseSpecialAbility() => _currentSpecialAbility.Attack();
+    public void UseSpecialAbility(Vector2 location) =>  _currentSpecialAbility?.Attack(location);
 
-    public void UseSpecialAbility(Vector2 location)
-    {
-        _currentSpecialAbility.Attack(location);
-    }
-    
     public void EquipWeapon(Weapon weapon)
     {
         if(_currentWeapon != null && weapon != _currentWeapon) _currentWeapon.Unequip();

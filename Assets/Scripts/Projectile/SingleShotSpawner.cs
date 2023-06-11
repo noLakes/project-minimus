@@ -7,7 +7,7 @@ public class SingleShotSpawner : ProjectileSpawner
 {
     public override void Spawn(Vector2 shootPoint)
     {
-        Vector2 shootDir = (shootPoint - (Vector2)transform.position).normalized;
+        Vector2 shootDir = Utility.GetDirection2D((Vector2)transform.position, shootPoint);
         var go = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
         
         var projectile = go.GetComponent<Projectile>();

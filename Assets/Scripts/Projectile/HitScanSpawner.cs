@@ -10,7 +10,7 @@ public class HitScanSpawner : ProjectileSpawner
     public override void Spawn(Vector2 shootPoint)
     {
         Vector2 origin = spawnPoint.position;
-        Vector2 shootDir = (shootPoint - origin).normalized;
+        Vector2 shootDir = Utility.GetDirection2D(origin, shootPoint);
         
         RaycastHit2D ray = Physics2D.Raycast(origin, shootDir, Weapon.Stats.range, Utility.GetFactionLayerMask(Weapon.Owner));
         
