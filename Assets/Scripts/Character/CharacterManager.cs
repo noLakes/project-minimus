@@ -9,6 +9,7 @@ public class CharacterManager : MonoBehaviour
     protected Character _character;
     private Weapon _currentWeapon;
     private ActiveItem _currentActiveItem;
+    private ActiveItem _currentSpecialAbility;
     [SerializeField] private Transform weaponParent;
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -26,6 +27,11 @@ public class CharacterManager : MonoBehaviour
         if (_character.ActiveItem != null)
         {
             EquipSpecialWeapon(_character.ActiveItem);
+        }
+
+        if (_character.SpecialAbility != null)
+        {
+            SetupSpecialAbility(_character.SpecialAbility);
         }
     }
 
@@ -78,13 +84,20 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Attack(location);
     }
 
-    public void UseSpecialWeapon() => _currentActiveItem.Attack();
+    public void UseActiveItem() => _currentActiveItem.Attack();
 
-    public void UseSpecialWeapon(Vector2 location)
+    public void UseActiveItem(Vector2 location)
     {
         _currentActiveItem.Attack(location);
     }
 
+    public void UseSpecialAbility() => _currentSpecialAbility.Attack();
+
+    public void UseSpecialAbility(Vector2 location)
+    {
+        _currentSpecialAbility.Attack(location);
+    }
+    
     public void EquipWeapon(Weapon weapon)
     {
         if(_currentWeapon != null && weapon != _currentWeapon) _currentWeapon.Unequip();
@@ -161,6 +174,13 @@ public class CharacterManager : MonoBehaviour
         Weapon.SpawnInWorld(droppedSpecialWeapon, (Vector2)transform.position + mouseDir);
         return droppedSpecialWeapon;
     }
+    
+    // characters special ability is just spoofed from an active item weapon
+    private void SetupSpecialAbility(ActiveItem abilityItem)
+    {
+        _currentSpecialAbility = abilityItem;
+        abilityItem.Equip(_character);
+    }
 
     public virtual void OnSpeedChange()
     {
@@ -174,5 +194,6 @@ public class CharacterManager : MonoBehaviour
     
     public Character Character => _character;
     public Weapon CurrentWeapon => _currentWeapon;
+    public ActiveItem CurrentSpecialAbility => _currentSpecialAbility;
     public bool IsPlayer => _isPlayer;
 }

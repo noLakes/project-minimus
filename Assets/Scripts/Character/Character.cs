@@ -14,6 +14,7 @@ public class Character
     private int _health;
     private List<Weapon> _weapons;
     private ActiveItem _activeItem;
+    private ActiveItem _specialAbility; // cannot be changed throughout game
     private Dictionary<string, PassiveItem> _passiveItemInventory;
     
     public Character(CharacterData initialData)
@@ -24,6 +25,11 @@ public class Character
         _activeStats = _baseStats;
         _code = _data.code;
         _health = _baseStats.maxHealth;
+
+        if (_data.specialAbility != null)
+        {
+            _specialAbility = new ActiveItem(_data.specialAbility, this);
+        }
 
         _weapons = new List<Weapon>();
         foreach (var wData in _data.startingWeapons)
@@ -137,6 +143,7 @@ public class Character
 
     public List<Weapon> Weapons => _weapons;
     public ActiveItem ActiveItem => _activeItem;
+    public ActiveItem SpecialAbility => _specialAbility;
 
     public override string ToString()
     {

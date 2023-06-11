@@ -27,7 +27,8 @@ public class InputManager : MonoBehaviour
             // handle right click
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) HandleSpecialWeaponUsed();
+        if (Input.GetKeyDown(KeyCode.Q)) HandleActiveItemUsed();
+        if(Input.GetKeyDown(KeyCode.Space)) HandleSpecialAbilityUsed();
     }
 
     private void HandleLeftClick()
@@ -46,10 +47,16 @@ public class InputManager : MonoBehaviour
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.SwitchWeapon();
     }
 
-    private void HandleSpecialWeaponUsed()
+    private void HandleActiveItemUsed()
     {
         var mousePos = Utility.GetMouseWorldPosition2D();
-        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialWeapon(mousePos);
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
+    }
+
+    private void HandleSpecialAbilityUsed()
+    {
+        var mousePos = Utility.GetMouseWorldPosition2D();
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialAbility(mousePos);
     }
     
     public InputState State
