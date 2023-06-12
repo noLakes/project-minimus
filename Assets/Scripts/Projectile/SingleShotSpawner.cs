@@ -12,8 +12,7 @@ public class SingleShotSpawner : ProjectileSpawner
         
         var projectile = go.GetComponent<Projectile>();
         
-        projectile.LinkWeapon(Weapon);
-        projectile.Initialize(shootDir);
+        projectile.Initialize(shootDir, Weapon.ProcessHit);
     }
     
     public override void Spawn()
@@ -22,7 +21,6 @@ public class SingleShotSpawner : ProjectileSpawner
         
         var projectile = go.GetComponent<Projectile>();
         
-        projectile.LinkWeapon(Weapon);
-        projectile.Initialize(transform.parent.right); // parent.right represents where the weapon is pointed
+        projectile.Initialize(transform.parent.right, Weapon.ProcessHit); // parent.right represents where the weapon is pointed
     }
 }

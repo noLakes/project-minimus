@@ -13,11 +13,12 @@ public class RigidBodyProjectile : Projectile
     private Collider2D _collider;
     private bool _attachedToTarget;
 
-    public override void Initialize(Vector2 moveDirection)
+    public override void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate)
     {
-        _moveDirection = moveDirection;
+        _moveDirection = shootDirection;
         CurrentHitCount = 0;
         _currentPosition = transform.position;
+        MyProcessHitDelegate = hitDelegate;
     }
 
     private void OnEnable()
@@ -48,7 +49,7 @@ public class RigidBodyProjectile : Projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         // check if hit collider belongs to hittable target....
-        if (_linkedWeapon.ProcessHit(other, transform.position, _origin))
+        if (MyProcessHitDelegate.Invoke(other, transform.position, _origin))
         {
             OnHit(other, other.ClosestPoint(transform.position));
         }
@@ -85,7 +86,7 @@ public class RigidBodyProjectile : Projectile
         
         if (!ray.collider) return;
         
-        if (_linkedWeapon.ProcessHit(ray.collider, ray.point, _origin))
+        if (MyProcessHitDelegate.Invoke(ray.collider, ray.point, _origin))
         {
             OnHit(ray.collider, ray.point);
         }
@@ -93,7 +94,7 @@ public class RigidBodyProjectile : Projectile
     
     private void HandleRangeCheck()
     {
-        if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
+        if (Range > 0f && _distanceTravelled >= Range)
         {
             Stop();
         }

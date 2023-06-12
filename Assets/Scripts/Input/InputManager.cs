@@ -20,7 +20,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
         if (Input.GetKeyDown(KeyCode.E)) HandleInteractionPressed();
-        if (Input.GetKeyDown(KeyCode.Space)) HandleSpacePressed();
+        if(Input.mouseScrollDelta.y != 0f) HandleWeaponChange();
 
         if (Input.GetMouseButtonDown(1))
         {
@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Interact();
     }
 
-    private void HandleSpacePressed()
+    private void HandleWeaponChange()
     {
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.SwitchWeapon();
     }

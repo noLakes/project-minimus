@@ -13,8 +13,9 @@ public class PhysicsProjectile : Projectile
     private Vector2 _origin; // To store where the projectile first spawned.
     private bool _attachedToTarget;
 
-    public override void Initialize(Vector2 moveDirection)
+    public override void Initialize(Vector2 moveDirection, ProcessHitDelegate hitDelegate)
     {
+        MyProcessHitDelegate = hitDelegate;
         _moveDirection = moveDirection;
         CurrentHitCount = 0;
         _currentPosition = transform.position;
@@ -48,7 +49,7 @@ public class PhysicsProjectile : Projectile
     private void OnTriggerEnter2D(Collider2D other)
     {
         // check if hit collider belongs to hittable target....
-        if (_linkedWeapon.ProcessHit(other, transform.position, _origin))
+        if (MyProcessHitDelegate.Invoke(other, transform.position, _origin))
         {
             OnHit(other, other.ClosestPoint(transform.position));
         }
@@ -86,8 +87,8 @@ public class PhysicsProjectile : Projectile
         RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection*-1f, 1f);
 
         if (!ray.collider) return;
-        
-        if (_linkedWeapon.ProcessHit(ray.collider, ray.point, _origin))
+
+        if (MyProcessHitDelegate.Invoke(ray.collider, ray.point, _origin))
         {
             OnHit(ray.collider, ray.point);
         }
@@ -103,7 +104,7 @@ public class PhysicsProjectile : Projectile
 
     private void HandleRangeCheck()
     {
-        if (_linkedWeapon.Stats.range > 0f && _distanceTravelled >= _linkedWeapon.Stats.range)
+        if (Range > 0f && _distanceTravelled >= Range)
         {
             Stop();
         }
