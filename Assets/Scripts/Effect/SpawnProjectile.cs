@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "SpawnProjectile", menuName = "Scriptable Objects/Effects/SpawnProjectile", order = 6)]
 public class SpawnProjectile : Effect
 {
     public GameObject projectilePrefab;
