@@ -8,6 +8,6 @@ public class AbilityData : ScriptableObject
     public string code;
     public string abilityName;
     public string description;
-    [Range(0f,300f)] public float cooldown;
+    [Min(0f)] public float cooldown;
     public List<Effect> onCastEffects;
 }

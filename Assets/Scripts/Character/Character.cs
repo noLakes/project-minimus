@@ -13,9 +13,9 @@ public class Character
     public readonly Transform Transform;
     private int _health;
     private List<Weapon> _weapons;
-    private ActiveItem _activeItem;
-    private ActiveItem _specialAbility; // cannot be changed throughout game
-    private Dictionary<string, PassiveItem> _passiveItemInventory;
+    private Item _activeItem;
+    private AbilityData _specialAbility; // cannot be changed throughout game
+    private Dictionary<string, Item> _passiveItemInventory;
     
     public Character(CharacterData initialData)
     {
@@ -25,13 +25,10 @@ public class Character
         _activeStats = _baseStats;
         _code = _data.code;
         _health = _baseStats.maxHealth;
-
-        if (_data.specialAbility != null)
-        {
-            _specialAbility = new ActiveItem(_data.specialAbility, this);
-        }
+        _specialAbility = _data.specialAbility;
 
         _weapons = new List<Weapon>();
+        
         foreach (var wData in _data.startingWeapons)
         {
             if (_weapons.Count >= Stats.maxWeaponCount) break;
@@ -43,10 +40,12 @@ public class Character
         Transform.parent = Game.Instance.CHARACTER_CONTAINER;
         g.GetComponent<CharacterManager>().Initialize(this);
 
-        _passiveItemInventory = new Dictionary<string, PassiveItem>();
+        if (_data.startingActiveItem != null) _activeItem = new Item(_data.startingActiveItem, this);
+
+        _passiveItemInventory = new Dictionary<string, Item>();
         foreach (var pItemData in initialData.startingPassiveItems)
         {
-            AddPassiveItem(new PassiveItem(pItemData));
+            AddPassiveItem(pItemData);
         }
     }
 
@@ -76,17 +75,18 @@ public class Character
         }
     }
     
-    public void AddPassiveItem(PassiveItem pItem)
+    public void AddPassiveItem(ItemData data)
     {
-        if (HasPassiveItem(pItem.Data.code))
+        if (data.type != ItemType.Passive) return;
+        
+        if (HasPassiveItem(data.code))
         {
-            Debug.Log(_data.characterName + " already has " + pItem.Data.itemName + " in inventory");
+            Debug.Log(_data.characterName + " already has " + data.itemName + " in inventory");
             return;
         }
         
-        _passiveItemInventory.Add(pItem.Data.code, pItem);
-        Debug.Log("added " + pItem.Data.itemName + " to " + _data.characterName +"'s inventory");
-        pItem.ApplyModsToCharacter(this);
+        _passiveItemInventory.Add(data.code, new Item(data, this));
+        Debug.Log("added " + data.itemName + " to " + _data.characterName +"'s inventory");
     }
     
     public void RemovePassiveItem(string code)
@@ -94,25 +94,25 @@ public class Character
         if (!HasPassiveItem(code)) return;
 
         var pItem = _passiveItemInventory[code];
-        pItem.RemoveModsFromCharacter(this);
+        pItem.Unequip();
         _passiveItemInventory.Remove(code);
         Debug.Log("removed " + pItem.Data.itemName + " from " + _data.characterName +"'s inventory");
     }
-
-    public void RemovePassiveItem(PassiveItem pItem) => RemovePassiveItem(pItem.Data.code);
 
     public bool HasPassiveItem(string code)
     {
         return _passiveItemInventory.ContainsKey(code);
     }
 
-    public void AddActiveItem(ActiveItem activeItem)
+    public void AddActiveItem(ItemData data)
     {
-        _activeItem = activeItem;
+        if (data.type != ItemType.Active) return;
+        _activeItem = new Item(data, this);
     }
 
     public void RemoveActiveItem()
     {
+        _activeItem.Unequip();
         _activeItem = null;
     }
 
@@ -142,8 +142,8 @@ public class Character
     public CharacterStats Stats => _activeStats;
 
     public List<Weapon> Weapons => _weapons;
-    public ActiveItem ActiveItem => _activeItem;
-    public ActiveItem SpecialAbility => _specialAbility;
+    public Item ActiveItem => _activeItem;
+    public AbilityData SpecialAbility => _specialAbility;
 
     public override string ToString()
     {

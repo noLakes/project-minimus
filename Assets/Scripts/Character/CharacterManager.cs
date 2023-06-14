@@ -8,8 +8,6 @@ public class CharacterManager : MonoBehaviour
 {
     protected Character _character;
     private Weapon _currentWeapon;
-    private ActiveItem _currentActiveItem;
-    private ActiveItem _currentSpecialAbility;
     [SerializeField] private Transform weaponParent;
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -22,16 +20,6 @@ public class CharacterManager : MonoBehaviour
         if (_character.Weapons.Count > 0)
         {
             EquipWeapon(_character.Weapons[0]);
-        }
-
-        if (_character.ActiveItem != null)
-        {
-            EquipSpecialWeapon(_character.ActiveItem);
-        }
-
-        if (_character.SpecialAbility != null)
-        {
-            SetupSpecialAbility(_character.SpecialAbility);
         }
     }
 
@@ -84,13 +72,6 @@ public class CharacterManager : MonoBehaviour
         _currentWeapon.Attack(location);
     }
 
-    public void UseActiveItem() => _currentActiveItem?.Attack();
-    public void UseActiveItem(Vector2 location) => _currentActiveItem?.Attack(location);
-
-    public void UseSpecialAbility() => _currentSpecialAbility?.Attack();
-
-    public void UseSpecialAbility(Vector2 location) =>  _currentSpecialAbility?.Attack(location);
-
     public void EquipWeapon(Weapon weapon)
     {
         if(_currentWeapon != null && weapon != _currentWeapon) _currentWeapon.Unequip();
@@ -142,39 +123,6 @@ public class CharacterManager : MonoBehaviour
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
 
-    public void EquipSpecialWeapon(ActiveItem sWeapon)
-    {
-        if ((_currentActiveItem) != null && sWeapon != _currentActiveItem)
-        {
-            DropSpecialWeapon();
-        }
-        
-        _currentActiveItem = sWeapon;
-        _currentActiveItem.Equip(_character);
-        _character.AddActiveItem(_currentActiveItem);
-        
-        if(_isPlayer) EventManager.TriggerEvent("PlayerSpecialWeaponChange");
-    }
-
-    private ActiveItem DropSpecialWeapon()
-    {
-        var droppedSpecialWeapon = _currentActiveItem;
-        _currentActiveItem = null;
-        droppedSpecialWeapon.Unequip();
-        Character.RemoveActiveItem();
-
-        Vector2 mouseDir = (Utility.GetMouseWorldPosition2D() - (Vector2)transform.position).normalized;
-        Weapon.SpawnInWorld(droppedSpecialWeapon, (Vector2)transform.position + mouseDir);
-        return droppedSpecialWeapon;
-    }
-    
-    // characters special ability is just spoofed from an active item weapon
-    private void SetupSpecialAbility(ActiveItem abilityItem)
-    {
-        _currentSpecialAbility = abilityItem;
-        abilityItem.Equip(_character);
-    }
-
     public virtual void OnSpeedChange()
     {
         // do nothing by default
@@ -187,6 +135,5 @@ public class CharacterManager : MonoBehaviour
     
     public Character Character => _character;
     public Weapon CurrentWeapon => _currentWeapon;
-    public ActiveItem CurrentSpecialAbility => _currentSpecialAbility;
     public bool IsPlayer => _isPlayer;
 }

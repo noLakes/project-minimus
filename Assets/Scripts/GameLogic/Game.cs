@@ -16,8 +16,7 @@ public class Game : MonoBehaviour
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
     public static WeaponData[] WEAPON_DATA;
-    public static WeaponData[] ACTIVE_ITEM_DATA;
-    public static PassiveItemData[] PASSIVE_ITEM_DATA;
+    public static ItemData[] ITEM_DATA;
 
     public Transform CHARACTER_CONTAINER;
     public List<Character> CHARACTERS;
@@ -57,7 +56,6 @@ public class Game : MonoBehaviour
         // spawn test weapon in world
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
-        ActiveItem.SpawnInWorld(DataHandler.LoadActiveItem("ThrowBomb"), new Vector2(3f, -8f));
 
         // for testing enemy
         if (true)
@@ -79,8 +77,7 @@ public class Game : MonoBehaviour
         // for testing passive items
         if (true)
         {
-            PassiveItemData pItem = DataHandler.LoadPassiveItem("SpeedGauntlet");
-            PassiveItem.CreatePickup(pItem, new Vector2(0f, -5f));
+            
         }
         
 

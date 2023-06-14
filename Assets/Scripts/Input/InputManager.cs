@@ -50,13 +50,13 @@ public class InputManager : MonoBehaviour
     private void HandleActiveItemUsed()
     {
         var mousePos = Utility.GetMouseWorldPosition2D();
-        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
+        //if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
     }
 
     private void HandleSpecialAbilityUsed()
     {
         var mousePos = Utility.GetMouseWorldPosition2D();
-        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialAbility(mousePos);
+        //if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialAbility(mousePos);
     }
     
     public InputState State
