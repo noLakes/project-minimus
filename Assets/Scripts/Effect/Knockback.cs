@@ -11,7 +11,7 @@ public class Knockback : Effect
     private Rigidbody2D _targetRb;
     private Vector2 _direction;
     
-    public override void Apply(EffectArgs args)
+    public override void Trigger(EffectArgs args)
     {
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
         _targetRb = cm.GetComponent<Rigidbody2D>();

@@ -31,9 +31,15 @@ public class AbilityManager : MonoBehaviour
     {
         if(!_ready) return;
         
-        EffectArgs e = new EffectArgs(_owner.Transform, target, location);
+        EffectArgs externalEffectArgs = new EffectArgs(_owner.Transform, target, location);
+        Effect.TriggerEffectList(_data.externalCastEffects, externalEffectArgs);
 
-        Effect.ApplyEffectList(_data.onCastEffects, e);
+        EffectArgs casterEffectArgs = new EffectArgs(
+            _owner.Transform,
+            _owner.Transform,
+            _owner.Transform.position
+            );
+        Effect.TriggerEffectList(_data.selfCastEffects, casterEffectArgs);
 
         // go on cooldown
         _activeCooldownRoutine = CooldownRoutine();

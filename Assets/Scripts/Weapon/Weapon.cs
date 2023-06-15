@@ -63,14 +63,14 @@ public class Weapon
         {
             Debug.Log("Weapon applying own on hit effects. Count: " + _activeStats.onHitEffects.Count);
             var wepEffectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
-            Effect.ApplyEffectList(_activeStats.onHitEffects, wepEffectArgs);
+            Effect.TriggerEffectList(_activeStats.onHitEffects, wepEffectArgs);
         }
 
         if (_owner.Stats.onHitEffects.Count > 0 && cm != null)
         {
             Debug.Log("Weapon applying owners on hit effects. Count: " + _owner.Stats.onHitEffects.Count);
             var charEffectArgs = new EffectArgs(_owner.Transform, cm.transform, hitPosition);
-            Effect.ApplyEffectList(_owner.Stats.onHitEffects, charEffectArgs);
+            Effect.TriggerEffectList(_owner.Stats.onHitEffects, charEffectArgs);
         }
         
         // play sound

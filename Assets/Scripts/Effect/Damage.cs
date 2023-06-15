@@ -6,7 +6,7 @@ public class Damage : Effect
 {
     public int amount;
 
-    public override void Apply(EffectArgs args)
+    public override void Trigger(EffectArgs args)
     {
         if(args.Target.TryGetComponent<CharacterManager>(out var cm))
         {

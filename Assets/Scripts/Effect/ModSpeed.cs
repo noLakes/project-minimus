@@ -15,7 +15,7 @@ public class ModSpeed : Effect
     private PlayerMovementController _playerMovementController;
     private NavMeshAgent _navMeshAgent;
     
-    public override void Apply(EffectArgs args)
+    public override void Trigger(EffectArgs args)
     {
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
         _initialArgs = args;

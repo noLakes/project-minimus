@@ -7,6 +7,7 @@ public class Item
 {
     private readonly ItemData _data;
     private readonly Character _owner;
+    private AbilityManager _abilityManager;
     
     public Item(ItemData data, Character owner)
     {
@@ -14,13 +15,14 @@ public class Item
         _owner = owner;
         
         ApplyModsToOwner();
+        if(_data.onUseAbility != null) CreateAbilityManager();
     }
 
-    public bool Use(Vector2 targetPosition)
+    public bool Use(Vector2 targetPosition, Transform target = null)
     {
-        if (_data.type == ItemType.Passive || _data.onHitEffects.Count == 0) return false;
-
+        if (_data.type == ItemType.Passive || _data.onUseAbility == null) return false;
         
+        _abilityManager.Trigger(targetPosition, target);
         
         return true;
     }
@@ -33,9 +35,9 @@ public class Item
             _owner.Transform.position
             );
         
-        Effect.ApplyEffectList(_data.passiveEffects, args);
+        Effect.TriggerEffectList(_data.passiveEffects, args);
 
-        foreach (var effect in _data.onHitEffects)
+        foreach (var effect in _data.conferedOnHitEffects)
         {
             _owner.Stats.AddOnHitEffect(effect);
         }
@@ -48,7 +50,7 @@ public class Item
             effect.Remove();
         }
         
-        foreach (var effect in _data.onHitEffects)
+        foreach (var effect in _data.conferedOnHitEffects)
         {
             _owner.Stats.RemoveOnHitEffect(effect);
         }
@@ -59,5 +61,13 @@ public class Item
         RemoveModsFromOwner();
     }
 
+    private AbilityManager CreateAbilityManager()
+    {
+        var am = _owner.Transform.AddComponent<AbilityManager>();
+        am.Initialize(_data.onUseAbility, _owner);
+        return am;
+    }
+
     public ItemData Data => _data;
+    public AbilityManager AbilityManager => _abilityManager;
 }

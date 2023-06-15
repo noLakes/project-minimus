@@ -10,7 +10,7 @@ public class TempEffect : Effect
     private EffectArgs _initialArgs;
     public List<Effect> targetEffects;
 
-    public override void Apply(EffectArgs args)
+    public override void Trigger(EffectArgs args)
     {
         Debug.Log("Applying Buff for " + duration + "s");
         if (!args.Target.TryGetComponent<CharacterManager>(out _character)) return;
@@ -41,7 +41,7 @@ public class TempEffect : Effect
         foreach (var effect in targetEffects)
         {
             Debug.Log("Applying sub effect: " + effect.name);
-            effect.Apply(_initialArgs);
+            effect.Trigger(_initialArgs);
         }
     }
 

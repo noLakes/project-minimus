@@ -11,7 +11,7 @@ public class SpawnProjectile : Effect
     public List<Effect> onHitEffects;
     private Transform _projectileSource;
 
-    public override void Apply(EffectArgs args)
+    public override void Trigger(EffectArgs args)
     {
         _projectileSource = args.Source;
         var go = Instantiate(projectilePrefab, args.SourcePoint, quaternion.identity);
@@ -44,7 +44,7 @@ public class SpawnProjectile : Effect
         {
             Debug.Log("Weapon applying own on hit effects. Count: " + onHitEffects.Count);
             var wepEffectArgs = new EffectArgs(_projectileSource, cm.transform, hitPosition);
-            Effect.ApplyEffectList(onHitEffects, wepEffectArgs);
+            Effect.TriggerEffectList(onHitEffects, wepEffectArgs);
         }
 
         // play sound

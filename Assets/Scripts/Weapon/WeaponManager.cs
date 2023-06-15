@@ -88,7 +88,7 @@ public class WeaponManager : MonoBehaviour
     {
         Transform ownerTransform = Weapon.Owner.Transform;
         var effectArgs = new EffectArgs(ownerTransform, ownerTransform, transform.position);
-        Effect.ApplyEffectList(Weapon.Stats.onAttackEffects, effectArgs);
+        Effect.TriggerEffectList(Weapon.Stats.onAttackEffects, effectArgs);
     }
 
     protected void Reset()

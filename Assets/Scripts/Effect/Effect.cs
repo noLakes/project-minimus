@@ -25,7 +25,7 @@ public abstract class Effect : ScriptableObject
     protected IEnumerator ActiveRunRoutine;
     public GameObject effectParticles;
     
-    public abstract void Apply(EffectArgs args);
+    public abstract void Trigger(EffectArgs args);
 
     public virtual void Remove()
     {
@@ -39,11 +39,11 @@ public abstract class Effect : ScriptableObject
         yield return null;
     }
 
-    public static void ApplyEffectList(List<Effect> effects, EffectArgs args)
+    public static void TriggerEffectList(List<Effect> effects, EffectArgs args)
     {
         foreach (var effect in effects)
         {
-            effect.Apply(args);
+            effect.Trigger(args);
         }
     }
 }

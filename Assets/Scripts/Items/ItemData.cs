@@ -18,7 +18,7 @@ public class ItemData : ScriptableObject
     public GameObject pickupPrefab;
     public Sprite uiSprite;
     public List<Effect> passiveEffects;
-    public List<Effect> onHitEffects;
-    public List<Effect> onUseEffects;
+    public List<Effect> conferedOnHitEffects;
+    public AbilityData onUseAbility;
     [Min(0f)] public float cooldown; // should be 0f if item is passive
 }
