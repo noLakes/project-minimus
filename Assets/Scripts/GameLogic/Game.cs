@@ -77,7 +77,8 @@ public class Game : MonoBehaviour
         // for testing passive items
         if (true)
         {
-            
+            ItemPickup.Create(DataHandler.LoadItem("SpeedTreads"), new Vector2(0f, -6f));
+            ItemPickup.Create(DataHandler.LoadItem("BombBag"), new Vector2(0f, -7.5f));
         }
         
 

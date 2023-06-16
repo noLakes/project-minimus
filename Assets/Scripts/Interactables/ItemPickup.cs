@@ -17,8 +17,7 @@ public class ItemPickup : Interactable
     
     protected virtual void HandlePickup(CharacterManager cm)
     {
-        //add to character based on item type
-        // TO DO
+        cm.AddItem(_itemData);
         
         Destroy(this.gameObject);
     }

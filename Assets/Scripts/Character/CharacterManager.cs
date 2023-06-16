@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
     protected Character _character;
     private Weapon _currentWeapon;
+    private AbilityManager _specialAbilityManager;
+    private Item _currentActiveItem;
     [SerializeField] private Transform weaponParent;
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -20,6 +23,17 @@ public class CharacterManager : MonoBehaviour
         if (_character.Weapons.Count > 0)
         {
             EquipWeapon(_character.Weapons[0]);
+        }
+
+        if (character.SpecialAbility != null)
+        {
+            _specialAbilityManager = transform.AddComponent<AbilityManager>();
+            _specialAbilityManager.Initialize(_character.SpecialAbility, _character);
+        }
+
+        if (_character.ActiveItem != null)
+        {
+            _currentActiveItem = _character.ActiveItem;
         }
     }
 
@@ -70,6 +84,18 @@ public class CharacterManager : MonoBehaviour
     public void Attack(Vector2 location)
     {
         _currentWeapon.Attack(location);
+    }
+
+    public void UseAbility(Vector2 location)
+    {
+        if (_specialAbilityManager == null) return; 
+        
+        _specialAbilityManager.Trigger(location);
+    }
+
+    public void UseActiveItem(Vector2 location)
+    {
+        _currentActiveItem?.Use(location);
     }
 
     public void EquipWeapon(Weapon weapon)
@@ -123,6 +149,24 @@ public class CharacterManager : MonoBehaviour
         EquipWeapon(_character.Weapons[nextWeaponIndex]);
     }
 
+    public void AddItem(ItemData data)
+    {
+        if (data.type == ItemType.Active)
+        {
+            if (_character.ActiveItem != null)
+            {
+                var oldItemData = _character.ActiveItem.Data;
+                _character.RemoveActiveItem();
+                ItemPickup.Create(oldItemData, transform.position);
+            }
+            
+            _character.AssignActiveItem(data);
+        }
+        else _character.AddPassiveItem(data);
+        
+        _currentActiveItem = _character.ActiveItem;
+    }
+
     public virtual void OnSpeedChange()
     {
         // do nothing by default
@@ -135,5 +179,7 @@ public class CharacterManager : MonoBehaviour
     
     public Character Character => _character;
     public Weapon CurrentWeapon => _currentWeapon;
+    public AbilityManager SpecialAbilityManager => _specialAbilityManager;
+    public Item CurrentActiveItem => _currentActiveItem;
     public bool IsPlayer => _isPlayer;
 }

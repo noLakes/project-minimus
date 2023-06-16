@@ -104,9 +104,8 @@ public class Character
         return _passiveItemInventory.ContainsKey(code);
     }
 
-    public void AddActiveItem(ItemData data)
+    public void AssignActiveItem(ItemData data)
     {
-        if (data.type != ItemType.Active) return;
         _activeItem = new Item(data, this);
     }
 

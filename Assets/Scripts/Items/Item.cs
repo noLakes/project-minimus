@@ -37,7 +37,7 @@ public class Item
         
         Effect.TriggerEffectList(_data.passiveEffects, args);
 
-        foreach (var effect in _data.conferedOnHitEffects)
+        foreach (var effect in _data.conferredOnHitEffects)
         {
             _owner.Stats.AddOnHitEffect(effect);
         }
@@ -50,7 +50,7 @@ public class Item
             effect.Remove();
         }
         
-        foreach (var effect in _data.conferedOnHitEffects)
+        foreach (var effect in _data.conferredOnHitEffects)
         {
             _owner.Stats.RemoveOnHitEffect(effect);
         }
@@ -59,6 +59,11 @@ public class Item
     public void Unequip()
     {
         RemoveModsFromOwner();
+
+        if (_data.type != ItemType.Active) return;
+        
+        GameObject.Destroy(_abilityManager);
+        _abilityManager = null;
     }
 
     private AbilityManager CreateAbilityManager()

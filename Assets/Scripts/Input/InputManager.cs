@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             // handle right click
+            // secondary fire?
         }
 
         if (Input.GetKeyDown(KeyCode.Q)) HandleActiveItemUsed();
@@ -50,13 +51,13 @@ public class InputManager : MonoBehaviour
     private void HandleActiveItemUsed()
     {
         var mousePos = Utility.GetMouseWorldPosition2D();
-        //if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
     }
 
     private void HandleSpecialAbilityUsed()
     {
         var mousePos = Utility.GetMouseWorldPosition2D();
-        //if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseSpecialAbility(mousePos);
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseAbility(mousePos);
     }
     
     public InputState State
