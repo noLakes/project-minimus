@@ -23,6 +23,9 @@ MonoBehaviour:
     magazineSize: 1
     reloadTime: 1.5
     range: 10
+    hitDetectionMask:
+      serializedVersion: 2
+      m_Bits: 4288
     onHitEffects:
     - {fileID: 11400000, guid: dadb7ea1a479f184bb85800d2221007f, type: 2}
     onAttackEffects: []

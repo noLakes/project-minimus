@@ -16,7 +16,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 6293776764116966831, guid: 842ccdf71d2f1a0419d5d5b3de72762d, type: 3}
   hitDetectionMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4288
   onHitEffects:
   - {fileID: 11400000, guid: 9a20b6cf3740846b89d555738ad875b4, type: 2}
   - {fileID: 11400000, guid: 9a20b6cf3740846b89d555738ad875b4, type: 2}

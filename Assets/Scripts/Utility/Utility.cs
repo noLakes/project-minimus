@@ -97,4 +97,10 @@ public static class Utility
     {
         return GetDirection2D((Vector2)fromTarget.position, (Vector2)toTarget.position);
     }
+    
+    // check if a layer is in a layermask
+    public static bool LayerMaskHasLayer(LayerMask mask, int layer)
+    {
+        return mask == (mask | (1 << layer));
+    }
 }

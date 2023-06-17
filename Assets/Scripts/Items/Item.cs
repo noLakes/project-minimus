@@ -66,11 +66,10 @@ public class Item
         _abilityManager = null;
     }
 
-    private AbilityManager CreateAbilityManager()
+    private void CreateAbilityManager()
     {
-        var am = _owner.Transform.AddComponent<AbilityManager>();
-        am.Initialize(_data.onUseAbility, _owner);
-        return am;
+        _abilityManager = _owner.Transform.AddComponent<AbilityManager>();
+        _abilityManager.Initialize(_data.onUseAbility, _owner);
     }
 
     public ItemData Data => _data;

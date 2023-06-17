@@ -23,4 +23,8 @@ MonoBehaviour:
     magazineSize: 0
     reloadTime: 0
     range: 1.5
+    hitDetectionMask:
+      serializedVersion: 2
+      m_Bits: 192
     onHitEffects: []
+    onAttackEffects: []

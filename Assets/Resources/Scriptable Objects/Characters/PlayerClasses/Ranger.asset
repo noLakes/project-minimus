@@ -25,7 +25,7 @@ MonoBehaviour:
     onHitEffects: []
   prefab: {fileID: 4424852941152127389, guid: d59c65c1b3fd5e54c8ff57397110ad2f, type: 3}
   startingWeapons:
-  - {fileID: 11400000, guid: 4b822fcb4c262c54a9dd9240b52dc59e, type: 2}
+  - {fileID: 11400000, guid: cf252867a91afad4cb6c1bd2c2d006e2, type: 2}
   startingPassiveItems: []
   specialAbility: {fileID: 11400000, guid: 85e7ed1f1bdec554dbb2206032c187bf, type: 2}
   startingActiveItem: {fileID: 0}

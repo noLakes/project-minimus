@@ -40,11 +40,9 @@ public class Weapon
         if (collider.transform == _owner.Transform) return false;
         
         var validHit = false;
-
-        // check collider Transform to see if target should be hit
-        // FIX THIS PLZ!!!
-        if (collider.transform.tag == "Obstacle") validHit = true;
-        else if (collider.transform.tag == "Character") validHit = true;
+        
+        // check Transform to see if target should be hit
+        validHit = Utility.LayerMaskHasLayer(_activeStats.hitDetectionMask, collider.gameObject.layer);
 
         if(validHit) OnHit(collider, hitPoint, origin);
         

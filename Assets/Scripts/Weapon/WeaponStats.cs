@@ -12,6 +12,7 @@ public struct WeaponStats
     public int magazineSize;
     public float reloadTime;
     public float range;
+    public LayerMask hitDetectionMask;
     public List<Effect> onHitEffects;
     public List<Effect> onAttackEffects; // triggered when user attacks
 }

@@ -16,7 +16,6 @@ public class AbilityManager : MonoBehaviour
         _owner = owner;
         _ready = true;
         _activeCooldownRoutine = null;
-
     }
     
     private IEnumerator CooldownRoutine()
