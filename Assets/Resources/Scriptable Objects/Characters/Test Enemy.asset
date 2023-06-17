@@ -24,6 +24,8 @@ MonoBehaviour:
     meleeDamageModifier: 0
     onHitEffects: []
   prefab: {fileID: 4424852941152127389, guid: 6a7ce1a0e057b654d9a25ad6b2c5a1a1, type: 3}
-  startingPassiveItems: []
   startingWeapons:
-  - {fileID: 11400000, guid: 4b822fcb4c262c54a9dd9240b52dc59e, type: 2}
+  - {fileID: 11400000, guid: a127e444a127441a0bd28e69ec96ed72, type: 2}
+  startingPassiveItems: []
+  specialAbility: {fileID: 0}
+  startingActiveItem: {fileID: 0}

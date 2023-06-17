@@ -69,9 +69,6 @@ public class Game : MonoBehaviour
                     name = "Enemy"
                 }
             };
-            
-            //var enemyCharacter = enemy.Transform.GetComponent<CharacterManager>();
-            //enemy.AddPassiveItem(new PassiveItem(DataHandler.LoadPassiveItem("SpeedGauntlet")));
         }
         
         // for testing passive items

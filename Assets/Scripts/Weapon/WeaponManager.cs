@@ -110,30 +110,9 @@ public class WeaponManager : MonoBehaviour
         CharacterWeaponAimer.ResumeAiming();
     }
     
-    protected void ComputeRange()
+    protected virtual void ComputeRange()
     {
         ComputedRange = Weapon.Stats.range;
-        // needs to be re-implemented
-        /*
-        switch (Weapon.Data.type)
-        {
-            case WeaponType.AnimationMelee:
-            {
-                float ownerHalfSize = Weapon.Owner.Transform.GetComponent<CharacterManager>().Size / 2;
-                Debug.Log("ComputeRange: " + ownerHalfSize + " / " + _weaponManager.HitRadius * 1.9f);
-                _computedRange = (_weaponManager.HitRadius * 1.95f) + ownerHalfSize;
-                break;
-            }
-            case WeaponType.Ranged:
-            {
-                // not implemented yet
-                _computedRange = _activeStats.Range; // replace this
-                break;
-            }
-        }
-        Debug.Log("ComputedRange: " + _computedRange);
-        */
-        
     }
     
     public virtual void ConvertToPickup()

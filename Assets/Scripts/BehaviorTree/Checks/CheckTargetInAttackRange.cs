@@ -14,6 +14,7 @@ public class CheckTargetInAttackRange : Node
     public override NodeState Evaluate()
     {
         object currentTarget = GetData("currentTarget");
+        
         if (currentTarget == null)
         {
             _state = NodeState.FAILURE;
@@ -34,7 +35,7 @@ public class CheckTargetInAttackRange : Node
             return State;
         }
         
-        float range = _aiCharacterManager.CurrentWeapon.Stats.range + target.GetComponent<CharacterManager>().Size / 2;
+        float range = _aiCharacterManager.CurrentWeapon.ComputedRange + target.GetComponent<CharacterManager>().GetSize() / 2;
         
         bool isInRange = Vector2.Distance(_aiCharacterManager.transform.position, target.position) <= range;
 

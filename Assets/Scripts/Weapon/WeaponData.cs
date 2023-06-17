@@ -7,8 +7,7 @@ public enum WeaponType
 {
     AnimationMelee,
     PhysicsMelee,
-    Ranged,
-    Ability
+    Ranged
 }
 
 [CreateAssetMenu(fileName = "Weapon", menuName = "Scriptable Objects/Weapon", order = 2)]

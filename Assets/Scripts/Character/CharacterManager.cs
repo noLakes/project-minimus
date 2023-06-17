@@ -172,11 +172,16 @@ public class CharacterManager : MonoBehaviour
         // do nothing by default
     }
 
-    public float Size
+    public float GetSize()
     {
-        get => spriteRenderer.GetComponent<Renderer>().bounds.size.x;
+        if (TryGetComponent<CircleCollider2D>(out var circleCollider2D))
+        {
+            return circleCollider2D.radius * 2f;
+        }
+        
+        return spriteRenderer.GetComponent<Renderer>().bounds.size.x * 2f;
     }
-    
+
     public Character Character => _character;
     public Weapon CurrentWeapon => _currentWeapon;
     public AbilityManager SpecialAbilityManager => _specialAbilityManager;
