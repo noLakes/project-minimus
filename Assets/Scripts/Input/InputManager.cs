@@ -10,6 +10,7 @@ public enum InputState
 public class InputManager : MonoBehaviour
 {
     private InputState _inputState;
+    private Vector2 mousePos;
 
     public void Initialize(InputState startingState)
     {
@@ -18,6 +19,10 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        // store mouse pos if any input occurs or is ongoing
+        if (Input.anyKeyDown || Input.anyKey) mousePos = Utility.GetMouseWorldPosition2D();
+        else return;
+        
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
         if (Input.GetKeyDown(KeyCode.E)) HandleInteractionPressed();
         if(Input.mouseScrollDelta.y != 0f) HandleWeaponChange();
@@ -33,8 +38,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void HandleLeftClick()
-    {   
-        var mousePos = Utility.GetMouseWorldPosition2D();
+    {
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
     }
 
@@ -50,13 +54,11 @@ public class InputManager : MonoBehaviour
 
     private void HandleActiveItemUsed()
     {
-        var mousePos = Utility.GetMouseWorldPosition2D();
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseActiveItem(mousePos);
     }
 
     private void HandleSpecialAbilityUsed()
     {
-        var mousePos = Utility.GetMouseWorldPosition2D();
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.UseAbility(mousePos);
     }
     
