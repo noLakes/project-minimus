@@ -37,7 +37,13 @@ public class CheckTargetInAttackRange : Node
         
         float range = _aiCharacterManager.CurrentWeapon.ComputedRange + target.GetComponent<CharacterManager>().GetSize() / 2;
         
-        bool isInRange = Vector2.Distance(_aiCharacterManager.transform.position, target.position) <= range;
+        // check based on distance from weapon end point if ranged weapon?
+        Vector2 checkFromPoint = 
+            _aiCharacterManager.CurrentWeapon.Data.type == WeaponType.Ranged ?
+            _aiCharacterManager.CurrentWeapon.Transform.Find("weaponEnd").position :
+            _aiCharacterManager.transform.position;
+        
+        bool isInRange = Vector2.Distance(checkFromPoint, target.position) <= range;
 
         if(isInRange)
         {

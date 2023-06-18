@@ -60,4 +60,6 @@ public class HitScanSpawner : ProjectileSpawner
         yield return null;
         trail.transform.position = endPos;
     }
+
+    public override ProjectileType SpawnedType => ProjectileType.HitScan;
 }

@@ -2,8 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ProjectileType
+{
+    Physics,
+    Regular,
+    HitScan
+}
+
 public abstract class Projectile : MonoBehaviour
 {
+    [HideInInspector] public ProjectileType Type;
     public int maxHitCount;
     protected int CurrentHitCount;
     public bool persistAfterHit;

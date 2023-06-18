@@ -20,7 +20,7 @@ public class SingleShotSpawner : ProjectileSpawner
         var go = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
         
         var projectile = go.GetComponent<Projectile>();
-        
+
         projectile.Initialize(transform.parent.right, Weapon.ProcessHit); // parent.right represents where the weapon is pointed
     }
 }

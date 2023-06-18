@@ -15,6 +15,7 @@ public class PhysicsProjectile : Projectile
 
     public override void Initialize(Vector2 moveDirection, ProcessHitDelegate hitDelegate)
     {
+        Type = ProjectileType.Physics;
         MyProcessHitDelegate = hitDelegate;
         _moveDirection = moveDirection;
         CurrentHitCount = 0;

@@ -24,4 +24,6 @@ public class ProjectileSpawner : MonoBehaviour
     {
         // do nothing by default
     }
+
+    public virtual ProjectileType SpawnedType => projectilePrefab.GetComponent<Projectile>().Type;
 }
