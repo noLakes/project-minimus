@@ -7,7 +7,7 @@ public class Dot : Effect
     public float duration;
     public float tickInterval;
     public int damage;
-
+    
     public override void Trigger(EffectArgs args)
     {
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
@@ -32,14 +32,5 @@ public class Dot : Effect
             yield return new WaitForSeconds(tickInterval);
             timeElapsed += tickInterval;
         }
-    }
-
-    static Dot Create(float duration, float tickInterval, int damage)
-    {
-        var dot = ScriptableObject.CreateInstance<Dot>();
-        dot.duration = duration;
-        dot.tickInterval = tickInterval;
-        dot.damage = damage;
-        return dot;
     }
 }
