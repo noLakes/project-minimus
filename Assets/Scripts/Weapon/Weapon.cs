@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -52,25 +53,21 @@ public class Weapon
     private void OnHit(Collider2D collider, Vector2 hitPosition, Vector2 origin)
     {
         // apply hit actions
-        if (!collider.transform.TryGetComponent<CharacterManager>(out var cm)) return;
-        cm.Damage(GetDamageWithModifiers());
-        cm.ReceiveHit(_owner.Transform, origin);
-
-        // if weapon has on hit effects
-        if (_activeStats.onHitEffects.Count > 0 && cm != null)
+        if (collider.transform.TryGetComponent<CharacterManager>(out var cm))
         {
-            Debug.Log("Weapon applying own on hit effects. Count: " + _activeStats.onHitEffects.Count);
-            var wepEffectArgs = new EffectArgs(_transform, cm.transform, hitPosition);
-            Effect.TriggerEffectList(_activeStats.onHitEffects, wepEffectArgs);
+            cm.Damage(GetDamageWithModifiers());
+            cm.ReceiveHit(_owner.Transform, origin);
         }
 
-        if (_owner.Stats.onHitEffects.Count > 0 && cm != null)
+        var collectedOnHitEffects = _activeStats.onHitEffects.Concat(_owner.Stats.onHitEffects).ToList();
+        
+        if(collectedOnHitEffects.Count > 0)
         {
-            Debug.Log("Weapon applying owners on hit effects. Count: " + _owner.Stats.onHitEffects.Count);
-            var charEffectArgs = new EffectArgs(_owner.Transform, cm.transform, hitPosition);
+            Debug.Log("Weapon applying on hit effects. Count: " + collectedOnHitEffects.Count);
+            var charEffectArgs = new EffectArgs(_owner.Transform, collider.transform, hitPosition);
             Effect.TriggerEffectList(_owner.Stats.onHitEffects, charEffectArgs);
         }
-        
+
         // play sound
         // play animation or particle effects
     }

@@ -35,13 +35,15 @@ public class SpawnProjectile : Effect
 
     private void OnHit(Transform other, Vector2 hitPosition, Vector2 origin)
     {
-        if (!other.TryGetComponent<CharacterManager>(out var cm)) return;
-        cm.ReceiveHit(_projectileSource, origin);
-        
-        if (onHitEffects.Count > 0 && cm != null)
+        if (other.TryGetComponent<CharacterManager>(out var cm))
+        {
+            cm.ReceiveHit(_projectileSource, origin); // important for AI
+        }
+
+        if (onHitEffects.Count > 0)
         {
             Debug.Log("Weapon applying own on hit effects. Count: " + onHitEffects.Count);
-            var wepEffectArgs = new EffectArgs(_projectileSource, cm.transform, hitPosition);
+            var wepEffectArgs = new EffectArgs(_projectileSource, other, hitPosition);
             TriggerEffectList(onHitEffects, wepEffectArgs);
         }
 
