@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 
 public class Game : MonoBehaviour
@@ -12,6 +13,7 @@ public class Game : MonoBehaviour
     
     private bool _gameIsPaused;
     private PlayerCharacterManager _playerCharacter;
+    private SpawnManager _spawnManager;
 
     // data arrays
     public static CharacterData[] CHARACTER_DATA;
@@ -56,6 +58,10 @@ public class Game : MonoBehaviour
         // spawn test weapon in world
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
         Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
+        
+        // test spawn manager points
+        _spawnManager = GetComponent<SpawnManager>();
+        _spawnManager.Initialize();
 
         // for testing enemy
         if (true)

@@ -4,26 +4,55 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 public class SpawnManager : MonoBehaviour
 {
-    [HideInInspector]
-    public List<Vector2> validEnemySpawnPoints;
-    private float _spawnAreaWidth, _spawnAreaHeight;
+    [HideInInspector] public List<Vector2> validEnemySpawnPoints;
     private Dictionary<CharacterData, int> _spawnPool;
-    [FormerlySerializedAs("validSpawnMask")] [SerializeField] private LayerMask invalidSpawnMask;
-
+    [SerializeField] private LayerMask invalidSpawnMask; // blocks spawn areas
+    
+    [SerializeField] private Tilemap floorTileMap;
+    private Vector2 tileMapCenter;
+    private float _tileMapWidth, _tileMapHeight,
+        _spawnAreaWidth, _spawnAreaHeight;
+    
     private void Awake()
     {
         _spawnPool = new Dictionary<CharacterData, int>();
     }
 
-    public void Initialize(float width, float height)
+    public void Initialize()
     {
-        _spawnAreaWidth = width;
-        _spawnAreaHeight = height;
+        tileMapCenter = new Vector3(
+            floorTileMap.origin.x + (floorTileMap.size.x / 2),
+            floorTileMap.origin.y + (floorTileMap.size.y / 2)
+            );
+        
+        _tileMapWidth = floorTileMap.size.x;
+        _tileMapHeight = floorTileMap.size.y;
+        
+        Vector2 bottomLeft = new Vector2(floorTileMap.origin.x, floorTileMap.origin.y);
+        Vector2 bottomRight = bottomLeft + (Vector2.right * _tileMapWidth);
+        Vector2 topLeft = bottomLeft + (Vector2.up * _tileMapHeight);
+        Vector2 topRight = bottomRight + (Vector2.up * _tileMapHeight);
+        
+        Debug.DrawLine(tileMapCenter, bottomRight, Color.green, 20f);
+        Debug.DrawLine(tileMapCenter, bottomLeft, Color.green, 20f);
+        Debug.DrawLine(tileMapCenter, topLeft, Color.green, 20f);
+        Debug.DrawLine(tileMapCenter, topRight, Color.green, 20f);
+        _spawnAreaWidth = 30f;
+        _spawnAreaHeight = 30f;
         
         validEnemySpawnPoints = GetValidMapSpawnLocations(1f, new Vector2(_spawnAreaWidth, _spawnAreaHeight));
+
+        foreach (var point in validEnemySpawnPoints)
+        {
+            Debug.DrawLine(point, point + Vector2.right * 0.25f, Color.cyan, 10f);
+            Debug.DrawLine(point, point + -Vector2.right * 0.25f, Color.cyan, 10f);
+            Debug.DrawLine(point, point + Vector2.up * 0.25f, Color.cyan, 10f);
+            Debug.DrawLine(point, point + -Vector2.up * 0.25f, Color.cyan, 10f);
+        }
     }
 
     public void SpawnEnemyCount(int amount, CharacterData characterData)
@@ -42,9 +71,6 @@ public class SpawnManager : MonoBehaviour
     {
         Vector2 spawnPoint = validEnemySpawnPoints[Random.Range(0, validEnemySpawnPoints.Count)];
 
-        // adjust wave data spawn amounts according to difficulty
-        UpdateSpawnPoolData(difficulty);
-
         List<Character> spawnedCharacters = new List<Character>();
 
         //string readout = $"WAVE: {Game.Instance.currentWave} DIFFICULTY: {difficulty}";
@@ -56,58 +82,12 @@ public class SpawnManager : MonoBehaviour
             //readout += $"\n{charKey.ToString()}: {amountToSpawn}";
             for (int i = 0; i < amountToSpawn; i++)
             {
-                Character c = Spawn(spawnPoint, charKey, 1);
-                spawnedCharacters.Add(c.transform.GetComponent<UnitManager>());
+                Character c = Spawn(spawnPoint, charKey);
+                spawnedCharacters.Add(c);
             }
         }
-
-        if (moveToCenter)
-        {
-            if (keyStructure == null) keyStructure = Game.Instance.keyStructure;
-            if (spawnedCharacters.Count > 10)
-            {
-                // move units in batches across many frames
-                StartCoroutine(MoveToKeyStructureBatchRoutine(spawnedCharacters));
-            }
-            else
-            {
-                foreach (UnitManager unit in spawnedCharacters) MoveToKeyStructure(unit);
-            }
-
-        }
-
-        //Debug.Log(readout);
-        StartCoroutine(EnableMapDotThroughFogRoutine(spawnedCharacters));
+        
         return spawnedCharacters;
-    }
-
-    private IEnumerator EnableMapDotThroughFogRoutine(List<UnitManager> units)
-    {
-        yield return new WaitForSeconds(0.5f);
-        foreach (UnitManager unit in units)
-        {
-            Transform dot = unit.transform.Find("Cylinder");
-            if (dot != null && unit.transform.TryGetComponent<FogRendererToggler>(out var fogToggler))
-            {
-                fogToggler.RemoveRenderReference(dot);
-            }
-            yield return null;
-        }
-    }
-
-    private void MoveToKeyStructure(UnitManager unit)
-    {
-        Vector3 movePos = Utility.RandomPointOnCircleEdge(keyStructure.targetSize + 1.5f, keyStructure.transform.position);
-        unit.behaviorTree.SetDataNextFrame("attackMove", movePos);
-    }
-
-    private IEnumerator MoveToKeyStructureBatchRoutine(List<UnitManager> units)
-    {
-        foreach (UnitManager unit in units)
-        {
-            MoveToKeyStructure(unit);
-            yield return null;
-        }
     }
 
     public Character Spawn(Vector2 location, CharacterData characterData)
@@ -116,38 +96,6 @@ public class SpawnManager : MonoBehaviour
         character.SetPosition(location);
 
         return character;
-    }
-
-    public Character SpawnWithDestination(Vector3 location, Vector3 destination, CharacterData characterData, int playerId)
-    {
-        Character character = Spawn(location, characterData, playerId);
-        character.transform.GetComponent<CharacterManager>().behaviorTree.SetDataNextFrame("attackMove", destination);
-
-        if (character.data.name == "Zombie" && zombieSpeedMod > 0.0f) character.transform.GetComponent<NavMeshAgent>().speed += zombieSpeedMod;
-
-        return character;
-    }
-
-    private void UpdateSpawnPoolData(float difficulty)
-    {
-        switch (Game.Instance.currentWave)
-        {
-            case 1:
-                // optionally introduce new enemy types to spawn pool
-                // or adjust max values....
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-            case 4:
-
-                break;
-            default:
-                break;
-        }
     }
 
     public void AddToSpawnPool(CharacterData character, int max)
@@ -165,15 +113,16 @@ public class SpawnManager : MonoBehaviour
         List<Vector2> spawns = PoissonDiscSampling.GeneratePoints(radius, sampleRegionSize);
         //Debug.Log("spawns generated with radius of " + radius + ": " + spawns.Count);
         List<Vector2> validSpawns = new List<Vector2>();
-        Vector2 mapCenter = Vector2.zero;
 
         foreach (Vector2 point in spawns)
         {
+            var centeredPoint = new Vector2(point.x - (_spawnAreaWidth / 2), point.y - (_spawnAreaHeight / 2));
+            
             // check if any illegal objects are present in the spawn area
-            Collider2D[] overlapingColliders = Physics2D.OverlapCircleAll(point, radius, invalidSpawnMask);
+            Collider2D[] overlapingColliders = Physics2D.OverlapCircleAll(centeredPoint, radius, invalidSpawnMask);
             
             if (overlapingColliders.Length > 0) continue;
-            validSpawns.Add(point);
+            validSpawns.Add(centeredPoint);
         }
 
         return validSpawns;
