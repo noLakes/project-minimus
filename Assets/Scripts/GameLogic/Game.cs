@@ -56,8 +56,8 @@ public class Game : MonoBehaviour
         _playerCharacter.SetAsPlayer();
         
         // spawn test weapon in world
-        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
-        Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
+        //Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
+        //Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
         
         // test spawn manager points
         _spawnManager = GetComponent<SpawnManager>();
@@ -66,19 +66,11 @@ public class Game : MonoBehaviour
         // for testing enemy
         if (true)
         {
-            // spawn basic enemy
-            var enemy = new Character(DataHandler.LoadCharacter("Test Enemy"))
-            {
-                Transform =
-                {
-                    position = new Vector3(0, 5, 0),
-                    name = "Enemy"
-                }
-            };
+            _spawnManager.SpawnEnemyCount(5, DataHandler.LoadCharacter("Test Enemy"));
         }
         
         // for testing passive items
-        if (true)
+        if (false)
         {
             ItemPickup.Create(DataHandler.LoadItem("SpeedTreads"), new Vector2(0f, -6f));
             ItemPickup.Create(DataHandler.LoadItem("BombBag"), new Vector2(0f, -7.5f));

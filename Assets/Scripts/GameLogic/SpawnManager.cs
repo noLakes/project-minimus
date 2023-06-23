@@ -32,6 +32,8 @@ public class SpawnManager : MonoBehaviour
         _tileMapWidth = floorTileMap.size.x;
         _tileMapHeight = floorTileMap.size.y;
         
+        // debugging
+        /*
         Vector2 bottomLeft = new Vector2(floorTileMap.origin.x, floorTileMap.origin.y);
         Vector2 bottomRight = bottomLeft + (Vector2.right * _tileMapWidth);
         Vector2 topLeft = bottomLeft + (Vector2.up * _tileMapHeight);
@@ -41,8 +43,11 @@ public class SpawnManager : MonoBehaviour
         Debug.DrawLine(tileMapCenter, bottomLeft, Color.green, 20f);
         Debug.DrawLine(tileMapCenter, topLeft, Color.green, 20f);
         Debug.DrawLine(tileMapCenter, topRight, Color.green, 20f);
-        _spawnAreaWidth = 30f;
-        _spawnAreaHeight = 30f;
+        */
+        // debugging end
+        
+        _spawnAreaWidth = _tileMapWidth * 0.9f;
+        _spawnAreaHeight = _tileMapHeight * 0.9f;
         
         validEnemySpawnPoints = GetValidMapSpawnLocations(1f, new Vector2(_spawnAreaWidth, _spawnAreaHeight));
 
@@ -72,14 +77,11 @@ public class SpawnManager : MonoBehaviour
         Vector2 spawnPoint = validEnemySpawnPoints[Random.Range(0, validEnemySpawnPoints.Count)];
 
         List<Character> spawnedCharacters = new List<Character>();
-
-        //string readout = $"WAVE: {Game.Instance.currentWave} DIFFICULTY: {difficulty}";
-
+        
         // spawn the amount of each character type as stored in the wave data
         foreach (CharacterData charKey in _spawnPool.Keys)
         {
             int amountToSpawn = Mathf.CeilToInt(_spawnPool[charKey] * difficulty);
-            //readout += $"\n{charKey.ToString()}: {amountToSpawn}";
             for (int i = 0; i < amountToSpawn; i++)
             {
                 Character c = Spawn(spawnPoint, charKey);
