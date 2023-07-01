@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printCallStack: 0
+  tickRate: 0.1
 --- !u!50 &4424852941152127386
 Rigidbody2D:
   serializedVersion: 4

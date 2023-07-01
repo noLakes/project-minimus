@@ -5,8 +5,7 @@ using UnityEngine.Serialization;
 
 public enum WeaponType
 {
-    AnimationMelee,
-    PhysicsMelee,
+    Melee,
     Ranged
 }
 

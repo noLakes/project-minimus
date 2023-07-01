@@ -12,7 +12,7 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Start()
     {
-        _character = Game.Instance.PlayerCharacter.Character;
+        _character = GetComponent<CharacterManager>().Character;
     }
 
     private void Update()

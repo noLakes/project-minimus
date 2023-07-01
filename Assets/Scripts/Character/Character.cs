@@ -14,7 +14,7 @@ public class Character
     private int _health;
     private List<Weapon> _weapons;
     private Item _activeItem;
-    private AbilityData _specialAbility; // cannot be changed throughout game
+    private AbilityData _specialAbility;
     private Dictionary<string, Item> _passiveItemInventory;
     
     public Character(CharacterData initialData)
@@ -29,13 +29,13 @@ public class Character
 
         _weapons = new List<Weapon>();
         
-        foreach (var wData in _data.startingWeapons)
+        foreach (var wepData in _data.startingWeapons)
         {
             if (_weapons.Count >= Stats.maxWeaponCount) break;
-            AddWeapon(new Weapon(wData));
+            AddWeapon(new Weapon(wepData));
         }
 
-        var g = GameObject.Instantiate(_data.prefab) as GameObject;
+        var g = GameObject.Instantiate(_data.prefab);
         Transform = g.transform;
         Transform.parent = Game.Instance.CHARACTER_CONTAINER;
         g.GetComponent<CharacterManager>().Initialize(this);
@@ -56,23 +56,18 @@ public class Character
     
     public void AddWeapon(Weapon newWeapon)
     {
-        if(!_weapons.Contains(newWeapon))
-        {
-            _weapons.Add(newWeapon);
-            Debug.Log(_code + " weapon inventory:");
-            foreach (var wep in _weapons)
-            {
-                Debug.Log(wep.Data.name);
-            }
-        }
+        if (_weapons.Contains(newWeapon)) return;
+        
+        _weapons.Add(newWeapon);
+        
+        string invReadout = _code + " weapon inventory:";
+        foreach (var wep in _weapons) invReadout += "\n" + wep.Data.name;
+        Debug.Log(invReadout);
     }
 
     public void RemoveWeapon(Weapon weapon)
     {
-        if(_weapons.Contains(weapon))
-        {
-            _weapons.Remove(weapon);
-        }
+        if(_weapons.Contains(weapon)) _weapons.Remove(weapon);
     }
     
     public void AddPassiveItem(ItemData data)

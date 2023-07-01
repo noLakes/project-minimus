@@ -10,9 +10,9 @@ public class ItemPickup : Interactable
     public void Initialize(ItemData data)
     {
         _itemData = data;
-        var collider = transform.AddComponent<CircleCollider2D>();
-        collider.radius = 1.5f; // can reference global parameter for item pickup range
-        collider.isTrigger = true;
+        var circleCollider2D = transform.AddComponent<CircleCollider2D>();
+        circleCollider2D.radius = Game.Instance.gameGlobalParameters.itemPickupRange;
+        circleCollider2D.isTrigger = true;
     }
     
     protected virtual void HandlePickup(CharacterManager cm)

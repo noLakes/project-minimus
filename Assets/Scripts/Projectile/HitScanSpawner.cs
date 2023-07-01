@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class HitScanSpawner : ProjectileSpawner
 {
-    [SerializeField] private TrailRenderer _trailRendererPrefab;
+    [FormerlySerializedAs("_trailRendererPrefab")] [SerializeField] private TrailRenderer trailRendererPrefab;
     
-    public override void Spawn(Vector2 shootPoint)
+    public override void Trigger(Vector2 shootPoint)
     {
         Vector2 origin = spawnPoint.position;
         Vector2 shootDir = Utility.GetDirection2D(origin, shootPoint);
@@ -27,7 +28,7 @@ public class HitScanSpawner : ProjectileSpawner
         Weapon.ProcessHit(ray.collider, ray.point, origin);
     }
 
-    public override void Spawn()
+    public override void Trigger()
     {
         Vector2 origin = spawnPoint.position;
         Vector2 dir = transform.parent.right;
@@ -50,13 +51,13 @@ public class HitScanSpawner : ProjectileSpawner
     
     private void DrawTracer(Vector2 endPos)
     {
-        // implement after making tracer prefabs
-        var trail = Instantiate(_trailRendererPrefab, (Vector2)transform.position, Quaternion.identity);
+        var trail = Instantiate(trailRendererPrefab, (Vector2)transform.position, Quaternion.identity);
         StartCoroutine(CastTracerRoutine(trail, endPos));
     }
     
     private IEnumerator CastTracerRoutine(TrailRenderer trail, Vector2 endPos)
     {
+        // will need some more work when advanced tracers are desired
         yield return null;
         trail.transform.position = endPos;
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public enum ProjectileType
 {
@@ -11,7 +12,7 @@ public enum ProjectileType
 
 public abstract class Projectile : MonoBehaviour
 {
-    [HideInInspector] public ProjectileType Type;
+    [FormerlySerializedAs("Type")] [HideInInspector] public ProjectileType type;
     public int maxHitCount;
     protected int CurrentHitCount;
     public bool persistAfterHit;

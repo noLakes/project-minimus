@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SingleShotSpawner : ProjectileSpawner
 {
-    public override void Spawn(Vector2 shootPoint)
+    public override void Trigger(Vector2 shootPoint)
     {
         Vector2 shootDir = Utility.GetDirection2D((Vector2)transform.position, shootPoint);
         var go = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
@@ -15,7 +15,7 @@ public class SingleShotSpawner : ProjectileSpawner
         projectile.Initialize(shootDir, Weapon.ProcessHit);
     }
     
-    public override void Spawn()
+    public override void Trigger()
     {
         var go = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
         

@@ -21,7 +21,7 @@ public class Game : MonoBehaviour
     public static ItemData[] ITEM_DATA;
 
     public Transform CHARACTER_CONTAINER;
-    public List<Character> CHARACTERS;
+    public List<Character> CHARACTERS; // not used yet - may not be needed in this game
 
     public GameGlobalParameters gameGlobalParameters;
 
@@ -36,6 +36,7 @@ public class Game : MonoBehaviour
     
     private void Awake()
     {
+        // set up singleton 
         if (Instance != null)
         {
             Debug.LogError("There is more than one Instance!");
@@ -54,14 +55,17 @@ public class Game : MonoBehaviour
         _playerCharacter = player.Transform.GetComponent<PlayerCharacterManager>();
         _playerCharacter.Character.SetPosition(new Vector3(-3f, 0f, 0f));
         _playerCharacter.SetAsPlayer();
-        
-        // spawn test weapon in world
-        //Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
-        //Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
-        
+
         // test spawn manager points
         _spawnManager = GetComponent<SpawnManager>();
         _spawnManager.Initialize();
+        
+        // for testing weapon pickups
+        if (true)
+        {
+            Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
+            Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
+        }
 
         // for testing enemy
         if (true)
@@ -75,27 +79,8 @@ public class Game : MonoBehaviour
             ItemPickup.Create(DataHandler.LoadItem("SpeedTreads"), new Vector2(0f, -6f));
             ItemPickup.Create(DataHandler.LoadItem("BombBag"), new Vector2(0f, -7.5f));
         }
-        
 
         GetComponent<InputManager>().Initialize(InputState.ControllingPlayer);
-    }
-
-    private void Update()
-    {
-        if (_gameIsPaused)
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Resume();
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Pause();
-            }
-        }
     }
 
     public void Reset()

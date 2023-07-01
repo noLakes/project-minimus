@@ -14,16 +14,16 @@ public class ProjectileSpawner : MonoBehaviour
         Weapon = weapon;
     }
     
-    public virtual void Spawn(Vector2 shootPoint)
+    public virtual void Trigger(Vector2 shootPoint)
     {
         // do nothing by default
     }
     
     // spawn without direction will just shoot toward weapon forward
-    public virtual void Spawn()
+    public virtual void Trigger()
     {
         // do nothing by default
     }
 
-    public virtual ProjectileType SpawnedType => projectilePrefab.GetComponent<Projectile>().Type;
+    public virtual ProjectileType SpawnedType => projectilePrefab.GetComponent<Projectile>().type;
 }

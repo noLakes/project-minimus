@@ -7,19 +7,19 @@ using UnityEngine.Events;
 
 public class Weapon
 {
-    protected string uid;
-    protected readonly WeaponData _data;
-    protected readonly WeaponStats _baseStats;
-    protected WeaponStats _activeStats;
-    protected Transform _transform;
-    protected SpriteRenderer _spriteRenderer;
-    protected WeaponManager _weaponManager;
-    protected bool _equipped;
-    protected Character _owner;
+    private string _uid;
+    private readonly WeaponData _data;
+    private readonly WeaponStats _baseStats;
+    private WeaponStats _activeStats;
+    private Transform _transform;
+    private SpriteRenderer _spriteRenderer;
+    private WeaponManager _weaponManager;
+    private bool _equipped;
+    private Character _owner;
     
     public Weapon(WeaponData initialData, Character owner = null)
     {
-        uid = System.Guid.NewGuid().ToString();
+        _uid = System.Guid.NewGuid().ToString();
         _data = initialData;
         _baseStats = _data.baseStats;
         _activeStats = _baseStats;

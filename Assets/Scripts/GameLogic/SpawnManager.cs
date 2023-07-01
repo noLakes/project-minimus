@@ -13,9 +13,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private LayerMask invalidSpawnMask; // blocks spawn areas
     
     [SerializeField] private Tilemap floorTileMap;
-    private Vector2 tileMapCenter;
     private float _tileMapWidth, _tileMapHeight,
         _spawnAreaWidth, _spawnAreaHeight;
+    private Vector2 tileMapCenter;
     
     private void Awake()
     {
@@ -32,25 +32,12 @@ public class SpawnManager : MonoBehaviour
         _tileMapWidth = floorTileMap.size.x;
         _tileMapHeight = floorTileMap.size.y;
         
-        // debugging
-        /*
-        Vector2 bottomLeft = new Vector2(floorTileMap.origin.x, floorTileMap.origin.y);
-        Vector2 bottomRight = bottomLeft + (Vector2.right * _tileMapWidth);
-        Vector2 topLeft = bottomLeft + (Vector2.up * _tileMapHeight);
-        Vector2 topRight = bottomRight + (Vector2.up * _tileMapHeight);
-        
-        Debug.DrawLine(tileMapCenter, bottomRight, Color.green, 20f);
-        Debug.DrawLine(tileMapCenter, bottomLeft, Color.green, 20f);
-        Debug.DrawLine(tileMapCenter, topLeft, Color.green, 20f);
-        Debug.DrawLine(tileMapCenter, topRight, Color.green, 20f);
-        */
-        // debugging end
-        
         _spawnAreaWidth = _tileMapWidth * 0.9f;
         _spawnAreaHeight = _tileMapHeight * 0.9f;
         
         validEnemySpawnPoints = GetValidMapSpawnLocations(1f, new Vector2(_spawnAreaWidth, _spawnAreaHeight));
-
+        
+        /*
         foreach (var point in validEnemySpawnPoints)
         {
             Debug.DrawLine(point, point + Vector2.right * 0.25f, Color.cyan, 10f);
@@ -58,6 +45,7 @@ public class SpawnManager : MonoBehaviour
             Debug.DrawLine(point, point + Vector2.up * 0.25f, Color.cyan, 10f);
             Debug.DrawLine(point, point + -Vector2.up * 0.25f, Color.cyan, 10f);
         }
+        */
     }
 
     public void SpawnEnemyCount(int amount, CharacterData characterData)

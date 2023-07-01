@@ -12,8 +12,9 @@ public class TempEffect : Effect
 
     public override void Trigger(EffectArgs args)
     {
-        Debug.Log("Applying Buff for " + duration + "s");
         if (!args.Target.TryGetComponent<CharacterManager>(out _character)) return;
+        Debug.Log("Applying Buff for " + duration + "s");
+        
         _initialArgs = args;
         ApplyEffects();
         ActiveRunRoutine = RunRoutine(_character);

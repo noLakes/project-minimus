@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatedMeleeWeaponManager : WeaponManager
+public class MeleeWeaponManager : WeaponManager
 {
     [SerializeField] private Transform hitBoxOrigin;
     [SerializeField] private float hitRadius;

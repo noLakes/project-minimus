@@ -17,12 +17,6 @@ public class UIManager : MonoBehaviour
         UpdatePlayerInfoPanel();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void UpdatePlayerInfoPanel()
     {
         CharacterManager playerCM = Game.Instance.PlayerCharacter;

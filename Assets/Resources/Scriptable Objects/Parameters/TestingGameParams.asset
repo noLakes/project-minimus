@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fieldsToShowInGame: []
   startingCharacter: {fileID: 11400000, guid: 2984d8a071b5d3d4dac3175f40884a0f, type: 2}
+  itemPickupRange: 1.5

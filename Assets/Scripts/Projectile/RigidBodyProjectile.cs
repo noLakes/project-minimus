@@ -15,7 +15,7 @@ public class RigidBodyProjectile : Projectile
 
     public override void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate)
     {
-        Type = ProjectileType.Regular;
+        type = ProjectileType.Regular;
         _moveDirection = shootDirection;
         CurrentHitCount = 0;
         _currentPosition = transform.position;

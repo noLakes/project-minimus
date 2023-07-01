@@ -21,11 +21,6 @@ public struct CharacterStats
 
     public bool RemoveOnHitEffect(Effect e)
     {
-        if (onHitEffects.Contains(e))
-        {
-            return onHitEffects.Remove(e);
-        }
-
-        return false;
+        return onHitEffects.Contains(e) && onHitEffects.Remove(e);
     }
 }

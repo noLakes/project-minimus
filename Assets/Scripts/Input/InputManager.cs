@@ -35,6 +35,12 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q)) HandleActiveItemUsed();
         if(Input.GetKeyDown(KeyCode.Space)) HandleSpecialAbilityUsed();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Game.Instance.GameIsPaused) Game.Instance.Resume();
+            else Game.Instance.Pause();
+        }
     }
 
     private void HandleLeftClick()

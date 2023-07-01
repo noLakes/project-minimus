@@ -7,7 +7,7 @@ public class CharacterWeaponAimer : MonoBehaviour
     public SpriteRenderer weaponRenderer, characterRenderer;
     protected Vector3 AimDirection;
     protected Weapon Weapon;
-    protected bool PauseAim = false;
+    protected bool PauseAim;
 
     private void Update()
     {

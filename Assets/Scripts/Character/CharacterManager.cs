@@ -62,20 +62,19 @@ public class CharacterManager : MonoBehaviour
 
     public virtual void ReceiveHit(Transform attacker, Vector2 origin)
     {
-        // do nothing by default?
+        // do nothing by default
         // AI will respond with override method
     }
 
     public void Heal(int amount)
     {
+        if (amount < 0f) return; // damage not allowed via heal method
         _character.Health += amount;
         if(_isPlayer) EventManager.TriggerEvent("PlayerStatsChange");
     }
 
     private void Die()
     {
-        //Debug.Log(transform.name + " is dead.");
-        // update Game Instance CHARACTERS list if needed
         Destroy(transform.gameObject);
     }
 
@@ -136,13 +135,8 @@ public class CharacterManager : MonoBehaviour
 
     public void SwitchWeapon()
     {
-        if (_character.Weapons.Count < 2)
-        {
-            // respond to cant switch
-            return;
-        }
+        if (_character.Weapons.Count < 2) return;
         
-        //_currentWeapon.Interrupt? if interrupt is being used;
         var nextWeaponIndex = _character.Weapons.IndexOf(_currentWeapon) + 1;
         if (nextWeaponIndex == _character.Weapons.Count) nextWeaponIndex = 0;
         
@@ -161,10 +155,9 @@ public class CharacterManager : MonoBehaviour
             }
             
             _character.AssignActiveItem(data);
+            _currentActiveItem = _character.ActiveItem;
         }
         else _character.AddPassiveItem(data);
-        
-        _currentActiveItem = _character.ActiveItem;
     }
 
     public virtual void OnSpeedChange()
@@ -172,7 +165,7 @@ public class CharacterManager : MonoBehaviour
         // do nothing by default
     }
 
-    public float GetSize()
+    public float GetSize() // returns full width or diameter of character
     {
         if (TryGetComponent<CircleCollider2D>(out var circleCollider2D))
         {
@@ -180,7 +173,7 @@ public class CharacterManager : MonoBehaviour
         }
         
         return spriteRenderer.GetComponent<Renderer>().bounds.size.x * 2f;
-    }
+    } // does not currently handle any complicated characters with multiple meshes or hit boxes
 
     public Character Character => _character;
     public Weapon CurrentWeapon => _currentWeapon;
