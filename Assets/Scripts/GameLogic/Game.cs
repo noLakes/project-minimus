@@ -91,12 +91,14 @@ public class Game : MonoBehaviour
     public void Pause()
     {
         _gameIsPaused = true;
+        Time.timeScale = 0f;
         EventManager.TriggerEvent("PauseGame");
     }
 
     public void Resume()
     {
         _gameIsPaused = false;
+        Time.timeScale = 1f;
         EventManager.TriggerEvent("ResumeGame");
     }
 

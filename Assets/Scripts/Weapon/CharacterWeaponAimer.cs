@@ -11,6 +11,8 @@ public class CharacterWeaponAimer : MonoBehaviour
 
     private void Update()
     {
+        if (Game.Instance.GameIsPaused) return;
+        
         Vector2 pos = transform.position;
         Debug.DrawLine(pos, pos + ((Vector2)transform.right * 0.5f), Color.black);
 
