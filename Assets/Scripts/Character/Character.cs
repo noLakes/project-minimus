@@ -38,7 +38,6 @@ public class Character
         var g = GameObject.Instantiate(_data.prefab);
         Transform = g.transform;
         Transform.parent = Game.Instance.CHARACTER_CONTAINER;
-        g.GetComponent<CharacterManager>().Initialize(this);
 
         if (_data.startingActiveItem != null) _activeItem = new Item(_data.startingActiveItem, this);
 
@@ -47,6 +46,8 @@ public class Character
         {
             AddPassiveItem(pItemData);
         }
+        
+        g.GetComponent<CharacterManager>().Initialize(this);
     }
 
     public virtual void SetPosition(Vector3 position)

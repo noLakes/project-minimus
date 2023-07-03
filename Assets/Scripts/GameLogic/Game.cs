@@ -61,20 +61,20 @@ public class Game : MonoBehaviour
         _spawnManager.Initialize();
         
         // for testing weapon pickups
-        if (true)
+        if (false)
         {
             Weapon.SpawnInWorld(DataHandler.LoadWeapon("Sword"), new Vector2(1f, -5f));
             Weapon.SpawnInWorld(DataHandler.LoadWeapon("Wand"), new Vector2(3f, -6f));
         }
 
         // for testing enemy
-        if (true)
+        if (false)
         {
             _spawnManager.SpawnEnemyCount(5, DataHandler.LoadCharacter("Test Enemy"));
         }
         
         // for testing passive items
-        if (false)
+        if (true)
         {
             ItemPickup.Create(DataHandler.LoadItem("SpeedTreads"), new Vector2(0f, -6f));
             ItemPickup.Create(DataHandler.LoadItem("BombBag"), new Vector2(0f, -7.5f));

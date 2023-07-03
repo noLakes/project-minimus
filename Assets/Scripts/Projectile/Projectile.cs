@@ -13,7 +13,7 @@ public enum ProjectileType
 public abstract class Projectile : MonoBehaviour
 {
     [FormerlySerializedAs("Type")] [HideInInspector] public ProjectileType type;
-    public int maxHitCount;
+    [Min(0)] public int maxHitCount;
     protected int CurrentHitCount;
     public bool persistAfterHit;
     public bool attachAfterHit;
@@ -23,7 +23,7 @@ public abstract class Projectile : MonoBehaviour
     public delegate bool ProcessHitDelegate(Collider2D collider, Vector2 hitPosition, Vector2 origin);
     protected ProcessHitDelegate MyProcessHitDelegate;
 
-    public abstract void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate);
+    public abstract void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate, Transform source = null);
 
     protected abstract void OnHit(Collider2D other, Vector2 hitPoint);
 

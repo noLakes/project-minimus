@@ -16,7 +16,7 @@ public class SpawnProjectile : Effect
         _projectileSource = args.Source;
         var go = Instantiate(projectilePrefab, args.SourcePoint, quaternion.identity);
         var projectile = go.GetComponent<Projectile>();
-        projectile.Initialize(Utility.GetDirection2D(args.SourcePoint, args.EffectPoint), ProcessHit);
+        projectile.Initialize(Utility.GetDirection2D(args.SourcePoint, args.EffectPoint), ProcessHit, args.Source);
     }
     
     private bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)

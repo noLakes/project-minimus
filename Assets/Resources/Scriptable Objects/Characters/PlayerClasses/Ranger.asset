@@ -28,4 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60b31c03f65521740a6b5c9718f68baa, type: 2}
   startingPassiveItems: []
   specialAbility: {fileID: 11400000, guid: 85e7ed1f1bdec554dbb2206032c187bf, type: 2}
-  startingActiveItem: {fileID: 0}
+  startingActiveItem: {fileID: 11400000, guid: 20a537a601d02ba4aabff06f9aec6e13, type: 2}

@@ -13,7 +13,7 @@ public class PhysicsProjectile : Projectile
     private Vector2 _origin; // To store where the projectile first spawned.
     private bool _attachedToTarget;
 
-    public override void Initialize(Vector2 moveDirection, ProcessHitDelegate hitDelegate)
+    public override void Initialize(Vector2 moveDirection, ProcessHitDelegate hitDelegate, Transform source = null)
     {
         type = ProjectileType.Physics;
         MyProcessHitDelegate = hitDelegate;
@@ -21,6 +21,12 @@ public class PhysicsProjectile : Projectile
         CurrentHitCount = 0;
         _currentPosition = transform.position;
         _rb.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
+
+        if (source == null) return;
+        if (source.TryGetComponent<Collider2D>(out var sourceCollider))
+        {
+            Physics2D.IgnoreCollision(_collider, sourceCollider);
+        }
     }
 
     private void OnEnable()
@@ -59,13 +65,11 @@ public class PhysicsProjectile : Projectile
     protected override void OnHit(Collider2D other, Vector2 hitPoint)
     {
         CurrentHitCount++;
-        if (CurrentHitCount < maxHitCount)
+        if (CurrentHitCount < maxHitCount || maxHitCount == 0)
         {
             return;
         }
 
-        //Debug.Log("Registering Hit");
-        
         if (!persistAfterHit)
         {
             Destroy(gameObject);

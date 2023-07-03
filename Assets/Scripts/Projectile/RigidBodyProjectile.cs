@@ -13,7 +13,7 @@ public class RigidBodyProjectile : Projectile
     private Collider2D _collider;
     private bool _attachedToTarget;
 
-    public override void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate)
+    public override void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate, Transform source = null)
     {
         type = ProjectileType.Regular;
         _moveDirection = shootDirection;

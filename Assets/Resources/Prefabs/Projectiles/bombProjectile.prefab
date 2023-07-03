@@ -131,11 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ed2800c48fc994a9aaea33d203d0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitCount: 1
-  persistAfterHit: 0
+  type: 0
+  maxHitCount: 0
+  persistAfterHit: 1
   attachAfterHit: 0
   persistAfterStop: 1
-  velocity: 20
+  velocity: 15
 --- !u!61 &1525640237544770081
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,7 +147,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0006124079, y: -0.012893617}
@@ -176,10 +177,10 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 0.5
   m_LinearDrag: 4
-  m_AngularDrag: 10
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
+  m_AngularDrag: 3
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 183989a3478617d44848ff2a9fbcc992, type: 2}
+  m_Interpolate: 2
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0

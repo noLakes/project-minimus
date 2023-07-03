@@ -15,7 +15,7 @@ MonoBehaviour:
   code: throwBomb
   abilityName: Throw Bomb
   description: Toss a bomb!
-  cooldown: 3
+  cooldown: 0
   externalCastEffects:
   - {fileID: 11400000, guid: 9c51b2c89d6ee9c458a4c8c2f6fe85c4, type: 2}
   selfCastEffects: []

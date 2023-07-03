@@ -17,5 +17,4 @@ MonoBehaviour:
   hitDetectionMask:
     serializedVersion: 2
     m_Bits: 4288
-  onHitEffects:
-  - {fileID: 11400000, guid: 7da89ad328f56fd4d887402b063aa8b1, type: 2}
+  onHitEffects: []
