@@ -42,6 +42,7 @@ public class PhysicsProjectile : Projectile
         
         _currentPosition = transform.position;
 
+        HandleLifetime();
         HandleRangeCheck();
         HandleFlybyCollision();
 
@@ -72,7 +73,7 @@ public class PhysicsProjectile : Projectile
 
         if (!persistAfterHit)
         {
-            Destroy(gameObject);
+            Destroy();
         }
 
         if (attachAfterHit)
@@ -83,6 +84,15 @@ public class PhysicsProjectile : Projectile
         }
         
         Stop();
+    }
+
+    private void HandleLifetime()
+    {
+        if (lifetime == 0f) return;
+
+        LifetimeElapsed += Time.deltaTime;
+
+        if(LifetimeElapsed >= lifetime) Destroy();
     }
     
     private void HandleFlybyCollision()
@@ -131,11 +141,11 @@ public class PhysicsProjectile : Projectile
             }
             
             Debug.Log("Projectile range: " + _distanceTravelled);
-            enabled = false;
+            if(lifetime == 0f) enabled = false;
         }
         else
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
 }

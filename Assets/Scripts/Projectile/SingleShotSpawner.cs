@@ -13,6 +13,7 @@ public class SingleShotSpawner : ProjectileSpawner
         var projectile = go.GetComponent<Projectile>();
         
         projectile.Initialize(shootDir, Weapon.ProcessHit);
+        projectile.SetDestructionDelegate(Weapon.OnSpawnedProjectileDestruction);
     }
     
     public override void Trigger()

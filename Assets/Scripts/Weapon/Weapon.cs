@@ -72,6 +72,16 @@ public class Weapon
         // play animation or particle effects
     }
 
+    public void OnSpawnedProjectileDestruction(Vector2 location)
+    {
+        Debug.Log("PROJECTILE DESTRUCTION DELEGATE TRIGGERED!");
+        if (Stats.onProjectileDestructionEffects.Count == 0) return;
+
+        var eArgs = new EffectArgs(_owner.Transform, null, location);
+        
+        Effect.TriggerEffectList(Stats.onProjectileDestructionEffects, eArgs);
+    }
+
     private int GetDamageWithModifiers()
     {
         var damage = _activeStats.damage;

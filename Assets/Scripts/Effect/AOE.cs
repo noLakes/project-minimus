@@ -9,6 +9,8 @@ public class AOE : Effect
     public float radius;
     public List<Effect> areaEffects;
     public LayerMask hitDetectionMask;
+    public bool losRequired;
+    public LayerMask losInterruptionMask;
     
     public override void Trigger(EffectArgs args)
     {

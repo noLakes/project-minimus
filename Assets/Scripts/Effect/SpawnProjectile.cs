@@ -9,6 +9,7 @@ public class SpawnProjectile : Effect
     public GameObject projectilePrefab;
     public LayerMask hitDetectionMask;
     public List<Effect> onHitEffects;
+    public List<Effect> onProjectileDestructionEffects;
     private Transform _projectileSource;
 
     public override void Trigger(EffectArgs args)
@@ -17,6 +18,7 @@ public class SpawnProjectile : Effect
         var go = Instantiate(projectilePrefab, args.SourcePoint, quaternion.identity);
         var projectile = go.GetComponent<Projectile>();
         projectile.Initialize(Utility.GetDirection2D(args.SourcePoint, args.EffectPoint), ProcessHit, args.Source);
+        projectile.SetDestructionDelegate(OnSpawnedProjectileDestruction);
     }
     
     private bool ProcessHit(Collider2D collider, Vector2 hitPoint, Vector2 origin)
@@ -49,5 +51,16 @@ public class SpawnProjectile : Effect
 
         // play sound
         // play animation or particle effects
+    }
+    
+    private void OnSpawnedProjectileDestruction(Vector2 location)
+    {
+        Debug.Log("PROJECTILE DESTRUCTION DELEGATE TRIGGERED!");
+        
+        if (onProjectileDestructionEffects.Count == 0) return;
+
+        var eArgs = new EffectArgs(_projectileSource, null, location);
+        
+        TriggerEffectList(onProjectileDestructionEffects, eArgs);
     }
 }

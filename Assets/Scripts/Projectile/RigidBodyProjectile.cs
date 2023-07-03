@@ -35,6 +35,7 @@ public class RigidBodyProjectile : Projectile
         
         _currentPosition += _moveDirection * (speed * Time.deltaTime);
         
+        HandleLifetime();
         HandleRangeCheck();
         HandleFlybyCollision();
 
@@ -66,7 +67,7 @@ public class RigidBodyProjectile : Projectile
 
         if (!persistAfterHit)
         {
-            Destroy(gameObject);
+            Destroy();
         }
 
         if (attachAfterHit)
@@ -77,6 +78,15 @@ public class RigidBodyProjectile : Projectile
         }
         
         Stop();
+    }
+    
+    private void HandleLifetime()
+    {
+        if (lifetime == 0f) return;
+
+        LifetimeElapsed += Time.deltaTime;
+
+        if(LifetimeElapsed >= lifetime) Destroy();
     }
     
     private void HandleFlybyCollision()
@@ -116,12 +126,11 @@ public class RigidBodyProjectile : Projectile
                 _collider = null;
             }
             
-            enabled = false;
+            if(lifetime == 0f) enabled = false;
         }
         else
         {
-            Destroy(gameObject);
+            Destroy();
         }
     }
-    
 }

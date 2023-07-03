@@ -15,4 +15,5 @@ public struct WeaponStats
     public LayerMask hitDetectionMask;
     public List<Effect> onHitEffects;
     public List<Effect> onAttackEffects; // triggered when user attacks
+    public List<Effect> onProjectileDestructionEffects;
 }
