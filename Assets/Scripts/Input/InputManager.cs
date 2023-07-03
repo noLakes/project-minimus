@@ -30,8 +30,11 @@ public class InputManager : MonoBehaviour
         }
 
         if (Game.Instance.GameIsPaused) return;
-        
+
         if (Input.GetMouseButtonDown(0)) HandleLeftClick();
+        else if (Input.GetMouseButton(0)) HandleLeftClickHeld();
+        else if (Input.GetMouseButtonUp(0)) HandleLeftClickReleased();
+            
         if (Input.GetKeyDown(KeyCode.E)) HandleInteractionPressed();
         if (Input.mouseScrollDelta.y != 0f) HandleWeaponChange();
 
@@ -48,6 +51,16 @@ public class InputManager : MonoBehaviour
     private void HandleLeftClick()
     {
         if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
+    }
+
+    private void HandleLeftClickHeld()
+    {
+        if (_inputState == InputState.ControllingPlayer) Game.Instance.PlayerCharacter.Attack(mousePos);
+    }
+
+    private void HandleLeftClickReleased()
+    {
+        // trigger some action for certain weapon fire types?
     }
 
     private void HandleInteractionPressed()

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8c54da3eb086d846b634214aa5cd117, type: 3}
   m_Name: Crossbow
   m_EditorClassIdentifier: 
-  code: crossbow
+  code: physicsCrossbow
   weaponName: Crossbow
   description: A simple crossbow
-  prefab: {fileID: 5059694603599579343, guid: 9223c863936f2984cabff64acdd79f9f, type: 3}
+  prefab: {fileID: 5059694603599579343, guid: 2c67c511003f76741ae412f466714859, type: 3}
   type: 2
   baseStats:
     damage: 2
@@ -26,6 +26,5 @@ MonoBehaviour:
     hitDetectionMask:
       serializedVersion: 2
       m_Bits: 4288
-    onHitEffects:
-    - {fileID: 11400000, guid: dadb7ea1a479f184bb85800d2221007f, type: 2}
+    onHitEffects: []
     onAttackEffects: []

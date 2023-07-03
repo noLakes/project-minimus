@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a8c54da3eb086d846b634214aa5cd117, type: 3}
-  m_Name: PhysicsCrossbow
+  m_Name: RepeaterCrosbow
   m_EditorClassIdentifier: 
-  code: physicsCrossbow
-  weaponName: Crossbow
-  description: A simple crossbow
-  prefab: {fileID: 5059694603599579343, guid: 2c67c511003f76741ae412f466714859, type: 3}
-  type: 2
+  code: repeaterCrossbow
+  weaponName: Repeater Crossbow
+  description: An advanced crossbow with a rotating repeating chamber
+  prefab: {fileID: 5059694603599579343, guid: 98c9134df16412443bb474adf38a9660, type: 3}
+  type: 1
   baseStats:
-    damage: 2
-    attackRate: 0
-    magazineSize: 1
-    reloadTime: 1.5
+    damage: 1
+    attackRate: 0.3
+    magazineSize: 8
+    reloadTime: 3
     range: 10
     hitDetectionMask:
       serializedVersion: 2

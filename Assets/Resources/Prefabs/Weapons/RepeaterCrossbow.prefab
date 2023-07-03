@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4692285440887021299}
   - component: {fileID: 1756935981621800848}
   m_Layer: 0
-  m_Name: Physics Crossbow
+  m_Name: RepeaterCrossbow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5059694603599579343}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0.31, y: 0, z: 0}
-  m_LocalScale: {x: 0.64, y: 0.64, z: 0.64}
+  m_LocalScale: {x: 0.466496, y: 0.64, z: 0.64}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5059694604530273643}
@@ -103,7 +103,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5d3315921943c384fb3ecd76700ea780, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.3679245, g: 0.3210662, b: 0.3210662, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
