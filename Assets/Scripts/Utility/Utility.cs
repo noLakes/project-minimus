@@ -67,11 +67,11 @@ public static class Utility
         return result;
     }
     
-    public static bool HasLineOfSight(Transform viewer, Transform target, float radius, LayerMask layerMask)
+    public static bool HasLineOfSight(Transform viewer, Transform target, float dist, LayerMask layerMask)
     {
         var position = viewer.position;
         var dir = (target.position - position).normalized;
-        RaycastHit2D ray = Physics2D.Raycast(position, dir, radius, layerMask);
+        RaycastHit2D ray = Physics2D.Raycast(position, dir, dist, layerMask);
 
         if (ray.collider == null) return false;
         

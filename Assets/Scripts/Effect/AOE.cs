@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 [CreateAssetMenu(fileName = "AOE", menuName = "Scriptable Objects/Effects/AOE")]
 public class AOE : Effect
@@ -10,7 +9,7 @@ public class AOE : Effect
     public List<Effect> areaEffects;
     public LayerMask hitDetectionMask;
     public bool losRequired;
-    public LayerMask losInterruptionMask;
+    public LayerMask losMask;
     
     public override void Trigger(EffectArgs args)
     {
@@ -29,6 +28,8 @@ public class AOE : Effect
         {
             if (c.TryGetComponent<CharacterManager>(out var cm))
             {
+                if (losRequired && !HasLOS(args.EffectPoint, cm.transform, cm.GetSize())) continue;
+                
                 var cmTr = cm.transform;
                 var hitArgs = new EffectArgs()
                 {
@@ -41,5 +42,38 @@ public class AOE : Effect
                 TriggerEffectList(areaEffects, hitArgs);
             }
         }
+    }
+
+    private bool HasLOS(Vector2 origin, Transform target, float targetSize)
+    {
+        List<Vector2> samplePoints = new List<Vector2>();
+
+        for (var i = 0; i < 5; i++)
+        {
+            samplePoints.Add((Vector2)target.position + (Random.insideUnitCircle * (targetSize / 4)));
+        }
+
+        int validLOSCount = 0;
+
+        foreach (var point in samplePoints)
+        {
+            Vector2 dir = Utility.GetDirection2D(origin, point);
+            float dist = Vector2.Distance(origin, point);
+            
+            RaycastHit2D ray = Physics2D.Raycast(origin, dir, dist, losMask);
+
+            if (ray.collider == null)
+            {
+                Debug.DrawLine(origin, point, Color.green, 3f);
+                validLOSCount++;
+            }
+            else
+            {
+                Debug.DrawLine(origin, point, Color.red, 3f);
+                Debug.DrawLine(origin, ray.point, Color.yellow, 3f);
+            }
+        }
+        
+        return validLOSCount >= 2;
     }
 }

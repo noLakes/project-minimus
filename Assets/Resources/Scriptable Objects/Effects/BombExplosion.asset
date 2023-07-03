@@ -21,3 +21,7 @@ MonoBehaviour:
   hitDetectionMask:
     serializedVersion: 2
     m_Bits: 192
+  losRequired: 1
+  losMask:
+    serializedVersion: 2
+    m_Bits: 4096
