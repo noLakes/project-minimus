@@ -23,7 +23,7 @@ public class PhysicsProjectile : Projectile
         _rb.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
 
         if (source == null) return;
-        if (source.TryGetComponent<Collider2D>(out var sourceCollider))
+        if (ignoreSourceCollision && source.TryGetComponent<Collider2D>(out var sourceCollider))
         {
             Physics2D.IgnoreCollision(_collider, sourceCollider);
         }
@@ -43,6 +43,9 @@ public class PhysicsProjectile : Projectile
         _currentPosition = transform.position;
 
         HandleLifetime();
+        
+        if (stopped) return;
+        
         HandleRangeCheck();
         HandleFlybyCollision();
 
@@ -130,7 +133,8 @@ public class PhysicsProjectile : Projectile
         if (persistAfterStop)
         {
             _rb.velocity = Vector2.zero;
-            _collider.isTrigger = false;
+            stopped = true;
+            if(!activeAfterStop)_collider.isTrigger = false;
             
             if (_attachedToTarget)
             {
@@ -141,7 +145,7 @@ public class PhysicsProjectile : Projectile
             }
             
             Debug.Log("Projectile range: " + _distanceTravelled);
-            if(lifetime == 0f) enabled = false;
+            if(!activeAfterStop) enabled = false;
         }
         else
         {

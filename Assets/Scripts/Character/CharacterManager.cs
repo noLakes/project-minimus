@@ -15,6 +15,7 @@ public class CharacterManager : MonoBehaviour
     private CharacterWeaponAimer _characterWeaponAimer;
     [SerializeField] private SpriteRenderer spriteRenderer;
     private bool _isPlayer;
+    [SerializeField] private List<Effect> _activeEffects;
 
     public virtual void Initialize(Character character)
     {
@@ -158,6 +159,32 @@ public class CharacterManager : MonoBehaviour
             _currentActiveItem = _character.ActiveItem;
         }
         else _character.AddPassiveItem(data);
+    }
+    
+    public void AddEffect(Effect e)
+    {
+        _activeEffects.Add(e);
+        var printout = transform.name + "active effects: ";
+        foreach (var effect in _activeEffects)
+        {
+            printout += effect.name + " / ";
+        }
+        Debug.Log(printout);
+    }
+
+    public bool RemoveEffect(Effect e)
+    {
+        var result = _activeEffects.Remove(e);
+        
+        Debug.Log("Removal result: " + result);
+
+        var printout = "active effects after removal: ";
+        foreach (var effect in _activeEffects)
+        {
+            printout += effect.name + " / ";
+        }
+        Debug.Log(printout);
+        return result;
     }
 
     public virtual void OnSpeedChange()

@@ -58,14 +58,14 @@ public class Weapon
             cm.Damage(GetDamageWithModifiers());
             cm.ReceiveHit(_owner.Transform, origin);
         }
-
+        
         var collectedOnHitEffects = _activeStats.onHitEffects.Concat(_owner.Stats.onHitEffects).ToList();
         
         if(collectedOnHitEffects.Count > 0)
         {
             Debug.Log("Weapon applying on hit effects. Count: " + collectedOnHitEffects.Count);
             var charEffectArgs = new EffectArgs(_owner.Transform, collider.transform, hitPosition);
-            Effect.TriggerEffectList(_owner.Stats.onHitEffects, charEffectArgs);
+            Effect.TriggerEffectList(collectedOnHitEffects, charEffectArgs);
         }
 
         // play sound

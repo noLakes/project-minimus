@@ -116,7 +116,8 @@ public class RigidBodyProjectile : Projectile
         if (persistAfterStop)
         {
             _rb.velocity = Vector2.zero;
-            _collider.isTrigger = false;
+            stopped = true;
+            if(!activeAfterStop)_collider.isTrigger = false;
             
             if (_attachedToTarget)
             {
@@ -126,7 +127,8 @@ public class RigidBodyProjectile : Projectile
                 _collider = null;
             }
             
-            if(lifetime == 0f) enabled = false;
+            Debug.Log("Projectile range: " + _distanceTravelled);
+            if(!activeAfterStop) enabled = false;
         }
         else
         {

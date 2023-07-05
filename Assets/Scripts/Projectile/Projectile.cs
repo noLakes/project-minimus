@@ -18,9 +18,12 @@ public abstract class Projectile : MonoBehaviour
     protected int CurrentHitCount;
     [Min(0)] public float lifetime;
     protected float LifetimeElapsed;
+    public bool ignoreSourceCollision;
     public bool persistAfterHit;
     public bool attachAfterHit;
     public bool persistAfterStop;
+    public bool activeAfterStop;
+    protected bool stopped;
     protected float Range;
 
     public delegate bool ProcessHitDelegate(Collider2D collider, Vector2 hitPosition, Vector2 origin);

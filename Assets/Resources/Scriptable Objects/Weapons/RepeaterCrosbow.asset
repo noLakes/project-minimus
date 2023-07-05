@@ -18,7 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 5059694603599579343, guid: 98c9134df16412443bb474adf38a9660, type: 3}
   type: 1
   baseStats:
-    damage: 1
+    damage: 0
     attackRate: 0.3
     magazineSize: 8
     reloadTime: 3
@@ -26,5 +26,7 @@ MonoBehaviour:
     hitDetectionMask:
       serializedVersion: 2
       m_Bits: 4288
-    onHitEffects: []
+    onHitEffects:
+    - {fileID: 11400000, guid: f5a59980f6f784bffb233c5492a9bbaf, type: 2}
     onAttackEffects: []
+    onProjectileDestructionEffects: []

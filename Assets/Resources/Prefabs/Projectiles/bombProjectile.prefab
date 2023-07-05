@@ -134,9 +134,11 @@ MonoBehaviour:
   type: 0
   maxHitCount: 0
   lifetime: 3.5
+  ignoreSourceCollision: 1
   persistAfterHit: 1
   attachAfterHit: 0
   persistAfterStop: 1
+  activeAfterStop: 1
   velocity: 15
 --- !u!61 &1525640237544770081
 BoxCollider2D:

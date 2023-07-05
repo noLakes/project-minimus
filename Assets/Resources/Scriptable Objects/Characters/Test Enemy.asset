@@ -16,7 +16,7 @@ MonoBehaviour:
   characterName: Test Enemy
   description: 
   baseStats:
-    maxHealth: 8
+    maxHealth: 20
     maxWeaponCount: 1
     fovRadius: 10
     speed: 3

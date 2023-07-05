@@ -19,7 +19,6 @@ public struct EffectArgs
         EffectPoint = effectPoint;
     }
 }
-
 public abstract class Effect : ScriptableObject
 {
     protected IEnumerator ActiveRunRoutine;

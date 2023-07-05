@@ -16,11 +16,11 @@ MonoBehaviour:
   characterName: Ranger
   description: A woodsman experienced with ranged weapons and hunting
   baseStats:
-    maxHealth: 12
+    maxHealth: 500
     maxWeaponCount: 2
     fovRadius: 30
     speed: 4
-    rangedDamageModifier: 1
+    rangedDamageModifier: 0
     meleeDamageModifier: 0
     onHitEffects: []
   prefab: {fileID: 4424852941152127389, guid: d59c65c1b3fd5e54c8ff57397110ad2f, type: 3}
