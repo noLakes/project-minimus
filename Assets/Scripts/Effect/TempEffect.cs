@@ -6,24 +6,26 @@ using UnityEngine;
 public class TempEffect : Effect
 {
     public float duration;
-    private CharacterManager _character;
+    private CharacterManager _affectedCM;
     private EffectArgs _initialArgs;
     public List<Effect> targetEffects;
 
     public override void Trigger(EffectArgs args)
     {
-        if (!args.Target.TryGetComponent<CharacterManager>(out _character)) return;
+        if (!args.Target.TryGetComponent<CharacterManager>(out _affectedCM)) return;
         Debug.Log("Applying Buff for " + duration + "s");
         
         _initialArgs = args;
+        _affectedCM.AddEffect(this);
         ApplyEffects();
-        ActiveRunRoutine = RunRoutine(_character);
+        ActiveRunRoutine = RunRoutine(_affectedCM);
         Game.Instance.StartCoroutine(ActiveRunRoutine);
     }
 
     public override void Remove()
     {
         Debug.Log("Removing Buff");
+        _affectedCM.RemoveEffect(this);
         if (ActiveRunRoutine == null) return;
         Game.Instance.StopCoroutine(ActiveRunRoutine);
         ActiveRunRoutine = null;
@@ -34,7 +36,7 @@ public class TempEffect : Effect
     protected override IEnumerator RunRoutine(CharacterManager target)
     {
         yield return new WaitForSeconds(duration);
-        if (_character != null) RemoveAppliedEffects();
+        if (_affectedCM != null) Remove();
     }
 
     protected virtual void ApplyEffects()

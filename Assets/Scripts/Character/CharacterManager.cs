@@ -175,9 +175,6 @@ public class CharacterManager : MonoBehaviour
     public bool RemoveEffect(Effect e)
     {
         var result = _activeEffects.Remove(e);
-        
-        Debug.Log("Removal result: " + result);
-
         var printout = "active effects after removal: ";
         foreach (var effect in _activeEffects)
         {

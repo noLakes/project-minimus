@@ -21,6 +21,7 @@ public class ModSpeed : Effect
         _initialArgs = args;
         cm.Character.Speed += modifier;
         cm.OnSpeedChange();
+        cm.AddEffect(this);
     }
 
     public override void Remove()
@@ -30,5 +31,6 @@ public class ModSpeed : Effect
         
         cm.Character.Speed -= modifier;
         cm.OnSpeedChange();
+        cm.RemoveEffect(this);
     }
 }

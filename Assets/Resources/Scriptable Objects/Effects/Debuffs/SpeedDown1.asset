@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5ad7d668081648178ab97cc0bee0b68, type: 3}
-  m_Name: basicDOT
+  m_Script: {fileID: 11500000, guid: de01ed5511289fb42a12fcd783f4dce2, type: 3}
+  m_Name: SpeedDown1
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   effectParticles: {fileID: 0}
-  duration: 5
-  tickInterval: 1
-  damage: 1
+  modifier: -1

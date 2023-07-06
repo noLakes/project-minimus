@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dce284effb0a45adac4416cf7e28655, type: 3}
   m_Name: SpawnThrowingBomb
   m_EditorClassIdentifier: 
+  type: 2
   effectParticles: {fileID: 0}
   projectilePrefab: {fileID: 6293776764116966831, guid: 842ccdf71d2f1a0419d5d5b3de72762d, type: 3}
   hitDetectionMask:

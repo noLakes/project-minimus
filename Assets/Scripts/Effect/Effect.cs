@@ -19,9 +19,26 @@ public struct EffectArgs
         EffectPoint = effectPoint;
     }
 }
+
+public enum EffectType
+{
+    TargetInstant,
+    TargetPersistent,
+    WorldSpace
+}
+
+public enum EffectProperty
+{
+    Buff,
+    Debuff,
+    Damage,
+    Heal
+}
+
 public abstract class Effect : ScriptableObject
 {
     protected IEnumerator ActiveRunRoutine;
+    public EffectType type;
     public GameObject effectParticles;
     
     public abstract void Trigger(EffectArgs args);

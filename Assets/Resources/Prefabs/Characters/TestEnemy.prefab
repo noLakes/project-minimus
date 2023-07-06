@@ -137,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponParent: {fileID: 6644171423116298762}
   spriteRenderer: {fileID: 4424852941435564146}
+  _activeEffects: []
 --- !u!114 &5629784811857054229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +151,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   printCallStack: 0
-  tickRate: 0.1
 --- !u!50 &4424852941152127386
 Rigidbody2D:
   serializedVersion: 4
