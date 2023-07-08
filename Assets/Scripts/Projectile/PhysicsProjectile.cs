@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -82,6 +83,7 @@ public class PhysicsProjectile : Projectile
         if (attachAfterHit)
         {
             // attach to hit target
+            transform.position = hitPoint;
             transform.parent = other.transform;
             _attachedToTarget = true;
         }
@@ -100,12 +102,20 @@ public class PhysicsProjectile : Projectile
     
     private void HandleFlybyCollision()
     {
-        if (velocity < 20f) return; // too slow to warrant checking
+        if (velocity < 5f) return; // too slow to warrant checking
+
+        // old method that raycasts backwards
+        //RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection*-1f, 1f);
         
-        RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection*-1f, 1f);
+        RaycastHit2D ray = Physics2D.Raycast((_currentPosition), _moveDirection, _rb.velocity.magnitude * Time.fixedDeltaTime);
 
-        if (!ray.collider) return;
+        if (!ray.collider || ray.collider == _collider)
+        {
+            return;
+        }
 
+        Debug.DrawLine(_currentPosition, ray.point, Color.green, 3f);
+        
         if (MyProcessHitDelegate.Invoke(ray.collider, ray.point, _origin))
         {
             OnHit(ray.collider, ray.point);

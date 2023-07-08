@@ -33,7 +33,7 @@ public abstract class Projectile : MonoBehaviour
     protected DestructionDelegate MyDestructionDelegate;
 
     public abstract void Initialize(Vector2 shootDirection, ProcessHitDelegate hitDelegate, Transform source = null);
-
+    
     protected abstract void OnHit(Collider2D other, Vector2 hitPoint);
 
     protected abstract void Stop();

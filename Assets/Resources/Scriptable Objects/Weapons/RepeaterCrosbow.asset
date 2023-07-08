@@ -20,7 +20,7 @@ MonoBehaviour:
   baseStats:
     damage: 0
     attackRate: 0.3
-    magazineSize: 8
+    magazineSize: 0
     reloadTime: 3
     range: 10
     hitDetectionMask:
