@@ -136,6 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponParent: {fileID: 6644171423116298762}
   spriteRenderer: {fileID: 4424852941435564146}
+  _activeEffects: []
 --- !u!114 &4424852941152127387
 MonoBehaviour:
   m_ObjectHideFlags: 0

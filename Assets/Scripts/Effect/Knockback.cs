@@ -23,6 +23,9 @@ public class Knockback : Effect
 
     protected override IEnumerator RunRoutine(CharacterManager target)
     {
+        var initialBodyType = _targetRb.bodyType;
+        if (initialBodyType == RigidbodyType2D.Kinematic) _targetRb.bodyType = RigidbodyType2D.Dynamic;
+        
         _targetRb.AddForce(_direction * forceMultiplier, ForceMode2D.Impulse);
         // need some way to pause targets movement during knockback
         // could add method to character manager that uses a coroutine to lock movement for the same time as knockback
@@ -31,6 +34,7 @@ public class Knockback : Effect
         if (_targetRb != null) // null check in case character died after being knocked back
         {
             _targetRb.velocity = Vector2.zero;
+            _targetRb.bodyType = initialBodyType;
         }
     }
 }

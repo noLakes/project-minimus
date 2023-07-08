@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 4424852941152127387}
   - component: {fileID: 4424852941152127386}
   - component: {fileID: 8667029025405458085}
+  - component: {fileID: 43843597256990020}
   m_Layer: 6
   m_Name: Ranger
   m_TagString: Character
@@ -188,6 +189,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!58 &43843597256990020
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4424852941152127389}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.55
 --- !u!1 &4424852941435564148
 GameObject:
   m_ObjectHideFlags: 0
