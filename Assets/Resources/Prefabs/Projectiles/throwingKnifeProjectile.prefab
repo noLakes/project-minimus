@@ -131,10 +131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42ed2800c48fc994a9aaea33d203d0bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   maxHitCount: 1
+  lifetime: 0
+  ignoreSourceCollision: 0
   persistAfterHit: 1
   attachAfterHit: 1
   persistAfterStop: 0
+  activeAfterStop: 0
   velocity: 30
 --- !u!61 &1525640237544770081
 BoxCollider2D:

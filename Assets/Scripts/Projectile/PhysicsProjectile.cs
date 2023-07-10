@@ -15,7 +15,7 @@ public class PhysicsProjectile : Projectile
     private Vector2 _origin; // To store where the projectile first spawned.
     private bool _attachedToTarget;
 
-    private bool _adjustColliderSizeFlag;
+    private bool _adjustColliderSizeFlag; // prevents first fixed update from extending box collider
     private Vector2 _initialColliderSize;
 
     public override void Initialize(Vector2 moveDirection, ProcessHitDelegate hitDelegate, Transform source = null)
@@ -24,6 +24,7 @@ public class PhysicsProjectile : Projectile
         MyProcessHitDelegate = hitDelegate;
         _moveDirection = moveDirection;
         CurrentHitCount = 0;
+        _origin = transform.position;
         _currentPosition = transform.position;
         _rb.AddForce(_moveDirection * velocity, ForceMode2D.Impulse);
 
@@ -76,7 +77,9 @@ public class PhysicsProjectile : Projectile
         // check if hit collider belongs to hittable target....
         if (MyProcessHitDelegate.Invoke(other, transform.position, _origin))
         {
-            OnHit(other, other.ClosestPoint(other.ClosestPoint(transform.position)));
+            //OnHit(other, other.ClosestPoint(other.ClosestPoint(transform.TransformPoint(_collider.bounds.center))));
+            //OnHit(other, other.ClosestPoint(transform.position));
+            OnHit(other, GetAccurateHitPosition(other));
         }
     }
 
@@ -104,6 +107,18 @@ public class PhysicsProjectile : Projectile
         Stop();
     }
 
+    private Vector2 GetAccurateHitPosition(Collider2D other)
+    {
+        int initialLayer = other.gameObject.layer;
+        other.gameObject.layer = 31; // reserved single object layer;
+        LayerMask layerMask = 1 << 31;
+        RaycastHit2D hit = Physics2D.Raycast(_origin, _moveDirection, 1000f, layerMask);
+        Debug.DrawLine(_origin, hit.point, new Color(0, 1, 0, 0.7f), 5f);
+        if (hit.point == Vector2.zero) Debug.Log("HIT ZERO ISSUE!");
+        other.gameObject.layer = initialLayer;
+        return hit.point;
+    }
+
     private void HandleLifetime()
     {
         if (lifetime == 0f) return;
@@ -113,6 +128,7 @@ public class PhysicsProjectile : Projectile
         if(LifetimeElapsed >= lifetime) Destroy();
     }
     
+    // might be able to clear...
     private void HandleFlybyCollision()
     {
         if (velocity < 5f) return; // too slow to warrant checking
@@ -136,6 +152,7 @@ public class PhysicsProjectile : Projectile
         }
     }
     
+    // might be able to clear
     private void CheckCollision()
     {
         //if (velocity < 8f) return; // too slow to warrant checking
