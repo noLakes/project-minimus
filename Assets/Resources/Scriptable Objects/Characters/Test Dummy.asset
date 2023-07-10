@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 384ded4e1c9274f6d9b056bd25c5d32b, type: 3}
+  m_Name: Test Dummy
+  m_EditorClassIdentifier: 
+  code: testEnemy
+  characterName: Test Enemy
+  description: 
+  baseStats:
+    maxHealth: 1000
+    maxWeaponCount: 1
+    fovRadius: 10
+    speed: 3
+    rangedDamageModifier: 0
+    meleeDamageModifier: 0
+    onHitEffects: []
+  prefab: {fileID: 4424852941152127389, guid: 375bb84204246f64193c60ef07dd5933, type: 3}
+  startingWeapons:
+  - {fileID: 11400000, guid: a127e444a127441a0bd28e69ec96ed72, type: 2}
+  startingPassiveItems: []
+  specialAbility: {fileID: 0}
+  startingActiveItem: {fileID: 0}

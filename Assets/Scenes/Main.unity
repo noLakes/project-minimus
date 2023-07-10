@@ -798,11 +798,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 485299548093054213, guid: baf7e2ca95429bd49bfb45a35cc6d444, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.62
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 485299548093054213, guid: baf7e2ca95429bd49bfb45a35cc6d444, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.58
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 485299548093054213, guid: baf7e2ca95429bd49bfb45a35cc6d444, type: 3}
       propertyPath: m_LocalPosition.z
@@ -836,6 +836,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 697321829749392888, guid: baf7e2ca95429bd49bfb45a35cc6d444, type: 3}
+      propertyPath: characterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5522ae1b9c184b84fb1d87ebd5b09fbe, type: 2}
     - target: {fileID: 8402314567337838783, guid: baf7e2ca95429bd49bfb45a35cc6d444, type: 3}
       propertyPath: m_Name
       value: SpawnPin
@@ -26185,7 +26189,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212327110}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -26196,7 +26200,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &1212327117
 MonoBehaviour:

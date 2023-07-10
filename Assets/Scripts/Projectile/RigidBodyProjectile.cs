@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,7 +92,7 @@ public class RigidBodyProjectile : Projectile
     
     private void HandleFlybyCollision()
     {
-        if (speed < 12f) return; // too slow to warrant checking
+        if (speed < 8f) return; // too slow to warrant checking
         
         RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection, 1f);
         
@@ -102,7 +103,7 @@ public class RigidBodyProjectile : Projectile
             OnHit(ray.collider, ray.point);
         }
     }
-    
+
     private void HandleRangeCheck()
     {
         if (Range > 0f && _distanceTravelled >= Range)

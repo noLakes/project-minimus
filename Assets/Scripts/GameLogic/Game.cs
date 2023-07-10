@@ -36,6 +36,7 @@ public class Game : MonoBehaviour
     
     private void Awake()
     {
+        //Time.timeScale = 0.1f;
         // set up singleton 
         if (Instance != null)
         {
