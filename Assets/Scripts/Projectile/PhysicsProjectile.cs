@@ -56,7 +56,6 @@ public class PhysicsProjectile : Projectile
         if (stopped) return;
         
         HandleRangeCheck();
-        //HandleFlybyCollision();
 
         _distanceTravelled = Vector2.Distance(_currentPosition, _origin);
 
@@ -77,8 +76,6 @@ public class PhysicsProjectile : Projectile
         // check if hit collider belongs to hittable target....
         if (MyProcessHitDelegate.Invoke(other, transform.position, _origin))
         {
-            //OnHit(other, other.ClosestPoint(other.ClosestPoint(transform.TransformPoint(_collider.bounds.center))));
-            //OnHit(other, other.ClosestPoint(transform.position));
             OnHit(other, GetAccurateHitPosition(other));
         }
     }
@@ -127,70 +124,6 @@ public class PhysicsProjectile : Projectile
 
         if(LifetimeElapsed >= lifetime) Destroy();
     }
-    
-    // might be able to clear...
-    private void HandleFlybyCollision()
-    {
-        if (velocity < 5f) return; // too slow to warrant checking
-
-        // old method that raycasts backwards
-        //RaycastHit2D ray = Physics2D.Raycast(_currentPosition, _moveDirection*-1f, 1f);
-        
-        RaycastHit2D ray = Physics2D.Raycast((_currentPosition), _moveDirection, _rb.velocity.magnitude * Time.fixedDeltaTime);
-
-        if (!ray.collider || ray.collider == _collider)
-        {
-            Debug.DrawLine(_currentPosition, _currentPosition + (_rb.velocity * Time.fixedDeltaTime), Color.yellow, 3f);
-            return;
-        }
-
-        Debug.DrawLine(_currentPosition, ray.point, Color.green, 3f);
-        
-        if (MyProcessHitDelegate.Invoke(ray.collider, ray.point, _origin))
-        {
-            OnHit(ray.collider, ray.point);
-        }
-    }
-    
-    // might be able to clear
-    private void CheckCollision()
-    {
-        //if (velocity < 8f) return; // too slow to warrant checking
-        //DrawColliderPosition();
-
-        float dist = (_rb.velocity * Time.fixedDeltaTime).magnitude;
-        RaycastHit2D rayFwd = Physics2D.Raycast(_currentPosition, _moveDirection, dist);
-        RaycastHit2D rayBkwd = Physics2D.Raycast(_currentPosition, -_moveDirection, dist);
-
-        float opacity = 1f;
-        Color miss = new Color(1, 0.92f, 0.016f, opacity);
-        Color hit = new Color(0, 1, 0, opacity);
-        
-        if (!rayFwd.collider || rayFwd.collider == _collider)
-        {
-            Debug.DrawLine(_currentPosition, _currentPosition + (_rb.velocity * Time.fixedDeltaTime), miss, 5f);
-            return;
-        }
-
-        if (MyProcessHitDelegate.Invoke(rayFwd.collider, rayFwd.point, _origin))
-        {
-            Debug.DrawLine(_currentPosition, rayFwd.point, hit, 5f);
-            OnHit(rayFwd.collider, rayFwd.point);
-            return;
-        }
-        
-        if (!rayBkwd.collider || rayBkwd.collider == _collider)
-        {
-            Debug.DrawLine(_currentPosition, _currentPosition - (_rb.velocity * Time.fixedDeltaTime), miss, 5f);
-            return;
-        }
-
-        if (MyProcessHitDelegate.Invoke(rayBkwd.collider, rayBkwd.point, _origin))
-        {
-            Debug.DrawLine(_currentPosition, rayBkwd.point, hit, 5f);
-            OnHit(rayBkwd.collider, rayBkwd.point);
-        }
-    }
 
     private void UpdateColliderSize()
     {
@@ -204,17 +137,6 @@ public class PhysicsProjectile : Projectile
         Vector2 colliderIncrease = transform.InverseTransformVector(velocity);
         _collider.size = _initialColliderSize + colliderIncrease;
         _collider.offset = new Vector2(0, -(colliderIncrease.y / 4f));
-    }
-
-    private void DrawColliderPosition()
-    {
-        var boxCollider = (BoxCollider2D)_collider;
-        var size = boxCollider.bounds.extents.y;
-
-        Vector2 pos = transform.position;
-
-        Debug.DrawLine(pos, pos + (_moveDirection * size), Color.cyan, 5f);
-        Debug.DrawLine(pos, pos + -(_moveDirection * size), Color.cyan, 5f);
     }
 
     private void HandleVelocityCheck()
