@@ -26577,6 +26577,9 @@ MonoBehaviour:
   TargetEnemyHitScanMask:
     serializedVersion: 2
     m_Bits: 4224
+  SingleObjectReservedMask:
+    serializedVersion: 2
+    m_Bits: 2147483648
   TestEnemy: {fileID: 0}
 --- !u!4 &1888224442
 Transform:

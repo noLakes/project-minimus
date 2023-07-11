@@ -13,6 +13,8 @@ public class Knockback : Effect
     
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
         _targetRb = cm.GetComponent<Rigidbody2D>();
         _direction = (args.EffectPoint - args.SourcePoint).normalized;

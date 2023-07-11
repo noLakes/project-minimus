@@ -184,6 +184,11 @@ public class CharacterManager : MonoBehaviour
         return result;
     }
 
+    public bool AffectedBy(Effect e)
+    {
+        return _activeEffects.Any(effect => effect.name == e.name);
+    }
+
     public virtual void OnSpeedChange()
     {
         // do nothing by default

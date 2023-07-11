@@ -17,6 +17,8 @@ public class ModSpeed : Effect
     
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         if (!args.Target.TryGetComponent<CharacterManager>(out var cm)) return;
         _initialArgs = args;
         cm.Character.Speed += modifier;

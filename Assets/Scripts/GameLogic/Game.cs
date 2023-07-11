@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
     public LayerMask ProjectilMask;
     public LayerMask TargetPlayerHitScanMask;
     public LayerMask TargetEnemyHitScanMask;
+    public LayerMask SingleObjectReservedMask;
     
     private void Awake()
     {

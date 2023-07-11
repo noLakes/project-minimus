@@ -27,6 +27,6 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 4288
     onHitEffects:
-    - {fileID: 11400000, guid: dadb7ea1a479f184bb85800d2221007f, type: 2}
+    - {fileID: 11400000, guid: f5a59980f6f784bffb233c5492a9bbaf, type: 2}
     onAttackEffects: []
     onProjectileDestructionEffects: []

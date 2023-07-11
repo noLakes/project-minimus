@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: basicDOT
   m_EditorClassIdentifier: 
   type: 1
+  conditions: 00000000
   effectParticles: {fileID: 0}
   duration: 5
   tickInterval: 1

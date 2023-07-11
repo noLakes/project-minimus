@@ -13,6 +13,8 @@ public class AOE : Effect
     
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         Debug.DrawLine(args.EffectPoint, args.EffectPoint + new UnityEngine.Vector2(radius, 0f), Color.cyan, 3f);
         Debug.DrawLine(args.EffectPoint, args.EffectPoint + new UnityEngine.Vector2(-radius, 0f), Color.cyan, 3f);
         Debug.DrawLine(args.EffectPoint, args.EffectPoint + new UnityEngine.Vector2(0f, radius), Color.cyan, 3f);

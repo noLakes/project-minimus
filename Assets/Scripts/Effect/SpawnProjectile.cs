@@ -14,6 +14,8 @@ public class SpawnProjectile : Effect
 
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         _projectileSource = args.Source;
         var go = Instantiate(projectilePrefab, args.SourcePoint, quaternion.identity);
         var projectile = go.GetComponent<Projectile>();

@@ -54,7 +54,7 @@ public class RigidBodyProjectile : Projectile
         // check if hit collider belongs to hittable target....
         if (MyProcessHitDelegate.Invoke(other, transform.position, _origin))
         {
-            OnHit(other, other.ClosestPoint(transform.position));
+            OnHit(other, GetAccurateHitPosition(other));
         }
     }
 
@@ -81,6 +81,18 @@ public class RigidBodyProjectile : Projectile
         Stop();
     }
     
+    private Vector2 GetAccurateHitPosition(Collider2D other)
+    {
+        GameObject otherGo = other.gameObject;
+        int initialLayer = otherGo.layer;
+        otherGo.layer = 31; // reserved single object layer;
+        RaycastHit2D hit = Physics2D.Raycast(_origin, _moveDirection, 1000f, Game.Instance.SingleObjectReservedMask);
+        //Debug.DrawLine(_origin, hit.point, new Color(0, 1, 0, 0.5f), 5f);
+        if (hit.point == Vector2.zero) Debug.Log("HIT ZERO ISSUE!");
+        other.gameObject.layer = initialLayer;
+        return hit.point;
+    }
+
     private void HandleLifetime()
     {
         if (lifetime == 0f) return;

@@ -66,8 +66,7 @@ public class PhysicsProjectile : Projectile
     private void FixedUpdate()
     {
         if (Game.Instance.GameIsPaused) return;
-        //CheckCollision();
-        UpdateColliderSize();
+        if(_rb.velocity.magnitude > 5.0f) UpdateColliderSize();
         HandleVelocityCheck();
     }
     
@@ -106,11 +105,11 @@ public class PhysicsProjectile : Projectile
 
     private Vector2 GetAccurateHitPosition(Collider2D other)
     {
-        int initialLayer = other.gameObject.layer;
-        other.gameObject.layer = 31; // reserved single object layer;
-        LayerMask layerMask = 1 << 31;
-        RaycastHit2D hit = Physics2D.Raycast(_origin, _moveDirection, 1000f, layerMask);
-        Debug.DrawLine(_origin, hit.point, new Color(0, 1, 0, 0.7f), 5f);
+        GameObject otherGo = other.gameObject;
+        int initialLayer = otherGo.layer;
+        otherGo.layer = 31; // reserved single object layer;
+        RaycastHit2D hit = Physics2D.Raycast(_origin, _moveDirection, 1000f, Game.Instance.SingleObjectReservedMask);
+        //Debug.DrawLine(_origin, hit.point, new Color(0, 1, 0, 0.5f), 5f);
         if (hit.point == Vector2.zero) Debug.Log("HIT ZERO ISSUE!");
         other.gameObject.layer = initialLayer;
         return hit.point;
@@ -134,6 +133,7 @@ public class PhysicsProjectile : Projectile
         }
         
         Vector2 velocity = _rb.velocity * Time.fixedDeltaTime;
+        // velocity converted from world space distance to local space size for increase
         Vector2 colliderIncrease = transform.InverseTransformVector(velocity);
         _collider.size = _initialColliderSize + colliderIncrease;
         _collider.offset = new Vector2(0, -(colliderIncrease.y / 4f));
@@ -161,6 +161,7 @@ public class PhysicsProjectile : Projectile
         {
             _rb.velocity = Vector2.zero;
             stopped = true;
+            _collider.size = _initialColliderSize;
             if(!activeAfterStop)_collider.isTrigger = false;
             
             if (_attachedToTarget)

@@ -8,6 +8,8 @@ public class Damage : Effect
 
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         if(args.Target.TryGetComponent<CharacterManager>(out var cm))
         {
             cm.Damage(amount);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TempEffect", menuName = "Scriptable Objects/Effects/TempEffect", order = 4)]
-public class TempEffect : Effect
+public class TempEffectWrapper : Effect
 {
     public float duration;
     private CharacterManager _affectedCM;
@@ -12,6 +12,8 @@ public class TempEffect : Effect
 
     public override void Trigger(EffectArgs args)
     {
+        if (!ConditionsAreValid(args)) return;
+        
         if (!args.Target.TryGetComponent<CharacterManager>(out _affectedCM)) return;
         Debug.Log("Applying Buff for " + duration + "s");
         
